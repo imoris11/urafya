@@ -41,21 +41,17 @@ export class App extends Component {
             {this.props.loggedIn && (
               <AdminHeader>
                 <Route exact path="/" component={Ahome} />
-                <Route exact path="/admin/users" component={Users} />
-                <Route exact path="/admin/symptoms" component={Symptoms} />
-                <Route exact path="/admin/payment" component={Payment} />
-                <Route exact path="/admin/support" component={Support} />
-                <Route exact path="/admin/taxiservices" component={Taxi} />
-                <Route exact path="/admin/emergency" component={Emergency} />
-                <Route
-                  exact
-                  path="/admin/prescription"
-                  component={Prescription}
-                />
-                <Route exact path="/admin/grocery" component={Grocery} />
-                <Route exact path="/admin/glossary" component={Glossary} />
-                <Route exact path="/admin/about" component={About} />
-                <Route exact path="/admin/profile" component={Profile} />
+                <Route exact path="/users" component={Users} />
+                <Route exact path="/symptoms" component={Symptoms} />
+                <Route exact path="/payment" component={Payment} />
+                <Route exact path="/support" component={Support} />
+                <Route exact path="/taxiservices" component={Taxi} />
+                <Route exact path="/emergency" component={Emergency} />
+                <Route exact path="/prescription" component={Prescription} />
+                <Route exact path="/grocery" component={Grocery} />
+                <Route exact path="/glossary" component={Glossary} />
+                <Route exact path="/about" component={About} />
+                <Route exact path="/profile" component={Profile} />
               </AdminHeader>
             )}
 
@@ -64,20 +60,20 @@ export class App extends Component {
                 <Route exact path="/" component={Ahome} />
                 <Route
                   exact
-                  path="/pharmacist/doctor/prescription"
+                  path="/doctor/prescription"
                   component={DoctorsPrescription}
                 />
                 <Route
                   exact
-                  path="/pharmacist/prescription"
+                  path="/prescription"
                   component={PharmacistPrescription}
                 />
-                <Route exact path="/pharmacist/payment" component={Payment} />
-                <Route exact path="/pharmacist/about" component={About} />
-                <Route exact path="/pharmacist/profile" component={Profile} />
+                <Route exact path="/payment" component={Payment} />
+                <Route exact path="/about" component={About} />
+                <Route exact path="/profile" component={Profile} />
                 <Route
                   exact
-                  path="/pharmacist/prescriptiondetails"
+                  path="/prescriptiondetails"
                   component={PrescriptionDetails}
                 />
               </PharmacistHeader>
@@ -86,31 +82,19 @@ export class App extends Component {
             {this.props.loggedIn && this.props.user.type === "doctor" && (
               <DoctorHeader>
                 <Route exact path="/" component={Ahome} />
+                <Route exact path="/consultants" component={Consultants} />
+                <Route exact path="/support" component={SupportGroup} />
+                <Route exact path="/generalsupport" component={GeneralGroup} />
+                <Route exact path="/groupdetails" component={GroupDetails} />
+                <Route exact path="/about" component={About} />
+                <Route exact path="/payment" component={Payment} />
+                <Route exact path="/emergency" component={Emergency} />
+                <Route exact path="/taxiservices" component={Taxi} />
+                <Route exact path="/glossary" component={Glossary} />
+                <Route exact path="/profile" component={Profile} />
                 <Route
                   exact
-                  path="/doctor/consultants"
-                  component={Consultants}
-                />
-                <Route exact path="/doctor/support" component={SupportGroup} />
-                <Route
-                  exact
-                  path="/doctor/generalsupport"
-                  component={GeneralGroup}
-                />
-                <Route
-                  exact
-                  path="/doctor/groupdetails"
-                  component={GroupDetails}
-                />
-                <Route exact path="/doctor/about" component={About} />
-                <Route exact path="/doctor/payment" component={Payment} />
-                <Route exact path="/doctor/emergency" component={Emergency} />
-                <Route exact path="/doctor/taxiservices" component={Taxi} />
-                <Route exact path="/doctor/glossary" component={Glossary} />
-                <Route exact path="/doctor/profile" component={Profile} />
-                <Route
-                  exact
-                  path="/doctor/consultdetails"
+                  path="/consultdetails"
                   component={ConsultDetails}
                 />
               </DoctorHeader>

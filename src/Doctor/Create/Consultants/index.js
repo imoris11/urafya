@@ -39,7 +39,6 @@ class Consultants extends Component {
                             cursor: "default",
                             color: "Gray",
                           }}
-                          
                         >
                           <i
                             className="fa fa-folder-open pulse-button1"
@@ -71,7 +70,7 @@ class Consultants extends Component {
 
                     <tr className="odd gradeX">
                       <td>
-                        <Link to="/doctor/consultdetails" >
+                        <Link to="/consultdetails">
                           <i
                             className="fa fa-folder-open pulse-button1"
                             style={{ color: "#e99239" }}
@@ -85,7 +84,7 @@ class Consultants extends Component {
                     </tr>
                     <tr className="odd gradeX">
                       <td>
-                        <Link to="/doctor/consultdetails" >
+                        <Link to="/consultdetails">
                           <i
                             className="fa fa-folder-open pulse-button1"
                             style={{ color: "#e99239" }}
@@ -99,7 +98,7 @@ class Consultants extends Component {
                     </tr>
                     <tr className="odd gradeX">
                       <td>
-                        <Link to="/doctor/consultdetails" >
+                        <Link to="/consultdetails">
                           <i
                             className="fa fa-folder-open pulse-button1"
                             style={{ color: "#e99239" }}
@@ -113,7 +112,7 @@ class Consultants extends Component {
                     </tr>
                     <tr className="odd gradeX">
                       <td>
-                        <Link to="/doctor/consultdetails" >
+                        <Link to="/consultdetails">
                           <i
                             className="fa fa-folder-open pulse-button1"
                             style={{ color: "#e99239" }}
@@ -127,7 +126,7 @@ class Consultants extends Component {
                     </tr>
                     <tr className="odd gradeX">
                       <td>
-                        <Link to="/doctor/consultdetails" >
+                        <Link to="/consultdetails">
                           <i
                             className="fa fa-folder-open pulse-button1"
                             style={{ color: "#e99239" }}
@@ -141,7 +140,7 @@ class Consultants extends Component {
                     </tr>
                     <tr className="odd gradeX">
                       <td>
-                        <Link to="/doctor/consultdetails">
+                        <Link to="/consultdetails">
                           <i
                             className="fa fa-folder-open pulse-button1"
                             style={{ color: "#e99239" }}

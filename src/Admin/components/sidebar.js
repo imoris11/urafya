@@ -32,13 +32,7 @@ class Sidebar extends Component {
             </Link>
 
             <hr className="sidebar-divider my-0" />
-
-            <li className="nav-item active">
-              <Link className="nav-link" to="/home">
-                <i className="fas fa-fw fa-home"></i>
-                <span>Home</span>
-              </Link>
-            </li>
+            <LinkListItem linkText="Home" link="/" icon="fas fa-fw fa-home" />
 
             <hr className="sidebar-divider" />
 
@@ -46,62 +40,51 @@ class Sidebar extends Component {
 
             <LinkListItem
               linkText="Users"
-              link="/admin/users"
+              link="/users"
               icon="fas fa-fw fa-users"
             />
+            <LinkListItem
+              linkText="Symptoms"
+              link="/symptoms"
+              icon="fas fa-fw fa-stethoscope"
+            />
 
-            <li className="nav-item">
-              <Link className="nav-link" to="/admin/symptoms">
-                <i className="fas fa-fw fa-stethoscope"></i>
-                <span>Symptoms</span>
-              </Link>
-            </li>
-
-            <li className="nav-item">
-              <Link className="nav-link" to="/admin/support">
-                <i className="fas fa-fw fa-comments"></i>
-                <span>Support Groups</span>
-              </Link>
-            </li>
-
-            <li className="nav-item">
-              <Link className="nav-link" to="/admin/payment">
-                <i className="fas fa-fw fa-credit-card"></i>
-                <span>Payment</span>
-              </Link>
-            </li>
-
-            <li className="nav-item">
-              <Link className="nav-link" to="/admin/emergency">
-                <i className="fas fa-fw fa-phone"></i>
-                <span>Emergency Helpline</span>
-              </Link>
-            </li>
-
-            <li className="nav-item">
-              <Link className="nav-link" to="/admin/taxiservices">
-                <i className="fas fa-fw fa-ambulance"></i>
-                <span>Taxi Services</span>
-              </Link>
-            </li>
+            <LinkListItem
+              linkText="Support Groups"
+              link="/support"
+              icon="fas fa-fw fa-comments"
+            />
+            <LinkListItem
+              linkText="Payments"
+              link="/payment"
+              icon="fas fa-fw fa-credit-card"
+            />
+            <LinkListItem
+              linkText="Emergency Helpline"
+              link="/emergency"
+              icon="fas fa-fw fa-phone"
+            />
+            <LinkListItem
+              linkText="Taxi Services"
+              link="/emergency"
+              icon="fas fa-fw fa-ambulance"
+            />
 
             <hr className="sidebar-divider" />
 
             <div className="sidebar-heading">View Store</div>
 
-            <li className="nav-item">
-              <Link className="nav-link" to="/admin/prescription">
-                <i className="fas fa-fw fa-briefcase-medical"></i>
-                <span>Prescription</span>
-              </Link>
-            </li>
+            <LinkListItem
+              linkText="Prescription"
+              link="/prescription"
+              icon="fas fa-fw fa-briefcase-medical"
+            />
 
-            <li className="nav-item">
-              <Link className="nav-link" to="/admin/grocery">
-                <i className="fas fa-fw fa-shopping-cart"></i>
-                <span>Grocery</span>
-              </Link>
-            </li>
+            <LinkListItem
+              linkText="Grocery"
+              link="/grocery"
+              icon="fas fa-fw fa-shopping-cart"
+            />
 
             <hr className="sidebar-divider" />
 
@@ -109,23 +92,21 @@ class Sidebar extends Component {
 
             <LinkListItem
               linkText="Glossary"
-              link="/admin/glossary"
+              link="/glossary"
               icon="fas fa-fw fa-book"
             />
 
-            <li className="nav-item">
-              <Link className="nav-link" to="/admin/about">
-                <i className="fas fa-fw fa-cogs"></i>
-                <span>About UR AFYA</span>
-              </Link>
-            </li>
+            <LinkListItem
+              linkText="About UR AFYA"
+              link="/about"
+              icon="fas fa-fw fa-cogs"
+            />
 
-            <li className="nav-item">
-              <Link className="nav-link" to="/admin/profile">
-                <i className="fas fa-fw fa-user"></i>
-                <span>Profile</span>
-              </Link>
-            </li>
+            <LinkListItem
+              linkText="Profile"
+              link="/profile"
+              icon="fas fa-fw fa-user"
+            />
 
             <li className="nav-item">
               <Link onClick={this.logout} className="nav-link" to="#">
