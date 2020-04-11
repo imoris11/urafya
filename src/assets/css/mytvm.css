@@ -1,0 +1,222 @@
+.sidebar-brand-icon img{
+    height: 30px;
+    width: auto;
+}
+
+.mylittleimg{
+    width: 30px !important;
+    height: auto;
+}
+  
+.artistname{
+    font-size: 12px;
+    line-height: 2px;
+}
+/* equal card height */
+.row-equal > div[class*='col-'] {
+    display: flex;
+    flex: 1 0 auto;
+}
+
+.row-equal .card {
+   width: 100%;
+}
+
+/* ensure equal card height inside carousel */
+.carousel-inner>.row-equal.active, 
+.carousel-inner>.row-equal.next, 
+.carousel-inner>.row-equal.prev {
+    display: flex;
+}
+
+/* prevent flicker during transition */
+.carousel-inner>.row-equal.active.left, 
+.carousel-inner>.row-equal.active.right {
+    opacity: 0.5;
+    display: flex;
+}
+
+
+/* control image height */
+.card-img-top-250 {
+    max-height: 250px;
+    overflow:hidden;
+}
+
+.mycard{
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+}
+
+.mynewbg{
+    background-image: url("../images/bgpic@4x.jpg");
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: transparent !important;
+}
+
+.logosize{
+    height: 30px;
+    width: auto;
+}
+.loginspace{
+    padding-top: 100px;
+}
+.largeheading{
+    font-size: 4em;
+    font-weight: bold;
+    color: #ffffff;
+}
+.rowspace{
+    padding-top: 80px;
+}
+.whitetext{
+    color: #ffffff;
+}
+.mylinks{
+    margin-top:20px;
+}
+.mylinks a{
+    color: #ffffff;
+}
+
+.myinput1 input{
+    border-radius: 50px !important;
+    background: transparent;
+    
+
+}
+.myinput1 input:focus{
+    background: transparent;
+}
+.myinput1 button{
+    border-radius: 50px;
+}
+.myinput1 label, .myinput1 a{
+    font-size: 12px;
+}
+
+.myinput input{
+    border-radius: 50px;
+    background: transparent;
+    color: #ffffff !important;
+
+}
+.myinput input:focus{
+    background: transparent;
+}
+.myinput button{
+    border-radius: 50px;
+}
+.myinput label, .myinput a{
+    font-size: 12px;
+}
+.myline{
+    border-top: 2px solid #ffffff;
+    width: 20px;
+    border-radius: 50px;
+}
+a .mybtncurve{
+    border-radius: 50px !important;
+}
+
+.bg-gradient-primary {
+     
+    background-color: #3db190 !important;
+    background-image: -webkit-gradient(linear,left top,left bottom,color-stop(10%,#3db190),to(#0a7b5d)) !important;
+    background-image: linear-gradient(180deg,#3db190 100%,#0a7b5d 100%) !important;
+    background-size: cover;
+}
+
+#wrapper #content-wrapper {
+    background-image: url("../images/bgwhite@2x.png") !important;
+
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: transparent !important;
+    width: 100%;
+    overflow-x: hidden;
+}
+.pulse-button {
+  display: inline-block;
+  -webkit-animation: pulse 1.25s infinite linear !important;
+  -moz-animation: pulse 1.25s infinite linear !important;
+  -ms-animation: pulse 1.25s infinite linear !important;
+  animation: pulse 1.25s infinite linear !important;
+}
+.pulse-button:hover 
+{
+  -webkit-animation: none !important; 
+  -moz-animation: none !important;
+  -ms-animation: none !important;
+  animation: none !important;
+}
+
+.pulse-button1 {
+  -webkit-animation: none !important; 
+  -moz-animation: none !important;
+  -ms-animation: none !important;
+  animation: none !important;
+}
+.pulse-button1:hover 
+{
+  display: inline-block;
+  -webkit-animation: pulse 1.25s infinite linear !important;
+  -moz-animation: pulse 1.25s infinite linear !important;
+  -ms-animation: pulse 1.25s infinite linear !important;
+  animation: pulse 1.25s infinite linear !important;
+}
+
+@-webkit-keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0; }
+    100% { opacity: 1; }
+}
+@-moz-keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0; }
+    100% { opacity: 1; }
+}
+@-o-keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0; }
+    100% { opacity: 1; }
+}
+@-ms-keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0; }
+    100% { opacity: 1; }
+}
+@keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+#tabs{
+    background: #007b5e;
+    color: #eee;
+}
+#tabs h6.section-title{
+    color: #eee;
+}
+
+#tabs .nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
+    color: #f3f3f3;
+    background-color: #e99239;
+    border-color: transparent transparent #f3f3f3;
+    border-bottom: 4px solid #cb803e !important;
+    font-size: 20px;
+    font-weight: bold;
+}
+.btn-link2{font-weight:400;color:#3db190;text-decoration:none}
+#tabs .nav-tabs .nav-link {
+    border: 1px solid transparent;
+    border-top-left-radius: .25rem;
+    border-top-right-radius: .25rem;
+    color: #eee;
+    font-size: 20px;
+}

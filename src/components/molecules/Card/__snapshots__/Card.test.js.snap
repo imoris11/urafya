@@ -1,0 +1,498 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Card Item renders correctly 1`] = `
+ShallowWrapper {
+  Symbol(enzyme.__root__): [Circular],
+  Symbol(enzyme.__unrendered__): <Card
+    count="Test Count"
+    icon="fa-icon"
+    title="Test"
+/>,
+  Symbol(enzyme.__renderer__): Object {
+    "batchedUpdates": [Function],
+    "checkPropTypes": [Function],
+    "getNode": [Function],
+    "render": [Function],
+    "simulateError": [Function],
+    "simulateEvent": [Function],
+    "unmount": [Function],
+  },
+  Symbol(enzyme.__node__): Object {
+    "instance": null,
+    "key": undefined,
+    "nodeType": "host",
+    "props": Object {
+      "children": <div
+        className="mycard card border-left-primary shadow h-100 py-2"
+>
+        <div
+                className="card-body"
+        >
+                <div
+                        className="row no-gutters align-items-center"
+                >
+                        <div
+                                className="col mr-2"
+                        >
+                                <div
+                                        className="text-xs font-weight-bold text-primary text-uppercase mb-1"
+                                >
+                                        Test
+                                </div>
+                                <div
+                                        className="h5 mb-0 font-weight-bold text-gray-800"
+                                >
+                                        Test Count
+                                </div>
+                        </div>
+                        <div
+                                className="col-auto"
+                        >
+                                <i
+                                        className="fa-icon"
+                                />
+                        </div>
+                </div>
+        </div>
+</div>,
+      "className": "col-xl-3 col-md-6 col-sm-6 mb-4",
+    },
+    "ref": null,
+    "rendered": Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "host",
+      "props": Object {
+        "children": <div
+          className="card-body"
+>
+          <div
+                    className="row no-gutters align-items-center"
+          >
+                    <div
+                              className="col mr-2"
+                    >
+                              <div
+                                        className="text-xs font-weight-bold text-primary text-uppercase mb-1"
+                              >
+                                        Test
+                              </div>
+                              <div
+                                        className="h5 mb-0 font-weight-bold text-gray-800"
+                              >
+                                        Test Count
+                              </div>
+                    </div>
+                    <div
+                              className="col-auto"
+                    >
+                              <i
+                                        className="fa-icon"
+                              />
+                    </div>
+          </div>
+</div>,
+        "className": "mycard card border-left-primary shadow h-100 py-2",
+      },
+      "ref": null,
+      "rendered": Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "host",
+        "props": Object {
+          "children": <div
+            className="row no-gutters align-items-center"
+>
+            <div
+                        className="col mr-2"
+            >
+                        <div
+                                    className="text-xs font-weight-bold text-primary text-uppercase mb-1"
+                        >
+                                    Test
+                        </div>
+                        <div
+                                    className="h5 mb-0 font-weight-bold text-gray-800"
+                        >
+                                    Test Count
+                        </div>
+            </div>
+            <div
+                        className="col-auto"
+            >
+                        <i
+                                    className="fa-icon"
+                        />
+            </div>
+</div>,
+          "className": "card-body",
+        },
+        "ref": null,
+        "rendered": Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "children": Array [
+              <div
+                className="col mr-2"
+>
+                <div
+                                className="text-xs font-weight-bold text-primary text-uppercase mb-1"
+                >
+                                Test
+                </div>
+                <div
+                                className="h5 mb-0 font-weight-bold text-gray-800"
+                >
+                                Test Count
+                </div>
+</div>,
+              <div
+                className="col-auto"
+>
+                <i
+                                className="fa-icon"
+                />
+</div>,
+            ],
+            "className": "row no-gutters align-items-center",
+          },
+          "ref": null,
+          "rendered": Array [
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "children": Array [
+                  <div
+                    className="text-xs font-weight-bold text-primary text-uppercase mb-1"
+>
+                    Test
+</div>,
+                  <div
+                    className="h5 mb-0 font-weight-bold text-gray-800"
+>
+                    Test Count
+</div>,
+                ],
+                "className": "col mr-2",
+              },
+              "ref": null,
+              "rendered": Array [
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": "Test",
+                    "className": "text-xs font-weight-bold text-primary text-uppercase mb-1",
+                  },
+                  "ref": null,
+                  "rendered": "Test",
+                  "type": "div",
+                },
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": "Test Count",
+                    "className": "h5 mb-0 font-weight-bold text-gray-800",
+                  },
+                  "ref": null,
+                  "rendered": "Test Count",
+                  "type": "div",
+                },
+              ],
+              "type": "div",
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "children": <i
+                  className="fa-icon"
+/>,
+                "className": "col-auto",
+              },
+              "ref": null,
+              "rendered": Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "host",
+                "props": Object {
+                  "className": "fa-icon",
+                },
+                "ref": null,
+                "rendered": null,
+                "type": "i",
+              },
+              "type": "div",
+            },
+          ],
+          "type": "div",
+        },
+        "type": "div",
+      },
+      "type": "div",
+    },
+    "type": "div",
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "host",
+      "props": Object {
+        "children": <div
+          className="mycard card border-left-primary shadow h-100 py-2"
+>
+          <div
+                    className="card-body"
+          >
+                    <div
+                              className="row no-gutters align-items-center"
+                    >
+                              <div
+                                        className="col mr-2"
+                              >
+                                        <div
+                                                  className="text-xs font-weight-bold text-primary text-uppercase mb-1"
+                                        >
+                                                  Test
+                                        </div>
+                                        <div
+                                                  className="h5 mb-0 font-weight-bold text-gray-800"
+                                        >
+                                                  Test Count
+                                        </div>
+                              </div>
+                              <div
+                                        className="col-auto"
+                              >
+                                        <i
+                                                  className="fa-icon"
+                                        />
+                              </div>
+                    </div>
+          </div>
+</div>,
+        "className": "col-xl-3 col-md-6 col-sm-6 mb-4",
+      },
+      "ref": null,
+      "rendered": Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "host",
+        "props": Object {
+          "children": <div
+            className="card-body"
+>
+            <div
+                        className="row no-gutters align-items-center"
+            >
+                        <div
+                                    className="col mr-2"
+                        >
+                                    <div
+                                                className="text-xs font-weight-bold text-primary text-uppercase mb-1"
+                                    >
+                                                Test
+                                    </div>
+                                    <div
+                                                className="h5 mb-0 font-weight-bold text-gray-800"
+                                    >
+                                                Test Count
+                                    </div>
+                        </div>
+                        <div
+                                    className="col-auto"
+                        >
+                                    <i
+                                                className="fa-icon"
+                                    />
+                        </div>
+            </div>
+</div>,
+          "className": "mycard card border-left-primary shadow h-100 py-2",
+        },
+        "ref": null,
+        "rendered": Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "children": <div
+              className="row no-gutters align-items-center"
+>
+              <div
+                            className="col mr-2"
+              >
+                            <div
+                                          className="text-xs font-weight-bold text-primary text-uppercase mb-1"
+                            >
+                                          Test
+                            </div>
+                            <div
+                                          className="h5 mb-0 font-weight-bold text-gray-800"
+                            >
+                                          Test Count
+                            </div>
+              </div>
+              <div
+                            className="col-auto"
+              >
+                            <i
+                                          className="fa-icon"
+                            />
+              </div>
+</div>,
+            "className": "card-body",
+          },
+          "ref": null,
+          "rendered": Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "host",
+            "props": Object {
+              "children": Array [
+                <div
+                  className="col mr-2"
+>
+                  <div
+                                    className="text-xs font-weight-bold text-primary text-uppercase mb-1"
+                  >
+                                    Test
+                  </div>
+                  <div
+                                    className="h5 mb-0 font-weight-bold text-gray-800"
+                  >
+                                    Test Count
+                  </div>
+</div>,
+                <div
+                  className="col-auto"
+>
+                  <i
+                                    className="fa-icon"
+                  />
+</div>,
+              ],
+              "className": "row no-gutters align-items-center",
+            },
+            "ref": null,
+            "rendered": Array [
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "host",
+                "props": Object {
+                  "children": Array [
+                    <div
+                      className="text-xs font-weight-bold text-primary text-uppercase mb-1"
+>
+                      Test
+</div>,
+                    <div
+                      className="h5 mb-0 font-weight-bold text-gray-800"
+>
+                      Test Count
+</div>,
+                  ],
+                  "className": "col mr-2",
+                },
+                "ref": null,
+                "rendered": Array [
+                  Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "host",
+                    "props": Object {
+                      "children": "Test",
+                      "className": "text-xs font-weight-bold text-primary text-uppercase mb-1",
+                    },
+                    "ref": null,
+                    "rendered": "Test",
+                    "type": "div",
+                  },
+                  Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "host",
+                    "props": Object {
+                      "children": "Test Count",
+                      "className": "h5 mb-0 font-weight-bold text-gray-800",
+                    },
+                    "ref": null,
+                    "rendered": "Test Count",
+                    "type": "div",
+                  },
+                ],
+                "type": "div",
+              },
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "host",
+                "props": Object {
+                  "children": <i
+                    className="fa-icon"
+/>,
+                  "className": "col-auto",
+                },
+                "ref": null,
+                "rendered": Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "host",
+                  "props": Object {
+                    "className": "fa-icon",
+                  },
+                  "ref": null,
+                  "rendered": null,
+                  "type": "i",
+                },
+                "type": "div",
+              },
+            ],
+            "type": "div",
+          },
+          "type": "div",
+        },
+        "type": "div",
+      },
+      "type": "div",
+    },
+  ],
+  Symbol(enzyme.__options__): Object {
+    "adapter": ReactSixteenAdapter {
+      "options": Object {
+        "enableComponentDidUpdateOnSetState": true,
+        "legacyContextMode": "parent",
+        "lifecycles": Object {
+          "componentDidUpdate": Object {
+            "onSetState": true,
+          },
+          "getChildContext": Object {
+            "calledByRenderer": false,
+          },
+          "getDerivedStateFromError": true,
+          "getDerivedStateFromProps": Object {
+            "hasShouldComponentUpdateBug": false,
+          },
+          "getSnapshotBeforeUpdate": true,
+          "setState": Object {
+            "skipsComponentDidUpdateOnNullish": true,
+          },
+        },
+      },
+    },
+    Symbol(enzyme.__providerValues__): undefined,
+  },
+  Symbol(enzyme.__providerValues__): Map {},
+  Symbol(enzyme.__childContext__): null,
+}
+`;
