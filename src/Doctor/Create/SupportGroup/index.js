@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 
-
-  class SupportGroup extends Component {
+class SupportGroup extends Component {
   render() {
     return (
       <div className="container-fluid">
@@ -15,7 +14,7 @@ import { Link } from "react-router-dom";
                   <div className="text-xs font-weight-bold text-primary text-uppercase mb-1">
                     General Support Group
                   </div>
-                  <Link to="/doctor/generalsupport" className="btn-link">
+                  <Link to="/generalsupport" className="btn-link">
                     <div className="h5 mb-0 font-weight-bold text-gray-800">
                       <i className="fas fa-hand-point-right text-gray-300"></i>
                       Enter Group
@@ -33,7 +32,7 @@ import { Link } from "react-router-dom";
         <hr />
 
         <div className="d-flex justify-content-end">
-          <Link className="text-gray-800" to="/doctor/support">
+          <Link className="text-gray-800" to="/support">
             My Support Groups
           </Link>
         </div>
@@ -51,7 +50,7 @@ import { Link } from "react-router-dom";
                     </div>
                   </div>
                   <div className="col-auto ">
-                    <Link to="/doctor/groupdetails">
+                    <Link to="/groupdetails">
                       <i className="fas fa-door-closed pulse-button fa-2x text-gray-300"></i>
                     </Link>
                   </div>
@@ -72,7 +71,7 @@ import { Link } from "react-router-dom";
                     </div>
                   </div>
                   <div className="col-auto">
-                    <Link to="/doctor/groupdetails">
+                    <Link to="/groupdetails">
                       <i className="fas fa-door-closed pulse-button fa-2x text-gray-300"></i>
                     </Link>
                   </div>

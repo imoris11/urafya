@@ -1,16 +1,23 @@
 import React, { Component } from "react";
 import Logo from "../../assets/images/logo.png";
 import { Link } from "react-router-dom";
+import LinkListItem from "../../components/atoms/ListLinkItem";
+import { connect } from "react-redux";
+import { LOG_OUT } from "../../Authenication/redux/actions";
 
 class Sidebar extends Component {
+  logout = () => {
+    localStorage.removeItem("user");
+    this.props.dispatch({ type: LOG_OUT });
+  };
+
   render() {
     return (
-      <div id="page-top"  style={{backgroundColor:'#3db190'}}>
+      <div id="page-top" style={{ backgroundColor: "#3db190" }}>
         <div id="wrapper">
           <ul
             className="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion"
             id="accordionSidebar"
-           
           >
             <Link
               className="sidebar-brand d-flex align-items-center justify-content-center"
@@ -26,60 +33,47 @@ class Sidebar extends Component {
             </Link>
 
             <hr className="sidebar-divider my-0" />
-
-            <li className="nav-item active">
-              <Link className="nav-link" to="/home">
-                <i className="fas fa-fw fa-home"></i>
-                <span>Home</span>
-              </Link>
-            </li>
+            <LinkListItem link="/" linkText="Home" icon="fas fa-fw fa-home" />
 
             <hr className="sidebar-divider" />
 
             <div className="sidebar-heading">Create</div>
 
-            <li className="nav-item">
-              <Link className="nav-link" to="/pharmacist/prescription">
-                <i className="fas fa-fw fa-users"></i>
-                <span>Prescriptions</span>
-              </Link>
-            </li>
+            <LinkListItem
+              link="/prescription"
+              linkText="Prescriptions"
+              icon="fas fa-fw fa-users"
+            />
 
-            <li className="nav-item">
-              <Link className="nav-link" to="/pharmacist/doctor/prescription">
-                <i className="fas fa-fw fa-users"></i>
-                <span>Doctor's Prescriptions</span>
-              </Link>
-            </li>
+            <LinkListItem
+              link="/doctor/prescription"
+              linkText="Doctors's Prescriptions"
+              icon="fas fa-fw fa-users"
+            />
 
-            <li className="nav-item">
-              <Link className="nav-link" to="/pharmacist/payment">
-                <i className="fas fa-fw fa-credit-card"></i>
-                <span>Payment</span>
-              </Link>
-            </li>
+            <LinkListItem
+              link="/payment"
+              linkText="Payment"
+              icon="fas fa-fw fa-credit-card"
+            />
 
-           
             <hr className="sidebar-divider" />
 
             <div className="sidebar-heading">Settings</div>
+            <LinkListItem
+              link="/about"
+              linkText="About UR AFYA"
+              icon="fas fa-fw fa-cogs"
+            />
+
+            <LinkListItem
+              link="/profile"
+              linkText="Profile"
+              icon="fas fa-fw fa-user"
+            />
 
             <li className="nav-item">
-              <Link className="nav-link" to="/pharmacist/about">
-                <i className="fas fa-fw fa-cogs"></i>
-                <span>About UR AFYA</span>
-              </Link>
-            </li>
-
-            <li className="nav-item">
-              <Link className="nav-link" to="/pharmacist/profile">
-                <i className="fas fa-fw fa-user"></i>
-                <span>Profile</span>
-              </Link>
-            </li>
-
-            <li className="nav-item">
-              <Link className="nav-link" to="/">
+              <Link onClick={this.logout} className="nav-link" to="/">
                 <i className="fas fa-fw fa-user-lock"></i>
                 <span>Logout</span>
               </Link>
@@ -99,4 +93,4 @@ class Sidebar extends Component {
     );
   }
 }
-export default Sidebar;
+export default connect()(Sidebar);
