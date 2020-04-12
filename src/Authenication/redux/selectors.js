@@ -24,6 +24,8 @@ export const resetEmailSent = createSelector(
   (auth) => auth.resetEmailSent
 );
 
+export const getUserToken = createSelector(getUser, (user) => user.token);
+
 const selectors = () =>
   createStructuredSelector({
     isLoggedIn,
