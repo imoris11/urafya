@@ -2,6 +2,27 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Button from '../../components/atoms/Button';
 import EditAboutModal from './Modal/EditAbout';
+import { useAccordionToggle } from 'react-bootstrap/AccordionToggle';
+import Accordion from 'react-bootstrap/Accordion';
+import { Card } from 'react-bootstrap';
+
+function CustomToggle({ children, eventKey }) {
+  const decoratedOnClick = useAccordionToggle(eventKey, () =>
+    console.log('totally custom!'),
+  );
+
+  return (
+    <h5 className="mb-0" onClick={decoratedOnClick}>
+        <button
+        className="btn btn-link"
+      >
+        {children} 
+        </button>
+    </h5>
+   
+   
+  );
+}
 
 
 export default function About(props) {
@@ -31,31 +52,17 @@ export default function About(props) {
                     <h6 className="m-0 font-weight-bold text-primary">
                       General Information
                     </h6>
-                  </div>
-                  <div className="card-body">
-                    <div id="accordion">
-                      <div className="card">
-                        <div className="card-header" id="headingOne">
-                          <h5 className="mb-0">
-                            <button
-                              className="btn btn-link"
-                              data-toggle="collapse"
-                              data-target="#collapseOne"
-                              aria-expanded="true"
-                              aria-controls="collapseOne"
-                            >
-                              About Us
-                            </button>
-                          </h5>
-                        </div>
+                </div>
+                
 
-                        <div
-                          id="collapseOne"
-                          className="collapse show"
-                          aria-labelledby="headingOne"
-                          data-parent="#accordion"
-                        >
-                          <div className="card-body">
+   <div className="card-body">
+             <Accordion defaultActiveKey="0">
+              <Card>
+                <Card.Header>
+                  <CustomToggle eventKey="0">About Us</CustomToggle>
+                </Card.Header>
+                <Accordion.Collapse eventKey="0">
+                        <Card.Body>                         
                             This solution is a web and mobile application to
                             help improve healthcare in Kenya. The web
                             application is accessible to Doctors, Pharmacist and
@@ -77,31 +84,16 @@ export default function About(props) {
                            <EditAboutModal
                             show={modalShow}
                             onHide={() => setModalShow(false)}
-                            />  
-                          </div>
-                        </div>
-                      </div>
-                      <div className="card">
-                        <div className="card-header" id="headingTwo">
-                          <h5 className="mb-0">
-                            <button
-                              className="btn btn-link collapsed"
-                              data-toggle="collapse"
-                              data-target="#collapseTwo"
-                              aria-expanded="false"
-                              aria-controls="collapseTwo"
-                            >
-                              Terms & Conditions
-                            </button>
-                          </h5>
-                        </div>
-                        <div
-                          id="collapseTwo"
-                          className="collapse"
-                          aria-labelledby="headingTwo"
-                          data-parent="#accordion"
-                        >
-                          <div className="card-body">
+                            />                           
+                        </Card.Body>
+                </Accordion.Collapse>
+              </Card>
+              <Card>
+                <Card.Header>
+                  <CustomToggle eventKey="1"> Terms & Conditions</CustomToggle>
+                </Card.Header>
+                <Accordion.Collapse eventKey="1">
+                        <Card.Body>                       
                             Anim pariatur cliche reprehenderit, enim eiusmod
                             high life accusamus terry richardson ad squid. 3
                             wolf moon officia aute, non cupidatat skateboard
@@ -125,32 +117,16 @@ export default function About(props) {
                            <EditAboutModal
                             show={modalShow}
                             onHide={() => setModalShow(false)}
-                            />  
-                            
-                          </div>
-                        </div>
-                      </div>
-                      <div class="card">
-                        <div class="card-header" id="headingThree">
-                          <h5 class="mb-0">
-                            <button
-                              className="btn btn-link collapsed"
-                              data-toggle="collapse"
-                              data-target="#collapseThree"
-                              aria-expanded="false"
-                              aria-controls="collapseThree"
-                            >
-                              Help & Support
-                            </button>
-                          </h5>
-                        </div>
-                        <div
-                          id="collapseThree"
-                          className="collapse"
-                          aria-labelledby="headingThree"
-                          data-parent="#accordion"
-                        >
-                          <div className="card-body">
+                            />                             
+                        </Card.Body>
+                </Accordion.Collapse>
+                    </Card>
+                    <Card>
+                <Card.Header>
+                  <CustomToggle eventKey="2">  Help & Support</CustomToggle>
+                </Card.Header>
+                <Accordion.Collapse eventKey="2">
+                        <Card.Body>
                             Anim pariatur cliche reprehenderit, enim eiusmod
                             high life accusamus terry richardson ad squid. 3
                             wolf moon officia aute, non cupidatat skateboard
@@ -174,13 +150,12 @@ export default function About(props) {
                            <EditAboutModal
                             show={modalShow}
                             onHide={() => setModalShow(false)}
-                            />  
-                            
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                            />                             
+                        </Card.Body>
+                </Accordion.Collapse>
+              </Card>
+          </Accordion>             
+            </div>
                 </div>
               </div>
             </div>
