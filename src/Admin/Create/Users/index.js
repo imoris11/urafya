@@ -1,33 +1,58 @@
-import React, {  useState }  from "react";
+import React, { Component } from "react";
 import Button from "../../../components/atoms/Button";
 import NewUserModal from "./Modal/NewUser";
 import ViewUserModal from "./Modal/ViewUser";
 import Pagination from "../../../components/organisms/pagination";
+import { connect } from "react-redux";
+import selectors from "./redux/selectors";
+import { fetchUsers } from "./redux/actions";
+import PropTypes from "prop-types";
+export class Users extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      modalShow: false,
+      modalShow2: false,
+    };
+  }
 
+  static propTypes = {
+    users: PropTypes.array,
+    fetchingUsers: PropTypes.bool,
+    errorFetchingUsers: PropTypes.bool,
+    fetchedUsers: PropTypes.bool,
+  };
 
-export default function Users(props)  {
-  
-  const [modalShow, setModalShow] = React.useState(false);
-  const [modalShow2, setModalShow2] = React.useState(false);
-  
+  static defaultProps = {
+    users: [],
+    fetchingUsers: false,
+    errorFetchingUsers: false,
+    fetchedUsers: false,
+  };
+
+  componentDidMount() {
+    this.props.getUsers();
+  }
+
+  render() {
+    console.log(this.props);
+    const { modalShow2, modalShow } = this.state;
     return (
-      
       <div id="content">
         <div className="container-fluid">
           <div className="d-sm-flex align-items-center justify-content-between mb-4">
             <h1 className="h3 mb-0 text-gray-800">Users</h1>
-             {/* <span className="mybtncurve btn btn-primary shadow-sm" onClick={() => setModalShow(true)}>
+            {/* <span className="mybtncurve btn btn-primary shadow-sm" onClick={() => setModalShow(true)}>
               <i className="fas fa-user-plus fa-sm text-white-50"></i> New User</span>  */}
             <Button
-              
-              onClick={() => setModalShow(true)}
+              onClick={() => this.setState({ modalShow: true })}
               title="New User"
               showIcon={true}
               icon={"fas fa-user-plus fa-sm text-white-50"}
-            />  
+            />
             <NewUserModal
-             show={modalShow}
-             onHide={() => setModalShow(false)}
+              show={modalShow}
+              onHide={() => this.setState({ modalShow: false })}
             />
           </div>
 
@@ -72,45 +97,49 @@ export default function Users(props)  {
                     </div>
                   </div>
                 </div>
+                {this.props.fetchingUsers && (
+                  <p className="text-center text-info">Fetching new users</p>
+                )}
 
+                {this.props.errorFetchingUsers && (
+                  <p className="text-center text-danger">
+                    Error fetching new users, please try again.
+                  </p>
+                )}
                 <table
                   className="table"
                   id="dataTable"
                   width="100%"
-                  cellspacing="0"
+                  cellSpacing="0"
                 >
                   <thead>
-                    <th className="text-dark-100">Name</th>
-                    <th className="text-dark-100">Position</th>
-                    <th className="text-dark-100">Gender</th>
-                    <th className="text-dark-100">Email</th>
-                    <th className="text-dark-100">Actions</th>
+                    <tr>
+                      <th className="text-dark-100">Position</th>
+                      <th className="text-dark-100">Gender</th>
+                      <th className="text-dark-100">Email</th>
+                      <th className="text-dark-100">Actions</th>
+                    </tr>
                   </thead>
                   <tbody>
                     <tr className="odd gradeX">
                       <td>
                         <div
                           className="btn btn-link circle action-button ml-15 mr-10"
-                          onClick={() => setModalShow2(true)}
+                          onClick={() => this.setState({ modalShow2: true })}
                         >
                           <i className="fa fa-eye"></i>
                         </div>{" "}
                         <ViewUserModal
                           show={modalShow2}
-                          onHide={() => setModalShow2(false)}
-                          />
+                          onHide={() => this.setState({ modalShow2: false })}
+                        />
                         Diamonds Rihanna
                       </td>
                       <td>Doctor</td>
                       <td>Female</td>
                       <td>drih288@gmail.com</td>
                       <td className="pa-0">
-                        <form
-                          method="post"
-                          action=""
-                          name="buy"
-                          id="buy"
-                        >
+                        <form method="post" action="" name="buy" id="buy">
                           <button
                             type="submit"
                             className="btn btn-danger circle action-button"
@@ -129,12 +158,17 @@ export default function Users(props)  {
                   </tbody>
                 </table>
               </div>
-              <Pagination/>
+              <Pagination />
             </div>
           </div>
         </div>
       </div>
     );
-  
+  }
 }
-
+const mapDispatchToProps = (dispatch) => {
+  return {
+    getUsers: () => dispatch(fetchUsers()),
+  };
+};
+export default connect(selectors, mapDispatchToProps)(Users);
