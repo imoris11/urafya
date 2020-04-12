@@ -35,7 +35,6 @@ export class Users extends Component {
   }
 
   render() {
-    console.log(this.props);
     const { modalShow2, modalShow } = this.state;
     return (
       <div id="content">
@@ -99,12 +98,6 @@ export class Users extends Component {
                 </div>
                 {this.props.fetchingUsers && (
                   <p className="text-center text-info">Fetching new users</p>
-                )}
-
-                {this.props.errorFetchingUsers && (
-                  <p className="text-center text-danger">
-                    Error fetching new users, please try again.
-                  </p>
                 )}
                 <table
                   className="table"

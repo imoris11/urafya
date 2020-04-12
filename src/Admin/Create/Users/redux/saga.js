@@ -1,4 +1,5 @@
 import { takeEvery, put, call, select } from "redux-saga/effects";
+import { toast } from "react-toastify";
 import {
   FETCH_USERS,
   FETCH_USERS_SUCCESS,
@@ -31,6 +32,7 @@ export function* fetchUsers() {
     yield put({
       type: FETCH_USERS_FAILURE,
     });
+    toast.error("Error fetching users, please try again.");
   }
 }
 
