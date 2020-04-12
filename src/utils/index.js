@@ -10,6 +10,6 @@ export default async function makeApiRequest(endpoint, config = defaultConfig) {
     const response = await fetch(`${defaultUrl}${endpoint}`, config);
     return await response.json();
   } catch (error) {
-    return new Promise.reject();
+    return new Error("Error completing request");
   }
 }
