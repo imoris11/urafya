@@ -1,28 +1,41 @@
-import React from "react";
+import React, { Component } from "react";
 import Pagination from "../../../components/organisms/pagination";
-import Button from '../../../components/atoms/Button';
-import ShowSearch from '../../../components/organisms/show_search';
-import NewHelplineModal from './Modal/NewHelpline';
+import Button from "../../../components/atoms/Button";
+import ShowSearch from "../../../components/organisms/show_search";
+import NewHelplineModal from "./Modal/NewHelpline";
+import selectors from "./redux/selectors";
+import { connect } from "react-redux";
+import { fetchEmergencyLines, deleteEmergencyLine } from "./redux/actions";
 
-export default function Emergency(props)  {
-  
-  const [modalShow, setModalShow] = React.useState(false);
-  
+export class Emergency extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      modalShow: false,
+    };
+  }
+
+  componentDidMount() {
+    this.props.fetchEmergencyLines();
+  }
+
+  render() {
+    const { emergencyLines, isLoading, errorLoading } = this.props;
+    const { modalShow } = this.state;
     return (
       <div className="container-fluid">
         <div className="d-sm-flex align-items-center justify-content-between mb-4">
           <h1 className="h3 mb-0 text-gray-800">Emergency Helplines</h1>
-          <Button             
-                    onClick={() => setModalShow(true)}
-                    title="New Helpline"
-                    showIcon={true}
-                    icon={"fas fa-comments fa-sm text-white-50"}
-                  />  
-                  <NewHelplineModal
-                  show={modalShow}
-                  onHide={() => setModalShow(false)}
-                  />      
-         
+          <Button
+            onClick={() => this.setState({ modalShow: true })}
+            title="New Helpline"
+            showIcon={true}
+            icon={"fas fa-comments fa-sm text-white-50"}
+          />
+          <NewHelplineModal
+            show={modalShow}
+            onHide={() => this.setState({ modalShow: false })}
+          />
         </div>
 
         <div className="card shadow mb-4">
@@ -34,41 +47,44 @@ export default function Emergency(props)  {
           <div className="card-body">
             <div className="table-responsive">
               <ShowSearch />
-
+              {isLoading && <p className="text-info">Loaing...</p>}
+              {errorLoading && (
+                <p className="text-danger">
+                  Error fetching new hotlines, please try again.
+                </p>
+              )}
               <table
                 className="table"
                 id="dataTable"
                 width="100%"
-                cellspacing="0"
+                cellSpacing="0"
               >
                 <thead>
-                  <th className="text-dark-100">Name</th>
-                  <th className="text-dark-100">Phone Number</th>
-                  <th className="text-dark-100">USSD/Text Number</th>
-                  <th className="text-dark-100">Actions</th>
+                  <tr>
+                    <th className="text-dark-100">Name</th>
+                    <th className="text-dark-100">Phone Number</th>
+                    <th className="text-dark-100">USSD/Text Number</th>
+                    <th className="text-dark-100">Actions</th>
+                  </tr>
                 </thead>
                 <tbody>
-                  <tr className="odd gradeX">
-                    <td>Police </td>
-                    <td>999</td>
-                    <td>1121</td>
-                    <td className="pa-0">
-                      <form method="post" action="" name="buy" id="buy">
+                  {emergencyLines.map((emergency) => (
+                    <tr key={emergency._id} className="odd gradeX">
+                      <td>{emergency.name} </td>
+                      <td>{emergency.hotline}</td>
+                      <td>{emergency.hotline}</td>
+                      <td className="pa-0">
                         <button
-                          type="submit"
+                          onClick={() =>
+                            this.props.deleteEmergencyLine(emergency._id)
+                          }
                           className="btn btn-danger circle action-button"
                         >
                           <i className="fa fa-trash"></i> Remove
                         </button>
-                        <input
-                          name="buyalbum"
-                          type="hidden"
-                          id="buyalbum"
-                          value=""
-                        />
-                      </form>
-                    </td>
-                  </tr>
+                      </td>
+                    </tr>
+                  ))}
                 </tbody>
               </table>
             </div>
@@ -78,4 +94,12 @@ export default function Emergency(props)  {
       </div>
     );
   }
+}
 
+const mapDispatchToProps = (dispatch) => {
+  return {
+    fetchEmergencyLines: () => dispatch(fetchEmergencyLines()),
+    deleteEmergencyLine: (id) => dispatch(deleteEmergencyLine(id)),
+  };
+};
+export default connect(selectors, mapDispatchToProps)(Emergency);

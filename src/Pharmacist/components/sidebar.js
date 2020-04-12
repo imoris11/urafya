@@ -9,6 +9,7 @@ class Sidebar extends Component {
   logout = () => {
     localStorage.removeItem("user");
     this.props.dispatch({ type: LOG_OUT });
+    window.location.href = "/";
   };
 
   render() {
