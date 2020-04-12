@@ -10,9 +10,11 @@ import { getUserToken } from "../../../../Authenication/redux/selectors";
 import makeApiRequest from "../../../../utils";
 const getConfig = (token) => ({
   method: "GET",
-  header: {
+  headers: {
     "Content-Type": "application/json",
-    Authorization: `Bearer ${token}`,
+    Accept: "application/json",
+    Authorization:
+      "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyRW1haWwiOiJhYm9sdXdhZGUub2x1d2FzZWd1bkBnbWFpbC5jb20iLCJ1c2VySWQiOiI1ZGE0ZTY0NjMxM2U5NjAwMTc4YTE0N2EiLCJ1c2VyUm9sZSI6ImFkbWluIiwiaW1hZ2VVcmkiOiJodHRwczovL3BpY3N1bS5waG90b3MxMDAvaWQvMjAwLzEwMC8iLCJpYXQiOjE1ODY3MDM4NTcsImV4cCI6MTU4NjcwNzQ1N30.FDpHS1kZW8OIxXS1KAAr-2uZeWA-PjPFMwuiU989XH4",
   },
 });
 export function* fetchUsers() {
