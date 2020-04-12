@@ -32,6 +32,8 @@ export class Users extends Component {
   };
 
   componentDidMount() {
+    const { users } = this.props;
+    if (users.length > 0) return;
     this.props.getUsers();
   }
 

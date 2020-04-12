@@ -28,6 +28,8 @@ export class TaxiServices extends Component {
     errorLoading: false,
   };
   componentDidMount() {
+    const { taxis } = this.props;
+    if (taxis.length > 0) return;
     this.props.fetchTaxies();
   }
   render() {

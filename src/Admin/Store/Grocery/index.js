@@ -22,6 +22,8 @@ class Grocery extends Component {
   };
 
   componentDidMount() {
+    const { groceries } = this.props;
+    if (groceries.length > 0) return;
     this.props.fetchGroceries();
   }
   render() {
