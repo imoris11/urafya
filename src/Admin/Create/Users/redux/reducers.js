@@ -2,6 +2,7 @@ import {
   FETCH_USERS_FAILURE,
   FETCH_USERS_SUCCESS,
   FETCHING_USERS,
+  DELETE_USER_SUCCESS,
 } from "./actions";
 
 const initialState = {
@@ -31,6 +32,11 @@ export default (state = initialState, action) => {
         ...state,
         errorFetchingUsers: true,
         fetchingUsers: false,
+      };
+    case DELETE_USER_SUCCESS:
+      return {
+        ...state,
+        users: state.users.filter((user) => user.id !== action.payload),
       };
     default:
       return state;

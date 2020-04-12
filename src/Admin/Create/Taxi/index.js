@@ -2,12 +2,37 @@ import React, { Component } from "react";
 import Pagination from "../../../components/organisms/pagination";
 import { Link } from "react-router-dom";
 import ShowSearch from "../../../components/organisms/show_search";
-import Button from '../../../components/atoms/Button';
-import NewTaxiModal from './Modal/NewTaxi';
+import Button from "../../../components/atoms/Button";
+import NewTaxiModal from "./Modal/NewTaxi";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import selectors from "./redux/selectors";
+import { fetchTaxis, deleteTaxis } from "./redux/actions";
+import FlatButton from "../../../components/atoms/FlatButton";
 
+export class TaxiServices extends Component {
+  state = {
+    modalShow: false,
+  };
 
- export default function TaxiServices(props)   {
-  const [modalShow, setModalShow] = React.useState(false);
+  static propTypes = {
+    taxis: PropTypes.array,
+    isLoading: PropTypes.bool,
+    errorLoading: PropTypes.bool,
+    fetchTaxies: PropTypes.func,
+  };
+
+  static defaultProps = {
+    taxis: [],
+    isLoading: false,
+    errorLoading: false,
+  };
+  componentDidMount() {
+    this.props.fetchTaxies();
+  }
+  render() {
+    const { modalShow } = this.state;
+    const { isLoading, errorLoading, taxis } = this.props;
     return (
       <div id="page-top">
         <div id="wrapper">
@@ -16,17 +41,16 @@ import NewTaxiModal from './Modal/NewTaxi';
               <div className="container-fluid">
                 <div className="d-sm-flex align-items-center justify-content-between mb-4">
                   <h1 className="h3 mb-0 text-gray-800">Taxi Services</h1>
-                  <Button             
-                    onClick={() => setModalShow(true)}
+                  <Button
+                    onClick={() => this.setState({ modalShow: true })}
                     title="New Taxi"
                     showIcon={true}
                     icon={"fas fa-taxi fa-sm text-white-50"}
-                  />  
+                  />
                   <NewTaxiModal
-                  show={modalShow}
-                  onHide={() => setModalShow(false)}
-                  />    
-                  
+                    show={modalShow}
+                    onHide={() => this.setState({ modalShow: false })}
+                  />
                 </div>
 
                 <div className="card shadow mb-4">
@@ -38,7 +62,9 @@ import NewTaxiModal from './Modal/NewTaxi';
                   <div className="card-body">
                     <div className="table-responsive">
                       <ShowSearch />
-
+                      {isLoading && (
+                        <p className="text-center text-info">Loading...</p>
+                      )}
                       <table
                         className="table"
                         id="dataTable"
@@ -46,33 +72,31 @@ import NewTaxiModal from './Modal/NewTaxi';
                         cellspacing="0"
                       >
                         <thead>
-                          <th className="text-dark-100">Name</th>
-                          <th className="text-dark-100">Phone Number</th>
-                          <th className="text-dark-100">Website</th>
-                          <th className="text-dark-100">Actions</th>
+                          <tr>
+                            <th className="text-dark-100">Name</th>
+                            <th className="text-dark-100">Phone Number</th>
+                            <th className="text-dark-100">Website</th>
+                            <th className="text-dark-100">Actions</th>
+                          </tr>
                         </thead>
                         <tbody>
-                          <tr className="odd gradeX">
-                            <td>Ride Fast </td>
-                            <td>+2547123456</td>
-                            <td>www.ridefast.com</td>
-                            <td className="pa-0">
-                              <form method="post" action="" name="buy" id="buy">
-                                <button
-                                  type="submit"
+                          {taxis.map((taxi) => (
+                            <tr key={taxi._id} className="odd gradeX">
+                              <td>{taxi.name}</td>
+                              <td>{taxi.phoneNumber}</td>
+                              <td>{taxi.hospitalName}</td>
+                              <td className="pa-0">
+                                <FlatButton
+                                  icon="fa fa-trash"
+                                  title="Remove"
+                                  onClick={() =>
+                                    this.props.deleteTaxi(taxi._id)
+                                  }
                                   className="btn btn-danger circle action-button"
-                                >
-                                  <i className="fa fa-trash"></i> Remove
-                                </button>
-                                <input
-                                  name="buyalbum"
-                                  type="hidden"
-                                  id="buyalbum"
-                                  value=""
                                 />
-                              </form>
-                            </td>
-                          </tr>
+                              </td>
+                            </tr>
+                          ))}
                         </tbody>
                       </table>
                     </div>
@@ -90,4 +114,13 @@ import NewTaxiModal from './Modal/NewTaxi';
       </div>
     );
   }
+}
 
+const mapDispatchToProps = (dispatch) => {
+  return {
+    fetchTaxies: () => dispatch(fetchTaxis()),
+    deleteTaxi: (id) => dispatch(deleteTaxis(id)),
+  };
+};
+
+export default connect(selectors, mapDispatchToProps)(TaxiServices);

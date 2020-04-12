@@ -5,8 +5,9 @@ import ViewUserModal from "./Modal/ViewUser";
 import Pagination from "../../../components/organisms/pagination";
 import { connect } from "react-redux";
 import selectors from "./redux/selectors";
-import { fetchUsers } from "./redux/actions";
+import { fetchUsers, deleteUser } from "./redux/actions";
 import PropTypes from "prop-types";
+import FlatButton from "../../../components/atoms/FlatButton";
 export class Users extends Component {
   constructor(props) {
     super(props);
@@ -36,6 +37,7 @@ export class Users extends Component {
 
   render() {
     const { modalShow2, modalShow } = this.state;
+    const { users, fetchingUsers, errorFetchingUsers } = this.props;
     return (
       <div id="content">
         <div className="container-fluid">
@@ -96,7 +98,7 @@ export class Users extends Component {
                     </div>
                   </div>
                 </div>
-                {this.props.fetchingUsers && (
+                {fetchingUsers && (
                   <p className="text-center text-info">Fetching new users</p>
                 )}
                 <table
@@ -107,6 +109,7 @@ export class Users extends Component {
                 >
                   <thead>
                     <tr>
+                      <th className="text-dark-100">Name</th>
                       <th className="text-dark-100">Position</th>
                       <th className="text-dark-100">Gender</th>
                       <th className="text-dark-100">Email</th>
@@ -114,40 +117,33 @@ export class Users extends Component {
                     </tr>
                   </thead>
                   <tbody>
-                    <tr className="odd gradeX">
-                      <td>
-                        <div
-                          className="btn btn-link circle action-button ml-15 mr-10"
-                          onClick={() => this.setState({ modalShow2: true })}
-                        >
-                          <i className="fa fa-eye"></i>
-                        </div>{" "}
-                        <ViewUserModal
-                          show={modalShow2}
-                          onHide={() => this.setState({ modalShow2: false })}
-                        />
-                        Diamonds Rihanna
-                      </td>
-                      <td>Doctor</td>
-                      <td>Female</td>
-                      <td>drih288@gmail.com</td>
-                      <td className="pa-0">
-                        <form method="post" action="" name="buy" id="buy">
-                          <button
-                            type="submit"
-                            className="btn btn-danger circle action-button"
+                    {users.map((user) => (
+                      <tr key={user.id} className="odd gradeX">
+                        <td>
+                          <div
+                            className="btn btn-link circle action-button ml-15 mr-10"
+                            onClick={() => this.setState({ modalShow2: true })}
                           >
-                            <i className="fa fa-trash"></i> Remove
-                          </button>
-                          <input
-                            name="buyalbum"
-                            type="hidden"
-                            id="buyalbum"
-                            value=""
+                            <i className="fa fa-eye"></i>
+                          </div>{" "}
+                          <ViewUserModal
+                            show={modalShow2}
+                            onHide={() => this.setState({ modalShow2: false })}
                           />
-                        </form>
-                      </td>
-                    </tr>
+                          {user.name}
+                        </td>
+                        <td>{user.role}</td>
+                        <td>{user.gender}</td>
+                        <td>{user.email}</td>
+                        <td className="pa-0">
+                          <FlatButton
+                            onClick={() => this.props.deleteUser(user.id)}
+                            icon="fa fa-trash"
+                            className="btn btn-danger circle action-button"
+                          />
+                        </td>
+                      </tr>
+                    ))}
                   </tbody>
                 </table>
               </div>
@@ -162,6 +158,7 @@ export class Users extends Component {
 const mapDispatchToProps = (dispatch) => {
   return {
     getUsers: () => dispatch(fetchUsers()),
+    deleteUser: (id) => dispatch(deleteUser(id)),
   };
 };
 export default connect(selectors, mapDispatchToProps)(Users);
