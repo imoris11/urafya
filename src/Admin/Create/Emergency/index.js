@@ -17,6 +17,9 @@ export class Emergency extends Component {
   }
 
   componentDidMount() {
+    const { emergencyLines } = this.props;
+    //Only fetch when state is empty
+    if (emergencyLines.length > 0) return;
     this.props.fetchEmergencyLines();
   }
 
