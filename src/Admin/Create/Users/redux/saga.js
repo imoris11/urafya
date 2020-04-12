@@ -5,16 +5,16 @@ import {
   FETCH_USERS_SUCCESS,
   FETCH_USERS_FAILURE,
   FETCHING_USERS,
+  DELETE_USER,
+  DELETE_USER_SUCCESS,
 } from "./actions";
 import { getUserToken } from "../../../../Authenication/redux/selectors";
 import makeApiRequest from "../../../../utils";
-const getConfig = (token) => ({
-  method: "GET",
+const getConfig = (token, method = "GET") => ({
+  method,
   headers: {
     "Content-Type": "application/json",
-    Accept: "application/json",
-    Authorization:
-      "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyRW1haWwiOiJhYm9sdXdhZGUub2x1d2FzZWd1bkBnbWFpbC5jb20iLCJ1c2VySWQiOiI1ZGE0ZTY0NjMxM2U5NjAwMTc4YTE0N2EiLCJ1c2VyUm9sZSI6ImFkbWluIiwiaW1hZ2VVcmkiOiJodHRwczovL3BpY3N1bS5waG90b3MxMDAvaWQvMjAwLzEwMC8iLCJpYXQiOjE1ODY3MDM4NTcsImV4cCI6MTU4NjcwNzQ1N30.FDpHS1kZW8OIxXS1KAAr-2uZeWA-PjPFMwuiU989XH4",
+    Authorization: `Bearer ${token}`,
   },
 });
 export function* fetchUsers() {
@@ -38,8 +38,31 @@ export function* fetchUsers() {
   }
 }
 
+export function* deleteUser(action) {
+  try {
+    const token = yield select(getUserToken);
+    const config = getConfig(token, "POST");
+    const response = yield call(
+      makeApiRequest,
+      `/admin-profile/delete/${action.payload}`,
+      config
+    );
+    if (response.statusCode === 200) {
+      yield put({
+        type: DELETE_USER_SUCCESS,
+        payload: action.payload,
+      });
+      toast.success("User deleted successfully");
+    } else {
+      toast.error(response.message);
+    }
+  } catch (error) {
+    toast.error("Encountered an error, please try again.");
+  }
+}
 function* usersSaga() {
   yield takeEvery(FETCH_USERS, fetchUsers);
+  yield takeEvery(DELETE_USER, deleteUser);
 }
 
 export default usersSaga;

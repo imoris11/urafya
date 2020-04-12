@@ -6,6 +6,7 @@ import NewHelplineModal from "./Modal/NewHelpline";
 import selectors from "./redux/selectors";
 import { connect } from "react-redux";
 import { fetchEmergencyLines, deleteEmergencyLine } from "./redux/actions";
+import FlatButton from "../../../components/atoms/FlatButton";
 
 export class Emergency extends Component {
   constructor(props) {
@@ -74,14 +75,14 @@ export class Emergency extends Component {
                       <td>{emergency.hotline}</td>
                       <td>{emergency.hotline}</td>
                       <td className="pa-0">
-                        <button
+                        <FlatButton
                           onClick={() =>
                             this.props.deleteEmergencyLine(emergency._id)
                           }
+                          title="Remove"
+                          icon="fa fa-trash"
                           className="btn btn-danger circle action-button"
-                        >
-                          <i className="fa fa-trash"></i> Remove
-                        </button>
+                        />
                       </td>
                     </tr>
                   ))}

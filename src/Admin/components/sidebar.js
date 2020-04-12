@@ -67,7 +67,7 @@ class Sidebar extends Component {
             />
             <LinkListItem
               linkText="Taxi Services"
-              link="/emergency"
+              link="/taxiservices"
               icon="fas fa-fw fa-ambulance"
             />
 
