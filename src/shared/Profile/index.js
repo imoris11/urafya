@@ -1,14 +1,26 @@
-import React from "react";
+import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import Picture from "../../assets/images/cardi_b.jpg";
-import Button from '../../components/atoms/Button';
-import EditUserModal from './Modal/EditUser';
-import ChangePasswordModal from './Modal/ChangePassword';
+import Button from "../../components/atoms/Button";
+import EditUserModal from "./Modal/EditUser";
+import ChangePasswordModal from "./Modal/ChangePassword";
+import { connect } from "react-redux";
+import { getUser } from "../../Authenication/redux/selectors";
+import PropTypes from "prop-types";
 
-export default function Profile(props) {
-  
-  const [modalShow, setModalShow] = React.useState(false);
-  const [modalShow2, setModalShow2] = React.useState(false);
+export class Profile extends Component {
+  state = {
+    modalShow: false,
+    modalShow2: false,
+  };
+
+  static propTypes = {
+    user: PropTypes.object.isRequired,
+  };
+
+  render() {
+    const { modalShow2, modalShow } = this.state;
+    const { user } = this.props;
     return (
       <div id="page-top">
         <div id="wrapper">
@@ -17,16 +29,16 @@ export default function Profile(props) {
               <div className="container-fluid">
                 <div className="d-sm-flex align-items-center justify-content-between mb-4">
                   <h1 className="h3 mb-0 text-gray-800">Profile</h1>
-                  <Button             
-                    onClick={() => setModalShow(true)}
+                  <Button
+                    onClick={() => this.setState({ modalShow: true })}
                     title="Edit Personal Information"
                     showIcon={true}
                     icon={"fas fa-pencil-alt fa-sm text-white-50"}
-                  />  
+                  />
                   <EditUserModal
-                  show={modalShow}
-                  onHide={() => setModalShow(false)}
-                  />                         
+                    show={modalShow}
+                    onHide={() => this.setState({ modalShow: false })}
+                  />
                 </div>
 
                 <div className="card shadow mb-4">
@@ -39,51 +51,51 @@ export default function Profile(props) {
                     <div className="row">
                       <div className="col-xl-3 col-md-6 mb-4">
                         <div className="mycard card border-left-success shadow py-2">
-                          <img src={Picture} className="card-img-top" />
+                          <img
+                            src={user.biodata.general.imageUri}
+                            className="card-img-top"
+                          />
                         </div>
                       </div>
                       <div className="col-xl-9 col-md-6">
                         <p>
-                          <b className="text-primary">Fullname:</b> Diamond
-                          Rachel Rihanna
+                          <b className="text-primary">Fullname:</b> {user.name}
                           <br></br>
-                          <b className="text-primary">Position:</b> Doctor
+                          <b className="text-primary">Position:</b> {user.role}
                           <br></br>
-                          <b className="text-primary">Gender:</b> Female
+                          <b className="text-primary">Gender:</b> {user.gender}
                           <br></br>
                           <b className="text-primary">Date of Birth:</b>{" "}
-                          26/02/1992
+                          {user.dob}
                           <br></br>
-                          <b className="text-primary">Email:</b>{" "}
-                          drih288@gmail.com
+                          <b className="text-primary">Email:</b> {user.email}
                           <br></br>
                           <b className="text-primary">Phone Number:</b>{" "}
-                          +25479123478
+                          {user.phoneNumber}
                           <br></br>
                           <b className="text-primary">
                             National ID Number:
                           </b>{" "}
-                          12345678
+                          {user.nationalId}
                           <br></br>
-                          <b className="text-primary">Address:</b> 26 Oakland
-                          Road, Free Avenue, Nairobi, Kenya
+                          <b className="text-primary">Address:</b>{" "}
+                          {user.address}
                           <br></br>
-                          <b className="text-primary">Date Registered:</b> 24th
-                          June, 2019
+                          <b className="text-primary">Date Registered:</b>{" "}
+                          {user.date_registered}
                           <br></br>
                         </p>
 
-                        <Button             
-                            onClick={() => setModalShow2(true)}
-                            title="Change Password"
-                            showIcon={true}
-                            icon={"fas fa-key fa-sm text-white-50"}
-                          />  
-                          <ChangePasswordModal
+                        <Button
+                          onClick={() => this.setState({ modalShow2: true })}
+                          title="Change Password"
+                          showIcon={true}
+                          icon={"fas fa-key fa-sm text-white-50"}
+                        />
+                        <ChangePasswordModal
                           show={modalShow2}
-                          onHide={() => setModalShow2(false)}
-                          />    
-                        
+                          onHide={() => this.setState({ modalShow2: false })}
+                        />
                       </div>
                     </div>
                   </div>
@@ -99,4 +111,10 @@ export default function Profile(props) {
       </div>
     );
   }
-
+}
+const mapStateToProps = (state) => {
+  return {
+    user: getUser(state),
+  };
+};
+export default connect(mapStateToProps)(Profile);

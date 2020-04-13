@@ -72,7 +72,9 @@ export function* createNewUser(action) {
     const token = yield select(getUserToken);
     const config = {
       method: "POST",
+      mode: "no-cors",
       headers: {
+        Accept: "application/json",
         "Content-Type": "multipart/form-data",
       },
       body: action.payload,
