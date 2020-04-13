@@ -1,4 +1,4 @@
-import { put, call, takeEvery } from "redux-saga/effects";
+import { put, call, takeEvery, takeLatest } from "redux-saga/effects";
 import {
   FETCH_TAXIS,
   FETCHING_TAXIS,
@@ -6,6 +6,10 @@ import {
   FETCH_TAXIS_FAILURE,
   DELETE_TAXIS,
   DELETE_TAXIS_SUCCESS,
+  CREATE_TAXI,
+  CREATING_TAXI,
+  CREATE_TAXI_SUCCESS,
+  CREATE_TAXI_FAILURE,
 } from "./actions";
 import { toast } from "react-toastify";
 import makeApiRequest from "../../../../utils";
@@ -22,19 +26,15 @@ export function* fetchTaxis() {
   });
   try {
     const response = yield call(makeApiRequest, "/taxi/all-taxis");
-    if (response.statusCode === 200) {
-      yield put({
-        type: FETCH_TAXIS_SUCCESS,
-        payload: response.taxi,
-      });
-    } else {
-      yield put({
-        type: FETCH_TAXIS_FAILURE,
-      });
-      toast.error("Encountered an error, please try again.");
-    }
+    yield put({
+      type: FETCH_TAXIS_SUCCESS,
+      payload: response.taxi,
+    });
   } catch (error) {
-    toast.error("Encountered an error, please try again");
+    yield put({
+      type: FETCH_TAXIS_FAILURE,
+    });
+    toast.error(error.message);
   }
 }
 
@@ -45,23 +45,43 @@ export function* deleteTaxi(action) {
       `/taxi/delete-taxi/${action.payload}`,
       config
     );
-    if (response.statusCode === 200) {
-      yield put({
-        type: DELETE_TAXIS_SUCCESS,
-        payload: action.payload,
-      });
-      toast.success("Taxi deleted successfully");
-    } else {
-      toast.error("An error occurred while deleting, please try again.");
-    }
+    yield put({
+      type: DELETE_TAXIS_SUCCESS,
+      payload: action.payload,
+    });
+    toast.success("Taxi deleted successfully");
   } catch (error) {
-    toast.error("Unexpected error, please try again.");
+    toast.error(error.message);
+  }
+}
+
+export function* createTaxi(action) {
+  yield put({
+    type: CREATING_TAXI,
+  });
+  const config = {
+    method: "post",
+
+    body: action.payload,
+  };
+  try {
+    const response = yield call(makeApiRequest, "/taxi/add-taxi", config);
+    yield put({
+      type: CREATE_TAXI_SUCCESS,
+    });
+    toast.success(response.message);
+  } catch (error) {
+    yield put({
+      type: CREATE_TAXI_FAILURE,
+    });
+    toast.error(error.message);
   }
 }
 
 function* taxiSagas() {
   yield takeEvery(FETCH_TAXIS, fetchTaxis);
   yield takeEvery(DELETE_TAXIS, deleteTaxi);
+  yield takeLatest(CREATE_TAXI, createTaxi);
 }
 
 export default taxiSagas;

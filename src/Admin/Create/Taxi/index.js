@@ -77,7 +77,7 @@ export class TaxiServices extends Component {
                           <tr>
                             <th className="text-dark-100">Name</th>
                             <th className="text-dark-100">Phone Number</th>
-                            <th className="text-dark-100">Website</th>
+                            <th className="text-dark-100">Hospital Name</th>
                             <th className="text-dark-100">Actions</th>
                           </tr>
                         </thead>
@@ -90,7 +90,6 @@ export class TaxiServices extends Component {
                               <td className="pa-0">
                                 <FlatButton
                                   icon="fa fa-trash"
-                                  title="Remove"
                                   onClick={() =>
                                     this.props.deleteTaxi(taxi._id)
                                   }

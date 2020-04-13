@@ -3,6 +3,9 @@ import {
   FETCH_TAXIS_SUCCESS,
   FETCH_TAXIS_FAILURE,
   DELETE_TAXIS_SUCCESS,
+  CREATE_TAXI_SUCCESS,
+  CREATING_TAXI,
+  CREATE_TAXI_FAILURE,
 } from "./actions";
 
 const initialState = {
@@ -36,6 +39,21 @@ export default (state = initialState, action) => {
       return {
         ...state,
         data: state.data.filter((d) => d._id !== action.payload),
+      };
+    case CREATE_TAXI_SUCCESS:
+      return {
+        ...state,
+        creatingTaxi: false,
+      };
+    case CREATING_TAXI:
+      return {
+        ...state,
+        creatingTaxi: true,
+      };
+    case CREATE_TAXI_FAILURE:
+      return {
+        ...state,
+        creatingTaxi: false,
       };
     default:
       return state;
