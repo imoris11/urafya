@@ -66,8 +66,7 @@ export class Emergency extends Component {
                 <thead>
                   <tr>
                     <th className="text-dark-100">Name</th>
-                    <th className="text-dark-100">Phone Number</th>
-                    <th className="text-dark-100">USSD/Text Number</th>
+                    <th className="text-dark-100">Hotline</th>
                     <th className="text-dark-100">Actions</th>
                   </tr>
                 </thead>
@@ -75,7 +74,6 @@ export class Emergency extends Component {
                   {emergencyLines.map((emergency) => (
                     <tr key={emergency._id} className="odd gradeX">
                       <td>{emergency.name} </td>
-                      <td>{emergency.hotline}</td>
                       <td>{emergency.hotline}</td>
                       <td className="pa-0">
                         <FlatButton
