@@ -6,7 +6,7 @@ import { connect } from "react-redux";
 import selectors from "./redux/selectors";
 import { fetchGroceries } from "./redux/actions";
 import PropTypes from "prop-types";
-import moment from "moment";
+//import moment from "moment";
 
 class Grocery extends Component {
   static propTyoes = {
@@ -71,7 +71,7 @@ class Grocery extends Component {
                               <td>{grocery.name}</td>
                               <td>{grocery.quantity}</td>
                               <td>KSh {grocery.price}</td>
-                              <td>{moment(grocery.created_at).format("ll")}</td>
+                              {/* <td>{moment(grocery.created_at).format("ll")}</td> */}
                               <td>Approved</td>
                               <td className="pa-0">
                                 <form
