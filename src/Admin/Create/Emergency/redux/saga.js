@@ -8,7 +8,12 @@ import {
   FETCHING_EMERGENCY_LINES_FAILURE,
   DELETE_EMERGENCY_LINE,
   EMERGENCY_LINE_DELETED,
+  CREATE_HELPLINE,
+  CREATING_HELPLINE,
+  CREATE_HELPLINE_SUCCESS,
+  CREATE_HELPLINE_FAILURE,
 } from "./actions";
+import { getUserToken } from "../../../../Authenication/redux/selectors";
 
 function* fetchEmergencyLines() {
   yield put({
@@ -55,9 +60,47 @@ function* deleteEmergencyLine(action) {
   }
 }
 
+export function* createHelpline(action) {
+  yield put({
+    type: CREATING_HELPLINE,
+  });
+
+  try {
+    const token = yield select(getUserToken);
+    const config = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(action.payload),
+    };
+    const response = yield call(
+      makeApiRequest,
+      "/emergencies/add-emergency",
+      config
+    );
+    const payload = {
+      ...action.payload,
+      _id: Math.round(Math.random() * 100000),
+    };
+    yield put({
+      type: CREATE_HELPLINE_SUCCESS,
+      payload,
+    });
+    toast.success(response.message);
+  } catch (error) {
+    yield put({
+      type: CREATE_HELPLINE_FAILURE,
+    });
+    toast.error(error.message);
+  }
+}
+
 function* emergencySagas() {
   yield takeEvery(FETCH_EMERGENCY_LINES, fetchEmergencyLines);
   yield takeLatest(DELETE_EMERGENCY_LINE, deleteEmergencyLine);
+  yield takeLatest(CREATE_HELPLINE, createHelpline);
 }
 
 export default emergencySagas;

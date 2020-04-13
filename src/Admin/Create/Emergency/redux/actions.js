@@ -7,6 +7,10 @@ export const FETCH_EMERGENCY_LINES = "FETCH_EMERGENCY_LINES";
 export const DELETE_EMERGENCY_LINE = "DELETE_EMERGENCY_LINE";
 export const EMERGENCY_LINE_DELETED = "EMERGENCY_LINE_DELETED";
 export const DELETE_FAILED = "DELETE_FAILED";
+export const CREATE_HELPLINE = "CREATE_HELPLINE";
+export const CREATE_HELPLINE_SUCCESS = "CREATE_HELPLINE_SUCCESS";
+export const CREATE_HELPLINE_FAILURE = "CREATE_HELPLINE_FAILURE";
+export const CREATING_HELPLINE = "CREATING_HELPLINE";
 
 export const fetchEmergencyLines = () => ({
   type: FETCH_EMERGENCY_LINES,
@@ -15,4 +19,9 @@ export const fetchEmergencyLines = () => ({
 export const deleteEmergencyLine = (id) => ({
   type: DELETE_EMERGENCY_LINE,
   payload: id,
+});
+
+export const createEmergency = (payload) => ({
+  type: CREATE_HELPLINE,
+  payload,
 });
