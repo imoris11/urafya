@@ -1,10 +1,34 @@
-import React  from "react";
+import React, {Component}  from "react";
 import Modal from "react-bootstrap/Modal";
   
-const NewSymptomModal = props => {
-  return (
+
+export class NewSymptomModal extends Component  {
+  constructor(props) {
+      super(props);
+    this.state = {  
+        name:'',
+        bodypart: '',
+        description: '',
+        image:'',
+
+      }
+  }
+
+    handleChange = (e) => {
+          this.setState({
+            [e.target.name]: e.target.value
+          })
+      }
+    handleSubmit = (e) => {
+      e.preventDefault(); 
+        console.log(this.state);
+      
+    }
+  
+  render() {
+    return (
     <Modal
-      {...props}
+      {...this.props}
       size="md"
       aria-labelledby="contained-modal-title-vcenter"
       centered
@@ -18,12 +42,12 @@ const NewSymptomModal = props => {
         <div className="modal-body" id="orderDetails">
             <div className="card shadow mb-4">
                 <div className="card-body">
-                <form className="" method="POST" action="<?php echo $editFormAction; ?>" id="regform" name="regform" enctype="multipart/form-data">
+                <form className="" method="POST" action="" id="regform" name="regform" enctype="multipart/form-data" onSubmit={this.handleSubmit}>
                     <div className="form-group">
                     <div className="form-row">
                         <div className="col-md-12 mb-15 pr-50">
-                            <label for="sname">Name:</label>
-                            <input type="text" className="form-control" id="sname" name="sname" placeholder="e.g. Headache" required/>
+                            <label for="name">Name:</label>
+                        <input type="text" className="form-control" id="name" name="name" placeholder="e.g. Headache" value={this.state.name} required onChange={this.handleChange}/>
                         </div>
                     </div>
                     </div>
@@ -31,7 +55,7 @@ const NewSymptomModal = props => {
                     <div className="form-row">
                         <div className="col-md-12 mb-15 pl-50">
                             <label for="gen">Body Part</label>
-                            <select className="form-control" name="gen" id="gen">
+                            <select className="form-control" name="bodypart" id="bodypart" value={this.state.bodypart} onChange={this.handleChange}>
                                 <option className="pl-20" selected>--Select--</option>
                                 <option value="Forehead">Head - Frontal lobe (Forehead)</option>
                                 <option value="Head - Left Side">Head - Left Side</option>
@@ -43,7 +67,7 @@ const NewSymptomModal = props => {
                     <div className="form-row">
                         <div className="col-md-12 mb-15 pl-50">
                             <label for="addy">Description</label>
-                              <textarea rows="3" type="text" className="form-control" name="addy" id="addy" placeholder="" required>                                           
+                              <textarea rows="3" type="text" className="form-control" name="description" id="description" value={this.state.description} placeholder="" required onChange={this.handleChange}>                                           
                             </textarea>
                         </div>
                     </div>
@@ -54,7 +78,7 @@ const NewSymptomModal = props => {
                         <div className="col-md-12 mb-15 pl-50">
                             <div className="row">
                             <div className="col-md-8">
-                                Select Image<input type="file" className="upload" name="uppic" id="uppic"/>
+                            Select Image<input type="file" className="upload" name="image" id="image" value={this.state.image} onChange={this.handleChange}/>
                             </div>
                             
                             </div>
@@ -75,9 +99,11 @@ const NewSymptomModal = props => {
 
       </Modal.Body>
       <Modal.Footer>
-             <button type="button" className="btn btn-secondary" data-dismiss="modal" onClick={props.onHide}>Close</button>
+             <button type="button" className="btn btn-secondary" data-dismiss="modal" onClick={this.props.onHide}>Close</button>
       </Modal.Footer>
     </Modal>
   );
+  }
+  
 }
 export default NewSymptomModal;
