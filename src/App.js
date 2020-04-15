@@ -4,7 +4,7 @@ import Login from "./Authenication/Login";
 import ForgetPassword from "./Authenication/ForgetPassword";
 import Ahome from "./shared/Home";
 import Users from "./Admin/Create/Users/";
-import Symptoms from "./Admin/Create/Symptoms";
+import Symptoms from "./Doctor/Create/Symptoms";
 import Payment from "./Admin/Create/Payment/";
 import Support from "./Admin/Create/Support/";
 import Emergency from "./Admin/Create/Emergency";
@@ -42,7 +42,7 @@ export class App extends Component {
               <AdminHeader>
                 <Route exact path="/" component={Ahome} />
                 <Route exact path="/users" component={Users} />
-                <Route exact path="/symptoms" component={Symptoms} />
+
                 <Route exact path="/payment" component={Payment} />
                 <Route exact path="/support" component={Support} />
                 <Route exact path="/taxiservices" component={Taxi} />
@@ -83,6 +83,7 @@ export class App extends Component {
               <DoctorHeader>
                 <Route exact path="/" component={Ahome} />
                 <Route exact path="/consultants" component={Consultants} />
+                <Route exact path="/symptoms" component={Symptoms} />
                 <Route exact path="/support" component={SupportGroup} />
                 <Route exact path="/generalsupport" component={GeneralGroup} />
                 <Route exact path="/groupdetails" component={GroupDetails} />

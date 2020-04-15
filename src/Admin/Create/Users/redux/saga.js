@@ -48,7 +48,7 @@ export function* fetchUsers() {
 export function* deleteUser(action) {
   try {
     const token = yield select(getUserToken);
-    const config = getConfig(token, "POST");
+    const config = getConfig(token, "DELETE");
     const response = yield call(
       makeApiRequest,
       `/admin-profile/delete/${action.payload}`,

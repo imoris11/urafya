@@ -51,7 +51,7 @@ export class Emergency extends Component {
           <div className="card-body">
             <div className="table-responsive">
               <ShowSearch />
-              {isLoading && <p className="text-info">Loaing...</p>}
+              {isLoading && <p className="text-info text-center">Loading...</p>}
               {errorLoading && (
                 <p className="text-danger">
                   Error fetching new hotlines, please try again.
