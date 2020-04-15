@@ -4,7 +4,7 @@ const groceries = (obj = {}) => obj.groceries;
 
 const data = (obj = {}) => obj.data;
 
-const getGroceries = createSelector(groceries, data);
+export const getGroceries = createSelector(groceries, data);
 
 const isLoading = createSelector(groceries, (obj) => obj.isLoading);
 

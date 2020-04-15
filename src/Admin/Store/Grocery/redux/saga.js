@@ -4,11 +4,15 @@ import {
   FETCH_GROCERIES_SUCCESS,
   FETCH_GROCERIES_FAILURE,
   FETCHING_GROCERIES,
+  BAN_GROCERY,
+  BAN_GROCERY_FAILURE,
+  BAN_GROCERY_SUCCESS,
 } from "./actions";
 import { toast } from "react-toastify";
 import makeApiRequest from "../../../../utils";
 import { getUserToken } from "../../../../Authenication/redux/selectors";
-
+import { getGroceries } from "./selectors";
+import { update } from "ramda";
 const getConfig = (token, method = "GET") => ({
   method,
   headers: {
@@ -45,8 +49,47 @@ export function* fetchGroceries() {
   }
 }
 
+export function* getUpdatedGroceries(id) {
+  let groceries = yield select(getGroceries);
+  let index = -1;
+  const grocery = groceries.filter((g, idx) => {
+    if (g._id === id) {
+      index = idx;
+      return g;
+    }
+  })[0];
+
+  grocery["status"] =
+    grocery.status === "Approved" ? "Not Approved" : "Approved";
+  groceries[index] = grocery;
+  return groceries;
+}
+export function* toggleGroceryBan(action) {
+  const token = yield select(getUserToken);
+  const config = getConfig(token, "POST");
+  try {
+    const response = yield call(
+      makeApiRequest,
+      `/groceries/ban-permit-groceries/${action.payload}`,
+      config
+    );
+    const updatedGroceries = yield call(getUpdatedGroceries, action.payload);
+    yield put({
+      type: BAN_GROCERY_SUCCESS,
+      payload: updatedGroceries,
+    });
+    toast.success(response.message);
+  } catch (error) {
+    yield put({
+      type: BAN_GROCERY_FAILURE,
+    });
+    toast.error(error.message);
+  }
+}
+
 function* groceriesSagas() {
   yield takeEvery(FETCH_GROCERIES, fetchGroceries);
+  yield takeEvery(BAN_GROCERY, toggleGroceryBan);
 }
 
 export default groceriesSagas;

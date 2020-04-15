@@ -10,6 +10,7 @@ import {
 import { toast } from "react-toastify";
 import makeApiRequest from "../../../../utils";
 import { getUserToken } from "../../../../Authenication/redux/selectors";
+import { getPrescriptions } from "./selectors";
 
 const getConfig = (token, method = "GET") => ({
   method,
@@ -44,6 +45,21 @@ export function* fetchPrescriptions() {
   }
 }
 
+export function* updatePrescriptions(id) {
+  let prescriptions = yield select(getPrescriptions);
+  let index = -1;
+  const prescription = prescriptions.filter((g, idx) => {
+    if (g._id === id) {
+      index = idx;
+      return g;
+    }
+  })[0];
+
+  prescriptions["status"] =
+    prescription.status === "Approved" ? "Not Approved" : "Approved";
+  prescriptions[index] = prescription;
+  return prescriptions;
+}
 export function* toggleBan(action) {
   try {
     const token = yield select(getUserToken);
@@ -53,9 +69,13 @@ export function* toggleBan(action) {
       `/drug/ban-permit-prescription/${action.payload}`,
       config
     );
+    const updatedPrescriptions = yield call(
+      updatePrescriptions,
+      action.payload
+    );
     yield put({
       type: BAN_PRESCRIPTION_SUCCESS,
-      payload: action.payload,
+      payload: updatedPrescriptions,
     });
     toast.success(response.message);
   } catch (error) {

@@ -4,15 +4,18 @@ import { Link } from "react-router-dom";
 import ShowSearch from "../../../components/organisms/show_search";
 import { connect } from "react-redux";
 import selectors from "./redux/selectors";
-import { fetchGroceries } from "./redux/actions";
+import { fetchGroceries, toggleBanGrocery } from "./redux/actions";
 import PropTypes from "prop-types";
-//import moment from "moment";
+import FlatButton from "../../../components/atoms/FlatButton";
+import moment from "moment";
 
 class Grocery extends Component {
   static propTyoes = {
     groceries: PropTypes.array,
     isLoading: PropTypes.bool,
     errorLoading: PropTypes.bool,
+    fetchGroceries: PropTypes.func.isRequired,
+    toggleBan: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
@@ -27,7 +30,7 @@ class Grocery extends Component {
     this.props.fetchGroceries();
   }
   render() {
-    const { isLoading, errorLoading, groceries } = this.props;
+    const { isLoading, errorLoading, groceries, toggleBan } = this.props;
 
     return (
       <div id="page-top">
@@ -73,28 +76,24 @@ class Grocery extends Component {
                               <td>{grocery.name}</td>
                               <td>{grocery.quantity}</td>
                               <td>KSh {grocery.price}</td>
-                              {/* <td>{moment(grocery.created_at).format("ll")}</td> */}
-                              <td>Approved</td>
+                              <td>{moment(grocery.dateAdded).format("ll")}</td>
+                              <td>{grocery.status}</td>
                               <td className="pa-0">
-                                <form
-                                  method="post"
-                                  action="<?php echo $editFormAction; ?>"
-                                  name="buy"
-                                  id="buy"
-                                >
-                                  <button
-                                    type="submit"
+                                {grocery.status === "Approved" ? (
+                                  <FlatButton
                                     className="btn btn-danger circle action-button"
-                                  >
-                                    <i className="fa fa-ban"></i> Ban
-                                  </button>
-                                  <input
-                                    name="buyalbum"
-                                    type="hidden"
-                                    id="buyalbum"
-                                    value=""
+                                    icon="fa fa-ban"
+                                    title="Ban"
+                                    onClick={() => toggleBan(grocery._id)}
                                   />
-                                </form>
+                                ) : (
+                                  <FlatButton
+                                    className="btn btn-success circle action-button"
+                                    icon="fa fa-check"
+                                    title="Approve"
+                                    onClick={() => toggleBan(grocery._id)}
+                                  />
+                                )}
                               </td>
                             </tr>
                           ))}
@@ -120,6 +119,7 @@ class Grocery extends Component {
 const mapDispatchToProps = (dispatch) => {
   return {
     fetchGroceries: () => dispatch(fetchGroceries()),
+    toggleBan: (id) => dispatch(toggleBanGrocery(id)),
   };
 };
 export default connect(selectors, mapDispatchToProps)(Grocery);
