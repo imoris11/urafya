@@ -32,6 +32,11 @@ export default (state = initialState, action) => {
         isLoading: false,
         errorLoading: true,
       };
+    case BAN_PRESCRIPTION_SUCCESS:
+      return {
+        ...state,
+        data: [...action.payload],
+      };
     default:
       return state;
   }
