@@ -3,6 +3,28 @@ import Picture from '../../../assets/images/cardi_b.jpg';
 
 
 class PatientDetails extends Component {
+   constructor(props) {
+        super(props);
+        this.state = {
+            name: '',
+            days:'',
+            dosage: '',
+            info:'',
+            dfee: '',
+            ddate:'',
+        };
+    }
+
+    handleChange = (e) => {
+        this.setState({
+            [e.target.name]: e.target.value,
+        });
+    };
+    handleSubmit = (e) => {
+        e.preventDefault();
+        console.log(this.state);
+    };
+
   render() {
     return (
        <div className="container-fluid" >
@@ -78,12 +100,12 @@ class PatientDetails extends Component {
                           <div className="row">
                           <div className="col-xl-12 col-md-12">
                               <h5>Add Dosage to Prescription</h5>
-                              <form className="" method="POST" action="<?php echo $editFormAction; ?>" id="regform" name="regform" enctype="multipart/form-data">
+                              <form className="" method="POST" action="" id="regform" name="regform" enctype="multipart/form-data" onSubmit={this.handleSubmit}>
                                               <div className="form-group">
                                                 <div className="form-row">
                                                   <div className="col-md-3 mb-15 pl-50">
                                                       <label for="pname">Name</label>
-                                                      <select className="form-control" name="pname" id="pname">
+                                                      <select className="form-control" name="name" id="name" value={this.state.name} onChange={this.handleChange}>
                                                           <option className="pl-20" selected>--Select--</option>
                                                           <option value="Paracetamol">Paracetamol 500mg Tab</option>
                                                           <option value="Blood Tonic">Blood Tonic</option>
@@ -92,11 +114,11 @@ class PatientDetails extends Component {
                                                   </div>
                                                   <div className="col-md-3 mb-15 pr-50">
                                                       <label for="nod">No of Days</label>
-                                                      <input type="number" className="form-control" id="nod" name="nod" placeholder="e.g. 5"/>
+                                                      <input type="number" className="form-control" id="nod" name="nod" placeholder="e.g. 5" value={this.state.days} onChange={this.handleChange}/>
                                                   </div>
                                                   <div className="col-md-3 mb-15 pl-50">
                                                       <label for="ctime">Dosage Time:</label>
-                                                      <select className="form-control" name="ctimectime" id="ctime">
+                                                      <select className="form-control" name="dosage" id="dosage" value={this.state.dosage} onChange={this.handleChange}>
                                                           <option className="pl-20" selected>--Select--</option>
                                                           <option value="Once Daily">Once Daily</option>
                                                           <option value="Twice Daily">Twice Daily</option>
@@ -105,7 +127,7 @@ class PatientDetails extends Component {
                                                   </div>
                                                   <div className="col-md-3 mb-15 pl-50">
                                                       <label for="ctest">Other Info</label>
-                                                      <textarea rows="3" type="text" className="form-control" name="ctest" id="ctest" ></textarea>
+                                                      <textarea rows="3" type="text" className="form-control" name="info" id="info" value={this.state.info} onChange={this.handleChange}></textarea>
                                                   </div>
                                                 </div>
                                               </div>
@@ -118,11 +140,11 @@ class PatientDetails extends Component {
                                                 <div className="form-row">
                                                   <div className="col-md-6 mb-15 pl-50">
                                                       <label for="dfee">Delivery Fee (KSh)</label>
-                                                      <input type="text" className="form-control" name="dfee" id="dfee" placeholder="e.g. 3,000.00"/>
+                                                      <input type="text" className="form-control" name="dfee" id="dfee" placeholder="e.g. 3,000.00" value={this.state.dfee} onChange={this.handleChange}/>
                                                   </div>
                                                   <div className="col-md-6 mb-15 pr-50">
                                                       <label for="ddate">Delivery Date</label>
-                                                      <input type="date" className="form-control" id="ddate" name="ddate" placeholder="e.g. 5"/>
+                                                      <input type="date" className="form-control" id="ddate" name="ddate" placeholder="e.g. 5"value={this.state.ddate} onChange={this.handleChange}/>
                                                   </div>
                                                 </div>
                                               </div>

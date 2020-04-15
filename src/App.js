@@ -38,7 +38,7 @@ export class App extends Component {
       <Router>
         <div>
           <Switch>
-            {this.props.loggedIn && this.props.user.role === "admin" && (
+            {this.props.loggedIn && (
               <AdminHeader>
                 <Route exact path="/" component={Ahome} />
                 <Route exact path="/users" component={Users} />
@@ -55,7 +55,7 @@ export class App extends Component {
               </AdminHeader>
             )}
 
-            {this.props.loggedIn && this.props.user.role === "pharmacist" && (
+            {this.props.loggedIn && this.props.user.type === "pharmacist" && (
               <PharmacistHeader>
                 <Route exact path="/" component={Ahome} />
                 <Route
@@ -79,7 +79,7 @@ export class App extends Component {
               </PharmacistHeader>
             )}
 
-            {this.props.loggedIn && this.props.user.role === "doctor" && (
+            {this.props.loggedIn && this.props.user.type === "doctor" && (
               <DoctorHeader>
                 <Route exact path="/" component={Ahome} />
                 <Route exact path="/consultants" component={Consultants} />
