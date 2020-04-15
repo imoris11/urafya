@@ -14,6 +14,7 @@ export class Users extends Component {
     this.state = {
       modalShow: false,
       modalShow2: false,
+      user: {},
     };
   }
 
@@ -124,12 +125,15 @@ export class Users extends Component {
                         <td>
                           <div
                             className="btn btn-link circle action-button ml-15 mr-10"
-                            onClick={() => this.setState({ modalShow2: true })}
+                            onClick={() =>
+                              this.setState({ modalShow2: true, user: user })
+                            }
                           >
                             <i className="fa fa-eye"></i>
                           </div>{" "}
                           <ViewUserModal
                             show={modalShow2}
+                            user={this.state.user}
                             onHide={() => this.setState({ modalShow2: false })}
                           />
                           {user.name}

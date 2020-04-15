@@ -44,11 +44,6 @@ class Sidebar extends Component {
               link="/users"
               icon="fas fa-fw fa-users"
             />
-            <LinkListItem
-              linkText="Symptoms"
-              link="/symptoms"
-              icon="fas fa-fw fa-stethoscope"
-            />
 
             <LinkListItem
               linkText="Support Groups"

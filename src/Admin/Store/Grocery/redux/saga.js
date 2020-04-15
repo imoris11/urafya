@@ -1,4 +1,4 @@
-import { put, call, takeEvery } from "redux-saga/effects";
+import { put, call, takeEvery, select } from "redux-saga/effects";
 import {
   FETCH_GROCERIES,
   FETCH_GROCERIES_SUCCESS,
@@ -7,13 +7,28 @@ import {
 } from "./actions";
 import { toast } from "react-toastify";
 import makeApiRequest from "../../../../utils";
+import { getUserToken } from "../../../../Authenication/redux/selectors";
+
+const getConfig = (token, method = "GET") => ({
+  method,
+  headers: {
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${token}`,
+  },
+});
 
 export function* fetchGroceries() {
   yield put({
     type: FETCHING_GROCERIES,
   });
   try {
-    const response = yield call(makeApiRequest, "/groceries/all-groceries");
+    const token = yield select(getUserToken);
+    const config = getConfig(token);
+    const response = yield call(
+      makeApiRequest,
+      "/groceries/all-groceries",
+      config
+    );
     if (response.statusCode === 200) {
       yield put({
         type: FETCH_GROCERIES_SUCCESS,

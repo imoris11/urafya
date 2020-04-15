@@ -52,6 +52,12 @@ class Sidebar extends Component {
             />
 
             <LinkListItem
+              linkText="Symptoms"
+              link="/symptoms"
+              icon="fas fa-fw fa-stethoscope"
+            />
+
+            <LinkListItem
               linkText="Payment"
               link="/payment"
               icon="fas fa-fw fa-credit-card"
@@ -92,7 +98,7 @@ class Sidebar extends Component {
             />
 
             <li className="nav-item">
-              <Link onClick={this.logout()} className="nav-link" to="#">
+              <Link onClick={this.logout} className="nav-link" to="#">
                 <i className="fas fa-fw fa-user-lock"></i>
                 <span>Logout</span>
               </Link>
