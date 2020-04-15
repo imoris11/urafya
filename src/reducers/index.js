@@ -6,6 +6,7 @@ import usersReducer from "../Admin/Create/Users/redux/reducers";
 import emergencyReducer from "../Admin/Create/Emergency/redux/reducers";
 import groceriesReducer from "../Admin/Store/Grocery/redux/reducers";
 import taxiReducer from "../Admin/Create/Taxi/redux/reducers";
+import prescriptionsReducer from "../Admin/Store/Prescription/redux/reducers";
 
 const rootReducers = combineReducers({
   // add reducer files references here
@@ -14,6 +15,7 @@ const rootReducers = combineReducers({
   emergencyLines: emergencyReducer,
   groceries: groceriesReducer,
   taxis: taxiReducer,
+  prescriptions: prescriptionsReducer,
 });
 
 export default rootReducers;

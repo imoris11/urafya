@@ -2,9 +2,29 @@ import React, { Component } from "react";
 import Pagination from "../../../components/organisms/pagination";
 import { Link } from "react-router-dom";
 import ShowSearch from "../../../components/organisms/show_search";
+import { connect } from "react-redux";
+import selectors from "./redux/selectors";
+import { fetchPrescriptions, toggleBan } from "./redux/actions";
+import PropTypes from "prop-types";
+import moment from "moment";
+import FlatButton from "../../../components/atoms/FlatButton";
 
 class Prescription extends Component {
+  static propTypes = {
+    fetchPrescriptions: PropTypes.func.isRequired,
+    toggleBan: PropTypes.func.isRequired,
+    isLoading: PropTypes.bool.isRequired,
+    prescriptions: PropTypes.array.isRequired,
+  };
+
+  componentDidMount() {
+    const { prescriptions } = this.props;
+    if (prescriptions.length > 0) return;
+    this.props.fetchPrescriptions();
+  }
+
   render() {
+    const { isLoading, prescriptions, toggleBan } = this.props;
     return (
       <div id="page-top">
         <div id="wrapper">
@@ -24,7 +44,9 @@ class Prescription extends Component {
                   <div className="card-body">
                     <div className="table-responsive">
                       <ShowSearch />
-
+                      {isLoading && (
+                        <p className="text-info text-center">Loading</p>
+                      )}
                       <table
                         className="table"
                         id="dataTable"
@@ -32,37 +54,33 @@ class Prescription extends Component {
                         cellspacing="0"
                       >
                         <thead>
-                          <th className="text-dark-100">Name</th>
-                          <th className="text-dark-100">Type</th>
-                          <th className="text-dark-100">Amount</th>
-                          <th className="text-dark-100">Date Added</th>
-                          <th className="text-dark-100">Status</th>
-                          <th className="text-dark-100">Actions</th>
+                          <tr>
+                            <th className="text-dark-100">Name</th>
+                            <th className="text-dark-100">Type</th>
+                            <th className="text-dark-100">Amount</th>
+                            <th className="text-dark-100">Date Added</th>
+                            <th className="text-dark-100">Status</th>
+                            <th className="text-dark-100">Actions</th>
+                          </tr>
                         </thead>
                         <tbody>
-                          <tr className="odd gradeX">
-                            <td>Paracetamol</td>
-                            <td>Tablet</td>
-                            <td>KSh 3,000.00</td>
-                            <td>24/06/2019 17:16</td>
-                            <td>Approved</td>
-                            <td className="pa-0">
-                              <form method="post" action="" name="buy" id="buy">
-                                <button
-                                  type="submit"
+                          {prescriptions.map((presc) => (
+                            <tr className="odd gradeX">
+                              <td>{presc.name}</td>
+                              <td>{presc.type}</td>
+                              <td>KSh {presc.price}</td>
+                              <td>{moment(presc.createdAt).format("lll")}</td>
+                              <td>{presc.status}</td>
+                              <td className="pa-0">
+                                <FlatButton
+                                  title="Ban"
+                                  icon="fa fa-ban"
+                                  onClick={() => toggleBan(presc._id)}
                                   className="btn btn-danger circle action-button"
-                                >
-                                  <i className="fa fa-ban"></i> Ban
-                                </button>
-                                <input
-                                  name="buyalbum"
-                                  type="hidden"
-                                  id="buyalbum"
-                                  value=""
                                 />
-                              </form>
-                            </td>
-                          </tr>
+                              </td>
+                            </tr>
+                          ))}
                         </tbody>
                       </table>
                     </div>
@@ -81,4 +99,11 @@ class Prescription extends Component {
     );
   }
 }
-export default Prescription;
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    fetchPrescriptions: () => dispatch(fetchPrescriptions()),
+    toggleBan: (id) => dispatch(toggleBan(id)),
+  };
+};
+export default connect(selectors, mapDispatchToProps)(Prescription);
