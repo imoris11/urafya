@@ -2,14 +2,36 @@ import React, { Component } from "react";
 import Pagination from "../../../components/organisms/pagination";
 import { Link } from "react-router-dom";
 import ShowSearch from "../../../components/organisms/show_search";
-import Button from '../../../components/atoms/Button';
-import NewGlossaryModal from './Modal/NewGlossary';
-import EditGlossaryModal from './Modal/EditGlossary';
+import Button from "../../../components/atoms/Button";
+import NewGlossaryModal from "./Modal/NewGlossary";
+import EditGlossaryModal from "./Modal/EditGlossary";
+import { connect } from "react-redux";
+import selectors from "./redux/selectors";
+import { fetchGlossary, deleteWord } from "./redux/actions";
+import PropTypes from "prop-types";
 
-export default function Glossary(props)  {
-  
-  const [modalShow, setModalShow] = React.useState(false);
-  const [modalShow2, setModalShow2] = React.useState(false);
+export class Glossary extends Component {
+  state = {
+    modalShow2: false,
+    modalShow: false,
+  };
+
+  static propTypes = {
+    fetchGlossary: PropTypes.func.isRequired,
+    deleteWord: PropTypes.func.isRequired,
+    isLoading: PropTypes.bool.isRequired,
+    errorLoading: PropTypes.bool.isRequired,
+    words: PropTypes.array.isRequired,
+  };
+
+  componentDidMount() {
+    const { words } = this.props;
+    if (words.length > 0) return;
+    this.props.fetchGlossary();
+  }
+  render() {
+    const { modalShow, modalShow2 } = this.state;
+    const { isLoading, words } = this.props;
     return (
       <div id="page-top">
         <div id="wrapper">
@@ -18,17 +40,16 @@ export default function Glossary(props)  {
               <div className="container-fluid">
                 <div className="d-sm-flex align-items-center justify-content-between mb-4">
                   <h1 className="h3 mb-0 text-gray-800">Glossary</h1>
-                  <Button             
-                    onClick={() => setModalShow(true)}
+                  <Button
+                    onClick={() => this.setState({ modalShow: true })}
                     title="New Medical Term"
                     showIcon={true}
                     icon={"fas fa-comments fa-sm text-white-50"}
-                  />  
+                  />
                   <NewGlossaryModal
-                  show={modalShow}
-                  onHide={() => setModalShow(false)}
-                  />         
-                 
+                    show={modalShow}
+                    onHide={() => this.setState({ modalShow: false })}
+                  />
                 </div>
 
                 <div className="card shadow mb-4">
@@ -40,55 +61,66 @@ export default function Glossary(props)  {
                   <div className="card-body">
                     <div className="table-responsive">
                       <ShowSearch />
-
+                      {isLoading && (
+                        <p className="text-info text-center">Loading</p>
+                      )}
                       <table
                         className="table"
                         id="dataTable"
                         width="100%"
-                        cellspacing="0"
+                        cellSpacing="0"
                       >
                         <thead>
-                          <th className="text-dark-100">Name</th>
-                          <th className="text-dark-100">Description</th>
-                          <th className="text-dark-100">Actions</th>
+                          <tr>
+                            <th className="text-dark-100">Name</th>
+                            <th className="text-dark-100">Description</th>
+                            <th className="text-dark-100">Actions</th>
+                          </tr>
                         </thead>
                         <tbody>
-                          <tr className="odd gradeX">
-                            <td>
-                              <div
-                                className="btn btn-link circle action-button ml-15 mr-10"
-                                onClick={() => setModalShow2(true)}
-                              >
-                                <i className="fa fa-pencil-alt"></i>
-                              </div>
-                              <EditGlossaryModal
-                                show={modalShow2}
-                                onHide={() => setModalShow2(false)}
-                                />{" "}
-                              ACTH (Adrenocorticotropic hormone){" "}
-                            </td>
-                            <td>
-                              Hormone produced by the pituitary gland. It
-                              stimulates adrenal glands to secrete the hormones
-                              they produce, including cortisone and cortisol.
-                            </td>
-                            <td className="pa-0">
-                              <form method="post" action="" name="buy" id="buy">
-                                <button
-                                  type="submit"
-                                  className="btn btn-danger circle action-button"
+                          {words.map((word) => (
+                            <tr key={word._id} className="odd gradeX">
+                              <td>
+                                <div
+                                  className="btn btn-link circle action-button ml-15 mr-10"
+                                  onClick={() =>
+                                    this.setState({ modalShow2: true })
+                                  }
                                 >
-                                  <i className="fa fa-trash"></i> Remove
-                                </button>
-                                <input
-                                  name="buyalbum"
-                                  type="hidden"
-                                  id="buyalbum"
-                                  value=""
+                                  <i className="fa fa-pencil-alt"></i>
+                                </div>
+                                <EditGlossaryModal
+                                  show={modalShow2}
+                                  onHide={() =>
+                                    this.setState({ modalShow2: false })
+                                  }
                                 />
-                              </form>
-                            </td>
-                          </tr>
+                                {word.name}
+                              </td>
+                              <td>{word.description}</td>
+                              <td className="pa-0">
+                                <form
+                                  method="post"
+                                  action=""
+                                  name="buy"
+                                  id="buy"
+                                >
+                                  <button
+                                    type="submit"
+                                    className="btn btn-danger circle action-button"
+                                  >
+                                    <i className="fa fa-trash"></i> Remove
+                                  </button>
+                                  <input
+                                    name="buyalbum"
+                                    type="hidden"
+                                    id="buyalbum"
+                                    value=""
+                                  />
+                                </form>
+                              </td>
+                            </tr>
+                          ))}
                         </tbody>
                       </table>
                     </div>
@@ -106,4 +138,12 @@ export default function Glossary(props)  {
       </div>
     );
   }
+}
 
+const mapDispatchToProps = (dispatch) => {
+  return {
+    fetchGlossary: () => dispatch(fetchGlossary()),
+    deleteWord: (id) => dispatch(deleteWord(id)),
+  };
+};
+export default connect(selectors, mapDispatchToProps)(Glossary);

@@ -44,6 +44,7 @@ export default (state = initialState, action) => {
       return {
         ...state,
         creatingTaxi: false,
+        data: [...state.data, action.payload],
       };
     case CREATING_TAXI:
       return {

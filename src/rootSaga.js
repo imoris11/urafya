@@ -5,6 +5,7 @@ import emergencySagas from "./Admin/Create/Emergency/redux/saga";
 import groceriesSagas from "./Admin/Store/Grocery/redux/saga";
 import taxiSagas from "./Admin/Create/Taxi/redux/saga";
 import prescriptionSagas from "./Admin/Store/Prescription/redux/saga";
+import glossarySagas from "./Admin/Settings/Glossary/redux/saga";
 
 function* rootSaga() {
   yield all([
@@ -14,6 +15,7 @@ function* rootSaga() {
     groceriesSagas(),
     taxiSagas(),
     prescriptionSagas(),
+    glossarySagas(),
   ]);
 }
 

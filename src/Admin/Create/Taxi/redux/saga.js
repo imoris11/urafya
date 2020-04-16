@@ -66,8 +66,13 @@ export function* createTaxi(action) {
   };
   try {
     const response = yield call(makeApiRequest, "/taxi/add-taxi", config);
+    const payload = {
+      ...action.payload,
+      _id: Math.round(Math.random() * 100000),
+    };
     yield put({
       type: CREATE_TAXI_SUCCESS,
+      payload,
     });
     toast.success(response.message);
   } catch (error) {
