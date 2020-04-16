@@ -72,6 +72,7 @@ export function* createNewWord(action) {
   try {
     const token = yield select(getUserToken);
     const config = getConfig(token, "POST");
+    config["body"] = JSON.stringify(action.payload);
     const response = yield call(makeApiRequest, "/glossary/add-term", config);
     const payload = {
       ...action.payload,
@@ -90,10 +91,35 @@ export function* createNewWord(action) {
   }
 }
 
+export function* updateWord(action) {
+  yield put({
+    type: UPDATING_WORD,
+  });
+  try {
+    const token = yield select(getUserToken);
+    const config = getConfig(token, "PUT");
+    config["body"] = JSON.stringify(action.payload.data);
+    const response = yield call(
+      makeApiRequest,
+      `/glossary/edit-term/${action.payload.id}`,
+      config
+    );
+    yield put({
+      type: UPDATE_WORD_SUCCESS,
+    });
+    toast.success(response.message);
+  } catch (error) {
+    yield put({
+      type: UPDATE_WORD_FAILURE,
+    });
+    toast.error(error.message);
+  }
+}
 function* glossarySagas() {
   yield takeEvery(FETCH_GLOSSARY, fetchGlossary);
   yield takeEvery(DELETE_WORD, deleteWord);
   yield takeLatest(CREATE_WORD, createNewWord);
+  yield takeLatest(UPDATE_WORD, updateWord);
 }
 
 export default glossarySagas;

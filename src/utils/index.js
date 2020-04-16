@@ -9,7 +9,7 @@ export default async function makeApiRequest(endpoint, config = defaultConfig) {
   try {
     const response = await fetch(`${defaultUrl}${endpoint}`, config);
     const result = await response.json();
-    if (result.statusCode === 200) {
+    if (result.statusCode === 200 || result.statusCode === 201) {
       return result;
     } else {
       throw new Error(result.message);

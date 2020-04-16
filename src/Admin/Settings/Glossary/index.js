@@ -14,6 +14,7 @@ export class Glossary extends Component {
   state = {
     modalShow2: false,
     modalShow: false,
+    word: {},
   };
 
   static propTypes = {
@@ -84,40 +85,24 @@ export class Glossary extends Component {
                                 <div
                                   className="btn btn-link circle action-button ml-15 mr-10"
                                   onClick={() =>
-                                    this.setState({ modalShow2: true })
+                                    this.setState({ modalShow2: true, word })
                                   }
                                 >
                                   <i className="fa fa-pencil-alt"></i>
                                 </div>
-                                <EditGlossaryModal
-                                  show={modalShow2}
-                                  onHide={() =>
-                                    this.setState({ modalShow2: false })
-                                  }
-                                />
+
                                 {word.name}
                               </td>
                               <td>{word.description}</td>
                               <td className="pa-0">
-                                <form
-                                  method="post"
-                                  action=""
-                                  name="buy"
-                                  id="buy"
+                                <button
+                                  onClick={() =>
+                                    this.props.deleteWord(word._id)
+                                  }
+                                  className="btn btn-danger circle action-button"
                                 >
-                                  <button
-                                    type="submit"
-                                    className="btn btn-danger circle action-button"
-                                  >
-                                    <i className="fa fa-trash"></i> Remove
-                                  </button>
-                                  <input
-                                    name="buyalbum"
-                                    type="hidden"
-                                    id="buyalbum"
-                                    value=""
-                                  />
-                                </form>
+                                  <i className="fa fa-trash"></i> Remove
+                                </button>
                               </td>
                             </tr>
                           ))}
@@ -135,6 +120,11 @@ export class Glossary extends Component {
         <Link className="scroll-to-top rounded" to="/page-top">
           <i className="fas fa-angle-up"></i>
         </Link>
+        <EditGlossaryModal
+          show={modalShow2}
+          word={this.state.word}
+          onHide={() => this.setState({ modalShow2: false })}
+        />
       </div>
     );
   }

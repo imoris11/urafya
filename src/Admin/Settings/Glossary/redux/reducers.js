@@ -67,7 +67,6 @@ export default (state = initialState, action) => {
       return {
         ...state,
         updatingWord: false,
-        data: [...action.payload],
       };
     case UPDATE_WORD_FAILURE:
       return {
