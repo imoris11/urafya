@@ -99,7 +99,7 @@ export function* createHelpline(action) {
 
 function* emergencySagas() {
   yield takeEvery(FETCH_EMERGENCY_LINES, fetchEmergencyLines);
-  yield takeLatest(DELETE_EMERGENCY_LINE, deleteEmergencyLine);
+  yield takeEvery(DELETE_EMERGENCY_LINE, deleteEmergencyLine);
   yield takeLatest(CREATE_HELPLINE, createHelpline);
 }
 
