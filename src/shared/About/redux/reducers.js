@@ -2,9 +2,6 @@ import {
   FETCHING_ABOUT,
   FETCH_ABOUT_SUCCESS,
   FETCH_ABOUT_FAILURE,
-  CREATE_ABOUT_SUCCESS,
-  CREATING_ABOUT,
-  CREATE_ABOUT_FAILURE,
   UPDATING_ABOUT,
   UPDATE_ABOUT_FAILURE,
   UPDATE_ABOUT_SUCCESS,
@@ -35,22 +32,6 @@ export default (state = initialState, action) => {
         ...state,
         errorLoading: true,
         isLoading: false,
-      };
-    case CREATE_ABOUT_SUCCESS:
-      return {
-        ...state,
-        creatingAbout: false,
-        data: { ...action.payload },
-      };
-    case CREATING_ABOUT:
-      return {
-        ...state,
-        creatingAbout: true,
-      };
-    case CREATE_ABOUT_FAILURE:
-      return {
-        ...state,
-        creatingAbout: false,
       };
     case UPDATING_ABOUT:
       return {

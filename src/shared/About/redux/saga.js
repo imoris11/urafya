@@ -44,29 +44,6 @@ export function* fetchAbout() {
   }
 }
 
-export function* createAbout(action) {
-  yield put({
-    type: CREATING_ABOUT,
-  });
-
-  try {
-    const token = yield select(getUserToken);
-    const config = getConfig(token, "POST");
-    config["body"] = JSON.stringify(action.payload);
-    const response = yield call(makeApiRequest, "/about/add-about", config);
-    yield put({
-      type: CREATE_ABOUT_SUCCESS,
-      payload: action.payload,
-    });
-    toast.success(response.message);
-  } catch (error) {
-    yield put({
-      type: CREATE_ABOUT_FAILURE,
-    });
-    toast.error(error.message);
-  }
-}
-
 export function* updateAbout(action) {
   yield put({
     type: UPDATING_ABOUT,
@@ -91,7 +68,6 @@ export function* updateAbout(action) {
 
 function* aboutSagas() {
   yield takeEvery(FETCH_ABOUT, fetchAbout);
-  yield takeLatest(CREATE_ABOUT, createAbout);
   yield takeLatest(UPDATE_ABOUT, updateAbout);
 }
 
