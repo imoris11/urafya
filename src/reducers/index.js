@@ -8,6 +8,7 @@ import groceriesReducer from "../Admin/Store/Grocery/redux/reducers";
 import taxiReducer from "../Admin/Create/Taxi/redux/reducers";
 import prescriptionsReducer from "../Admin/Store/Prescription/redux/reducers";
 import glossaryReducer from "../Admin/Settings/Glossary/redux/reducers";
+import aboutReducer from "../shared/About/redux/reducers";
 
 const rootReducers = combineReducers({
   // add reducer files references here
@@ -18,6 +19,7 @@ const rootReducers = combineReducers({
   taxis: taxiReducer,
   prescriptions: prescriptionsReducer,
   glossary: glossaryReducer,
+  appInfo: aboutReducer,
 });
 
 export default rootReducers;
