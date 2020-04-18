@@ -1,16 +1,18 @@
-import React from "react";
+import React, { Component } from "react";
 import Footer from "../../../components/organisms/footer";
 import { Link } from "react-router-dom";
-import Button from '../../../components/atoms/Button';
-import NewGroupModal from './Modal/NewGroup';
-import ViewGroupModal from './Modal/ViewGroup';
+import Button from "../../../components/atoms/Button";
+import NewGroupModal from "./Modal/NewGroup";
+import ViewGroupModal from "./Modal/ViewGroup";
 
+export default class Support extends Component {
+  state = {
+    modalShow: false,
+    modalShow2: false,
+  };
 
-
-  export default function Support(props)  {
-  
-  const [modalShow, setModalShow] = React.useState(false);
-  const [modalShow2, setModalShow2] = React.useState(false);
+  render() {
+    const { modalShow2, modalShow } = this.state;
     return (
       <div id="page-top">
         <div id="wrapper">
@@ -19,16 +21,16 @@ import ViewGroupModal from './Modal/ViewGroup';
               <div className="container-fluid">
                 <div className="d-sm-flex align-items-center justify-content-between mb-4">
                   <h1 className="h3 mb-0 text-gray-800">Support Groups</h1>
-                   <Button             
-                    onClick={() => setModalShow(true)}
+                  <Button
+                    onClick={() => this.setState({ modalShow: true })}
                     title="New Group"
                     showIcon={true}
                     icon={"fas fa-comments fa-sm text-white-50"}
-                  />  
+                  />
                   <NewGroupModal
-                  show={modalShow}
-                  onHide={() => setModalShow(false)}
-                  />                  
+                    show={modalShow}
+                    onHide={() => this.setState({ modalShow: false })}
+                  />
                 </div>
 
                 <div className="card shadow mb-4">
@@ -83,27 +85,33 @@ import ViewGroupModal from './Modal/ViewGroup';
                         className="table"
                         id="dataTable"
                         width="100%"
-                        cellspacing="0"
+                        cellSpacing="0"
                       >
                         <thead>
-                          <th className="text-dark-100">Name</th>
-                          <th className="text-dark-100">Admin</th>
-                          <th className="text-dark-100">Price</th>
-                          <th className="text-dark-100">Actions</th>
+                          <tr>
+                            <th className="text-dark-100">Name</th>
+                            <th className="text-dark-100">Admin</th>
+                            <th className="text-dark-100">Price</th>
+                            <th className="text-dark-100">Actions</th>
+                          </tr>
                         </thead>
                         <tbody>
                           <tr className="odd gradeX">
                             <td>
                               <div
                                 className="btn btn-link circle action-button ml-15 mr-10"
-                                onClick={() => setModalShow2(true)}
+                                onClick={() =>
+                                  this.setState({ modalShow2: true })
+                                }
                               >
                                 <i className="fa fa-eye"></i>
                               </div>{" "}
                               <ViewGroupModal
-                          show={modalShow2}
-                          onHide={() => setModalShow2(false)}
-                          />
+                                show={modalShow2}
+                                onHide={() =>
+                                  this.setState({ modalShow2: false })
+                                }
+                              />
                               AA{" "}
                             </td>
                             <td>Doctor - Diamond Rihanna</td>
@@ -132,7 +140,7 @@ import ViewGroupModal from './Modal/ViewGroup';
                                 className="btn btn-link circle action-button ml-15 mr-10"
                                 href=""
                               >
-                                <i class="fa fa-eye"></i>
+                                <i className="fa fa-eye"></i>
                               </a>{" "}
                               AA{" "}
                             </td>
@@ -162,7 +170,7 @@ import ViewGroupModal from './Modal/ViewGroup';
                                 className="btn btn-link circle action-button ml-15 mr-10"
                                 href=""
                               >
-                                <i class="fa fa-eye"></i>
+                                <i className="fa fa-eye"></i>
                               </a>{" "}
                               AA{" "}
                             </td>
@@ -273,4 +281,4 @@ import ViewGroupModal from './Modal/ViewGroup';
       </div>
     );
   }
-
+}

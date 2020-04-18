@@ -14,7 +14,7 @@ export class Users extends Component {
     this.state = {
       modalShow: false,
       modalShow2: false,
-      user: {},
+      user: { biodata: { general: {} }, info: {} },
     };
   }
 
@@ -136,7 +136,8 @@ export class Users extends Component {
                             user={this.state.user}
                             onHide={() => this.setState({ modalShow2: false })}
                           />
-                          {user.name}
+                          {user.biodata.general.firstName}{" "}
+                          {user.biodata.general.lastName}
                         </td>
                         <td>{user.role}</td>
                         <td>{user.gender}</td>

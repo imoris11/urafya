@@ -19,18 +19,24 @@ const ViewUserModal = (props) => {
         <div className="row">
           <div className="col-xl-3 col-md-6 mb-4">
             <div className="mycard card border-left-success shadow py-2">
-              <img src={props.user.imageUri} className="card-img-top" />
+              <img
+                src={props.user.biodata.general.imageUri}
+                className="card-img-top"
+              />
             </div>
           </div>
           <div className="col-xl-9 col-md-6">
             <p>
-              <b className="text-primary">Fullname:</b> {props.user.name}
+              <b className="text-primary">Fullname:</b>{" "}
+              {props.user.biodata.general.firstName}{" "}
+              {props.user.biodata.general.lastName}
               <br></br>
               <b className="text-primary">Position:</b> {props.user.role}
               <br></br>
               <b className="text-primary">Gender:</b> {props.user.gender}
               <br></br>
-              <b className="text-primary">Date of Birth:</b> {props.user.dob}
+              <b className="text-primary">Date of Birth:</b>{" "}
+              {props.user.biodata.general.dob}
               <br></br>
               <b className="text-primary">Email:</b> {props.user.email}
               <br></br>
@@ -40,10 +46,11 @@ const ViewUserModal = (props) => {
               <b className="text-primary">National ID Number:</b>{" "}
               {props.user.nationalId}
               <br></br>
-              <b className="text-primary">Address:</b> {props.user.address}
+              <b className="text-primary">Address:</b>{" "}
+              {props.user.biodata.general.address}
               <br></br>
               <b className="text-primary">Date Registered:</b>{" "}
-              {props.user.created_at}
+              {props.user.dateRegistered}
               <br></br>
             </p>
           </div>

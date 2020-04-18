@@ -59,7 +59,8 @@ export class Profile extends Component {
                       </div>
                       <div className="col-xl-9 col-md-6">
                         <p>
-                          <b className="text-primary">Fullname:</b> {user.name}
+                          <b className="text-primary">Fullname:</b>{" "}
+                          {user.fullname}
                           <br></br>
                           <b className="text-primary">Position:</b> {user.role}
                           <br></br>
@@ -82,7 +83,7 @@ export class Profile extends Component {
                           {user.address}
                           <br></br>
                           <b className="text-primary">Date Registered:</b>{" "}
-                          {user.date_registered}
+                          {user.dateRegistered}
                           <br></br>
                         </p>
 

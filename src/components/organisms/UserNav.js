@@ -1,10 +1,14 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
 
 class UserNav extends Component {
-  componentDidMount() {
-    //Fetch user information from redux state and fill up the UI
-  }
+  static propTypes = {
+    user: PropTypes.object.isRequired,
+  };
+
   render() {
+    const { user } = this.props;
     return (
       <nav className="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
         <button
@@ -29,7 +33,7 @@ class UserNav extends Component {
             >
               <i className="fas fa-fw fa-user-circle"></i>
               <span className="mr-2 d-none d-lg-inline text-gray-600 small">
-                Ogo Nduka{" "}
+                {user.fullname}
               </span>
             </a>
             <div
@@ -58,4 +62,9 @@ class UserNav extends Component {
   }
 }
 
-export default UserNav;
+const mapStateToProps = (state) => {
+  return {
+    user: state.auth.user,
+  };
+};
+export default connect(mapStateToProps)(UserNav);
