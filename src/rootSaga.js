@@ -7,6 +7,7 @@ import taxiSagas from "./Admin/Create/Taxi/redux/saga";
 import prescriptionSagas from "./Admin/Store/Prescription/redux/saga";
 import glossarySagas from "./Admin/Settings/Glossary/redux/saga";
 import aboutSagas from "./shared/About/redux/saga";
+import symptomsSagas from "./Doctor/Create/Symptoms/redux/saga";
 
 function* rootSaga() {
   yield all([
@@ -18,6 +19,7 @@ function* rootSaga() {
     prescriptionSagas(),
     glossarySagas(),
     aboutSagas(),
+    symptomsSagas(),
   ]);
 }
 

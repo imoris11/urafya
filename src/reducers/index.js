@@ -9,6 +9,7 @@ import taxiReducer from "../Admin/Create/Taxi/redux/reducers";
 import prescriptionsReducer from "../Admin/Store/Prescription/redux/reducers";
 import glossaryReducer from "../Admin/Settings/Glossary/redux/reducers";
 import aboutReducer from "../shared/About/redux/reducers";
+import symptomsReducer from "../Doctor/Create/Symptoms/redux/reducers";
 
 const rootReducers = combineReducers({
   // add reducer files references here
@@ -20,6 +21,7 @@ const rootReducers = combineReducers({
   prescriptions: prescriptionsReducer,
   glossary: glossaryReducer,
   appInfo: aboutReducer,
+  symptoms: symptomsReducer,
 });
 
 export default rootReducers;

@@ -271,7 +271,6 @@ export default class Support extends Component {
                 </div>
               </div>
             </div>
-            <Footer />
           </div>
         </div>
 

@@ -1,109 +1,147 @@
-import React, {Component}  from "react";
+import React, { Component } from "react";
 import Modal from "react-bootstrap/Modal";
-  
+import { connect } from "react-redux";
+import { createSymptoms } from "../redux/actions";
+import PropTYpes from "prop-types";
 
-export class NewSymptomModal extends Component  {
+export class NewSymptomModal extends Component {
   constructor(props) {
-      super(props);
-    this.state = {  
-        name:'',
-        bodypart: '',
-        description: '',
-        image:'',
-
-      }
+    super(props);
+    this.state = {
+      symptom: "",
+      symptoms: [],
+    };
   }
 
-    handleChange = (e) => {
-          this.setState({
-            [e.target.name]: e.target.value
-          })
-      }
-    handleSubmit = (e) => {
-      e.preventDefault(); 
-        console.log(this.state);
-      
-    }
-  
+  static propTypes = {
+    createSymptoms: PropTYpes.func.isRequired,
+    creatingSymptom: PropTYpes.bool.isRequired,
+  };
+
+  handleChange = (e) => {
+    this.setState({
+      [e.target.name]: e.target.value,
+    });
+  };
+  handleSubmit = (e) => {
+    e.preventDefault();
+    const { symptoms, symptom } = this.state;
+    if (symptom !== " ") symptoms.push(symptom);
+    this.props.createSymptoms(symptoms);
+  };
+
+  addSymptom = (e) => {
+    e.preventDefault();
+    const { symptoms, symptom } = this.state;
+    symptoms.push(symptom);
+    this.setState({ symptoms, symptom: "" });
+  };
   render() {
+    const { symptoms } = this.state;
+    const { creatingSymptom } = this.props;
     return (
-    <Modal
-      {...this.props}
-      size="md"
-      aria-labelledby="contained-modal-title-vcenter"
-      centered
-    >
-      <Modal.Header closeButton>
-        <Modal.Title id="contained-modal-title-vcenter">
-         <h5 className="modal-title">Add New Symptom </h5>
-        </Modal.Title>
-      </Modal.Header>
-      <Modal.Body>
-        <div className="modal-body" id="orderDetails">
+      <Modal
+        {...this.props}
+        size="md"
+        aria-labelledby="contained-modal-title-vcenter"
+        centered
+      >
+        <Modal.Header closeButton>
+          <Modal.Title id="contained-modal-title-vcenter">
+            <h5 className="modal-title">Add New Symptom </h5>
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <div className="modal-body" id="orderDetails">
             <div className="card shadow mb-4">
-                <div className="card-body">
-                <form className="" method="POST" action="" id="regform" name="regform" enctype="multipart/form-data" onSubmit={this.handleSubmit}>
-                    <div className="form-group">
+              <div className="card-body">
+                <form
+                  className=""
+                  method="POST"
+                  action=""
+                  id="regform"
+                  name="regform"
+                  enctype="multipart/form-data"
+                  onSubmit={this.handleSubmit}
+                >
+                  <div className="form-group">
                     <div className="form-row">
-                        <div className="col-md-12 mb-15 pr-50">
-                            <label for="name">Name:</label>
-                        <input type="text" className="form-control" id="name" name="name" placeholder="e.g. Headache" value={this.state.name} required onChange={this.handleChange}/>
-                        </div>
+                      <div className="col-md-12 mb-15 pr-50">
+                        <label for="name">Symptom:</label>
+                        <input
+                          type="text"
+                          className="form-control"
+                          id="name"
+                          name="symptom"
+                          placeholder=""
+                          value={this.state.symptom}
+                          onChange={this.handleChange}
+                        />
+                      </div>
                     </div>
-                    </div>
-                    <div className="form-group">
-                    <div className="form-row">
-                        <div className="col-md-12 mb-15 pl-50">
-                            <label for="gen">Body Part</label>
-                            <select className="form-control" name="bodypart" id="bodypart" value={this.state.bodypart} onChange={this.handleChange}>
-                                <option className="pl-20" selected>--Select--</option>
-                                <option value="Forehead">Head - Frontal lobe (Forehead)</option>
-                                <option value="Head - Left Side">Head - Left Side</option>
-                            </select>
-                        </div>
-                    </div>
-                    </div>
-                    <div className="form-group">
-                    <div className="form-row">
-                        <div className="col-md-12 mb-15 pl-50">
-                            <label for="addy">Description</label>
-                              <textarea rows="3" type="text" className="form-control" name="description" id="description" value={this.state.description} placeholder="" required onChange={this.handleChange}>                                           
-                            </textarea>
-                        </div>
-                    </div>
-                    </div>
-
-                    <div className="form-group">
-                    <div className="form-row">
-                        <div className="col-md-12 mb-15 pl-50">
-                            <div className="row">
-                            <div className="col-md-8">
-                            Select Image<input type="file" className="upload" name="image" id="image" value={this.state.image} onChange={this.handleChange}/>
-                            </div>
-                            
-                            </div>
-                        </div>
-                    </div>
-                    </div>
-                        
-                    <br/>
-                    <div className="d-flex">
-                    <button type="submit" className="btn btn-primary mybtn" id="btnreg" name="btnreg"><i className="fas fa-fw fa-save"></i> Add Symptom</button>
-                    </div>
-                    
-                    <input type="hidden" name="MM_insert" value="regform"/>
+                  </div>
+                  <button
+                    onClick={this.addSymptom}
+                    className="btn"
+                    id="btnreg"
+                    name="btnreg"
+                  >
+                    Add Another
+                  </button>
+                  {symptoms.map((symptom, idx) => (
+                    <p key={idx} className="text-info">
+                      {symptom}
+                    </p>
+                  ))}
+                  <br />
+                  <div className="d-flex">
+                    {creatingSymptom ? (
+                      <button
+                        disabled
+                        className="btn btn-primary mybtn"
+                        id="btnreg"
+                        name="btnreg"
+                      >
+                        Creating...
+                      </button>
+                    ) : (
+                      <button
+                        type="submit"
+                        className="btn btn-primary mybtn"
+                        id="btnreg"
+                        name="btnreg"
+                      >
+                        <i className="fas fa-fw fa-save"></i> Save
+                      </button>
+                    )}
+                  </div>
                 </form>
-                </div>
+              </div>
             </div>
-        </div>
-
-      </Modal.Body>
-      <Modal.Footer>
-             <button type="button" className="btn btn-secondary" data-dismiss="modal" onClick={this.props.onHide}>Close</button>
-      </Modal.Footer>
-    </Modal>
-  );
+          </div>
+        </Modal.Body>
+        <Modal.Footer>
+          <button
+            type="button"
+            className="btn btn-secondary"
+            data-dismiss="modal"
+            onClick={this.props.onHide}
+          >
+            Close
+          </button>
+        </Modal.Footer>
+      </Modal>
+    );
   }
-  
 }
-export default NewSymptomModal;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    createSymptoms: (payload) => dispatch(createSymptoms(payload)),
+  };
+};
+const mapStateToProps = (state) => {
+  return {
+    creatingSymptom: state.symptoms.creatingSymptom || false,
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(NewSymptomModal);
