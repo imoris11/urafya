@@ -15,7 +15,6 @@ export default async function makeApiRequest(endpoint, config = defaultConfig) {
       throw new Error(result.message);
     }
   } catch (error) {
-    console.log("RESPONSE BODY", error);
-    throw new Error("Error completing request");
+    throw new Error(error);
   }
 }
