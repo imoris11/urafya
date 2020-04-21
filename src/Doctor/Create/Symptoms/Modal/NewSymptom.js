@@ -26,15 +26,20 @@ export class NewSymptomModal extends Component {
   handleSubmit = (e) => {
     e.preventDefault();
     const { symptoms, symptom } = this.state;
-    if (symptom !== " ") symptoms.push(symptom);
-    this.props.createSymptoms(symptoms);
+    if (symptom !== "") symptoms.push(symptom);
+    const data = {
+      symptom: symptoms,
+    };
+    this.props.createSymptoms(data);
   };
 
   addSymptom = (e) => {
     e.preventDefault();
     const { symptoms, symptom } = this.state;
-    symptoms.push(symptom);
-    this.setState({ symptoms, symptom: "" });
+    if (symptom && symptom !== "") {
+      symptoms.push(symptom);
+      this.setState({ symptoms, symptom: "" });
+    }
   };
   render() {
     const { symptoms } = this.state;
