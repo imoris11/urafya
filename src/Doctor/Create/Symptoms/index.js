@@ -5,8 +5,8 @@ import NewSymptomModal from "./Modal/NewSymptom";
 import { connect } from "react-redux";
 import selectors from "./redux/selectors";
 import PropTypes from "prop-types";
-import { fetchSymptoms } from "./redux/actions";
-
+import { fetchSymptoms, deleteSymptom } from "./redux/actions";
+import FlatButton from "../../../components/atoms/FlatButton";
 export class Symptoms extends Component {
   state = {
     modalShow2: false,
@@ -18,6 +18,7 @@ export class Symptoms extends Component {
     symptoms: PropTypes.array.isRequired,
     isLoading: PropTypes.bool.isRequired,
     errorLoading: PropTypes.bool.isRequired,
+    deleteSymptom: PropTypes.func.isRequired,
   };
 
   componentDidMount() {
@@ -27,7 +28,7 @@ export class Symptoms extends Component {
   }
   render() {
     const { modalShow } = this.state;
-    const { isLoading } = this.props;
+    const { isLoading, symptoms } = this.props;
     return (
       <div id="page-top">
         <div id="wrapper">
@@ -107,36 +108,29 @@ export class Symptoms extends Component {
                         <thead>
                           <tr>
                             <th className="text-dark-100">Name</th>
-                            <th className="text-dark-100">Body Part</th>
                             <th className="text-dark-100">Actions</th>
                           </tr>
                         </thead>
                         <tbody>
-                          <tr className="odd gradeX">
-                            <td>
-                              <div className="btn btn-link circle action-button ml-15 mr-10">
-                                <i className="fa fa-eye"></i>
-                              </div>{" "}
-                              Sharp Pain{" "}
-                            </td>
-                            <td>Shoulder - Left</td>
-                            <td className="pa-0">
-                              <form method="post" action="" name="buy" id="buy">
-                                <button
-                                  type="submit"
+                          {symptoms.map((symptom) => (
+                            <tr key={symptom._id} className="odd gradeX">
+                              <td>
+                                <div className="btn btn-link circle action-button ml-15 mr-10">
+                                  <i className="fa fa-eye"></i>
+                                </div>
+                                {symptom.symptom}
+                              </td>
+                              <td className="pa-0">
+                                <FlatButton
                                   className="btn btn-danger circle action-button"
-                                >
-                                  <i className="fa fa-trash"></i> Remove
-                                </button>
-                                <input
-                                  name="buyalbum"
-                                  type="hidden"
-                                  id="buyalbum"
-                                  value=""
+                                  icon="fa fa-trash"
+                                  onClick={() =>
+                                    this.props.deleteSymptom(symptom._id)
+                                  }
                                 />
-                              </form>
-                            </td>
-                          </tr>
+                              </td>
+                            </tr>
+                          ))}
                         </tbody>
                       </table>
                     </div>
@@ -228,6 +222,7 @@ export class Symptoms extends Component {
 const mapDispatchToProps = (dispatch) => {
   return {
     fetchSymptoms: () => dispatch(fetchSymptoms()),
+    deleteSymptom: (id) => dispatch(deleteSymptom(id)),
   };
 };
 

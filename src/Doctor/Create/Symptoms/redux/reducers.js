@@ -44,7 +44,7 @@ export default (state = initialState, action) => {
       return {
         ...state,
         creatingSymptom: false,
-        data: [...state.data, action.payload],
+        data: [...action.payload],
       };
     case CREATING_SYMPTOM:
       return {

@@ -77,12 +77,12 @@ export function* createSymptom(action) {
     config["body"] = JSON.stringify(action.payload);
     const response = yield call(
       makeApiRequest,
-      "/symptoms/add-symptoms",
+      "/symptoms/add-symptom",
       config
     );
     yield put({
       type: CREATE_SYMPTOM_SUCCESS,
-      payload: response.symptoms,
+      payload: [...response.symptoms],
     });
     toast.success(response.message);
   } catch (error) {
