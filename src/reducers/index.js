@@ -10,6 +10,7 @@ import prescriptionsReducer from "../Admin/Store/Prescription/redux/reducers";
 import glossaryReducer from "../Admin/Settings/Glossary/redux/reducers";
 import aboutReducer from "../shared/About/redux/reducers";
 import symptomsReducer from "../Doctor/Create/Symptoms/redux/reducers";
+import appointmentsReducer from "../Doctor/Create/Appointments/redux/reducers";
 
 const rootReducers = combineReducers({
   // add reducer files references here
@@ -22,6 +23,7 @@ const rootReducers = combineReducers({
   glossary: glossaryReducer,
   appInfo: aboutReducer,
   symptoms: symptomsReducer,
+  appointments: appointmentsReducer,
 });
 
 export default rootReducers;

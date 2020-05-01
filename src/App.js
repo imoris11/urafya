@@ -19,6 +19,7 @@ import DoctorsPrescription from "./Pharmacist/DoctorsPrescription";
 import PharmacistPrescription from "./Pharmacist/Prescription";
 import PrescriptionDetails from "./Pharmacist/DoctorsPrescription/PrescriptionDetails";
 import Consultants from "./Doctor/Create/Consultants";
+import Appointments from "./Doctor/Create/Appointments";
 import SupportGroup from "./Doctor/Create/SupportGroup";
 import GeneralGroup from "./Doctor/Create/SupportGroup/GeneralSupport";
 import GroupDetails from "./Doctor/Create/SupportGroup/GroupDetails";
@@ -26,6 +27,7 @@ import AdminHeader from "./Admin/components/Header";
 import DoctorHeader from "./Doctor/components/Header";
 import PharmacistHeader from "./Pharmacist/components/Header";
 import ConsultDetails from "./Doctor/Create/Consultants/ConsultDetails";
+import AppointmentDetails from "./Doctor/Create/Appointments/AppointmentDetails";
 import { connect } from "react-redux";
 import { getUser, isLoggedIn } from "./Authenication/redux/selectors";
 
@@ -83,6 +85,12 @@ export class App extends Component {
               <DoctorHeader>
                 <Route exact path="/" component={Ahome} />
                 <Route exact path="/consultants" component={Consultants} />
+                <Route
+                  exact
+                  path="/appointment-details/:id"
+                  component={AppointmentDetails}
+                />
+                <Route exact path="/appointments" component={Appointments} />
                 <Route exact path="/symptoms" component={Symptoms} />
                 <Route exact path="/support" component={SupportGroup} />
                 <Route exact path="/generalsupport" component={GeneralGroup} />
