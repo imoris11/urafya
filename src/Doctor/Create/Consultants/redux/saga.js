@@ -1,12 +1,12 @@
 import { put, call, takeEvery, takeLatest, select } from "redux-saga/effects";
 import {
-  FETCH_APPOINTMENTS_FAILURE,
-  FETCH_APPOINTMENTS_SUCCESS,
-  FETCHING_APPOINTMENTS,
-  FETCH_APPOINTMENTS,
-  FETCH_APPOINTMENT,
-  FETCH_APPOINTMENT_SUCCESS,
-  FETCH_APPOINTMENT_FAILURE,
+  FETCH_CONSULTATIONS_FAILURE,
+  FETCH_CONSULTATIONS_SUCCESS,
+  FETCH_CONSULTATION_FAILURE,
+  FETCH_CONSULTATION_SUCCESS,
+  FETCHING_CONSULTATIONS,
+  FETCH_CONSULTATIONS,
+  FETCH_CONSULTATION,
 } from "./actions";
 import { toast } from "react-toastify";
 import makeApiRequest from "../../../../utils";
@@ -20,33 +20,33 @@ const getConfig = (token, method = "GET") => ({
   },
 });
 
-export function* fetchAppointments() {
+export function* fetchConsultations() {
   yield put({
-    type: FETCHING_APPOINTMENTS,
+    type: FETCHING_CONSULTATIONS,
   });
   try {
     const token = yield select(getUserToken);
     const config = getConfig(token);
     const response = yield call(
       makeApiRequest,
-      "/appointment/all-appointments",
+      "/consultation/all-consultations",
       config
     );
     yield put({
-      type: FETCH_APPOINTMENTS_SUCCESS,
-      payload: response.appointments,
+      type: FETCH_CONSULTATIONS_SUCCESS,
+      payload: response.consultations,
     });
   } catch (error) {
     yield put({
-      type: FETCH_APPOINTMENTS_FAILURE,
+      type: FETCH_CONSULTATIONS_FAILURE,
     });
     toast.error(error.message);
   }
 }
 
-export function* fetchAppointment(action) {
+export function* fetchConsultation(action) {
   yield put({
-    type: FETCHING_APPOINTMENTS,
+    type: FETCHING_CONSULTATIONS,
   });
   try {
     const token = yield select(getUserToken);
@@ -57,20 +57,20 @@ export function* fetchAppointment(action) {
       config
     );
     yield put({
-      type: FETCH_APPOINTMENT_SUCCESS,
+      type: FETCH_CONSULTATION_SUCCESS,
       payload: response.appointments,
     });
   } catch (error) {
     yield put({
-      type: FETCH_APPOINTMENT_FAILURE,
+      type: FETCH_CONSULTATION_FAILURE,
     });
     toast.error(error.message);
   }
 }
 
-function* appointmentsSagas() {
-  yield takeEvery(FETCH_APPOINTMENTS, fetchAppointments);
-  yield takeLatest(FETCH_APPOINTMENT, fetchAppointment);
+function* consultationsSagas() {
+  yield takeEvery(FETCH_CONSULTATIONS, fetchConsultations);
+  yield takeLatest(FETCH_CONSULTATION, fetchConsultation);
 }
 
-export default appointmentsSagas;
+export default consultationsSagas;

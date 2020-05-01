@@ -2,9 +2,31 @@ import React, { Component } from "react";
 import Pagination from "../../../components/organisms/pagination";
 import { Link } from "react-router-dom";
 import ShowSearch from "../../../components/organisms/show_search";
+import { connect } from "react-redux";
+import selectors from "./redux/selectors";
+import { fetchConsultations } from "./redux/actions";
+import PropTypes from "prop-types";
+import moment from "moment";
 
 class Consultants extends Component {
+  static propTypes = {
+    fetchConsultations: PropTypes.func.isRequired,
+    consultations: PropTypes.array.isRequired,
+    isLoading: PropTypes.bool.isRequired,
+    errorLoading: PropTypes.bool.isRequired,
+  };
+  componentDidMount() {
+    const { consultations } = this.props;
+    if (consultations.length > 0) return;
+    this.props.fetchConsultations();
+  }
+  getAge = (dob) => {
+    const birthYear = dob.split("-")[0];
+    const currentYear = new Date().getFullYear();
+    return currentYear - Number(birthYear);
+  };
   render() {
+    const { isLoading, consultations } = this.props;
     return (
       <div className="container-fluid">
         <div className="d-sm-flex align-items-center justify-content-between mb-4">
@@ -16,142 +38,48 @@ class Consultants extends Component {
             <div className="card-body">
               <div className="table-responsive">
                 <ShowSearch />
-
+                {isLoading && (
+                  <p className="text-info text-center">Loading...</p>
+                )}
                 <table
                   className="table"
                   id="dataTable"
                   width="100%"
-                  cellspacing="0"
+                  cellSpacing="0"
                 >
                   <thead>
-                    <th className="text-dark-100">Patient Name</th>
-                    <th className="text-dark-100">Age</th>
-                    <th className="text-dark-100">Status</th>
-                    <th className="text-dark-100">Action</th>
+                    <tr>
+                      <th className="text-dark-100">Patient Name</th>
+                      <th className="text-dark-100">Age</th>
+                      <th className="text-dark-100">Gender</th>
+                      <th className="text-dark-100">Date Created</th>
+                      <th className="text-dark-100">Status</th>
+                      <th className="text-dark-100">Action</th>
+                    </tr>
                   </thead>
                   <tbody>
-                    <tr className="odd gradeX">
-                      <td>
-                        <Link
-                          to="#"
-                          style={{
-                            pointerEvents: "none !important",
-                            cursor: "default",
-                            color: "Gray",
-                          }}
-                        >
-                          <i
-                            className="fa fa-folder-open pulse-button1"
-                            style={{ color: "#eee" }}
-                          ></i>
-                        </Link>{" "}
-                        Boniface Kemba
-                      </td>
-                      <td>33</td>
-                      <td>Pending</td>
-                      <td className="pa-0">
-                        <form method="post" action="" name="buy" id="buy">
-                          <button
-                            type="submit"
+                    {consultations.map((consult) => (
+                      <tr key={consult._id} className="odd gradeX">
+                        <td>
+                          {consult.patient.biodata.general.firstName}{" "}
+                          {consult.patient.biodata.general.lastName}
+                        </td>
+                        <td>
+                          {this.getAge(consult.patient.biodata.general.dob)}
+                        </td>
+                        <td>{consult.patient.gender}</td>
+                        <td>{moment(consult.dateCreated).format("lll")}</td>
+                        <td>{consult.status}</td>
+                        <td className="pa-0">
+                          <Link
                             className="btn btn-success circle action-button"
+                            to={"/consultdetails/" + consult._id}
                           >
-                            <i className="fa fa-check"></i> Accept
-                          </button>
-                          <input type="hidden" name="pcomp" value="Accepted" />
-                          <input
-                            name="buyalbum"
-                            type="hidden"
-                            id="buyalbum"
-                            value=""
-                          />
-                        </form>
-                      </td>
-                    </tr>
-
-                    <tr className="odd gradeX">
-                      <td>
-                        <Link to="/consultdetails">
-                          <i
-                            className="fa fa-folder-open pulse-button1"
-                            style={{ color: "#e99239" }}
-                          ></i>
-                        </Link>{" "}
-                        Boniface Kemba
-                      </td>
-                      <td>33</td>
-                      <td>Accepted</td>
-                      <td></td>
-                    </tr>
-                    <tr className="odd gradeX">
-                      <td>
-                        <Link to="/consultdetails">
-                          <i
-                            className="fa fa-folder-open pulse-button1"
-                            style={{ color: "#e99239" }}
-                          ></i>
-                        </Link>{" "}
-                        Boniface Kemba
-                      </td>
-                      <td>33</td>
-                      <td>Evaluated</td>
-                      <td></td>
-                    </tr>
-                    <tr className="odd gradeX">
-                      <td>
-                        <Link to="/consultdetails">
-                          <i
-                            className="fa fa-folder-open pulse-button1"
-                            style={{ color: "#e99239" }}
-                          ></i>
-                        </Link>{" "}
-                        Boniface Kemba
-                      </td>
-                      <td>33</td>
-                      <td>Consult Started</td>
-                      <td></td>
-                    </tr>
-                    <tr className="odd gradeX">
-                      <td>
-                        <Link to="/consultdetails">
-                          <i
-                            className="fa fa-folder-open pulse-button1"
-                            style={{ color: "#e99239" }}
-                          ></i>
-                        </Link>{" "}
-                        Boniface Kemba
-                      </td>
-                      <td>33</td>
-                      <td>Diagnosed</td>
-                      <td></td>
-                    </tr>
-                    <tr className="odd gradeX">
-                      <td>
-                        <Link to="/consultdetails">
-                          <i
-                            className="fa fa-folder-open pulse-button1"
-                            style={{ color: "#e99239" }}
-                          ></i>
-                        </Link>{" "}
-                        Boniface Kemba
-                      </td>
-                      <td>33</td>
-                      <td>Prescription Sent</td>
-                      <td></td>
-                    </tr>
-                    <tr className="odd gradeX">
-                      <td>
-                        <Link to="/consultdetails">
-                          <i
-                            className="fa fa-folder-open pulse-button1"
-                            style={{ color: "#e99239" }}
-                          ></i>
-                        </Link>{" "}
-                        Boniface Kemba
-                      </td>
-                      <td>33</td>
-                      <td>Consultation Done</td>
-                      <td></td>
-                    </tr>
+                            Open File
+                          </Link>
+                        </td>
+                      </tr>
+                    ))}
                   </tbody>
                 </table>
               </div>
@@ -163,4 +91,9 @@ class Consultants extends Component {
     );
   }
 }
-export default Consultants;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    fetchConsultations: () => dispatch(fetchConsultations()),
+  };
+};
+export default connect(selectors, mapDispatchToProps)(Consultants);
