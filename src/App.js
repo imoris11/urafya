@@ -103,7 +103,7 @@ export class App extends Component {
                 <Route exact path="/profile" component={Profile} />
                 <Route
                   exact
-                  path="/consultdetails"
+                  path="/consultdetails/:id"
                   component={ConsultDetails}
                 />
               </DoctorHeader>
