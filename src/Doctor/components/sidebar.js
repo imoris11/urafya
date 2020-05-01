@@ -46,6 +46,12 @@ class Sidebar extends Component {
             />
 
             <LinkListItem
+              linkText="Appointments"
+              link="/appointments"
+              icon="fa fa-folder-open pulse-button1"
+            />
+
+            <LinkListItem
               linkText="My Support Groups"
               link="/support"
               icon="fas fa-fw fa-comments"

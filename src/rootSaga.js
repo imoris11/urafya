@@ -8,6 +8,7 @@ import prescriptionSagas from "./Admin/Store/Prescription/redux/saga";
 import glossarySagas from "./Admin/Settings/Glossary/redux/saga";
 import aboutSagas from "./shared/About/redux/saga";
 import symptomsSagas from "./Doctor/Create/Symptoms/redux/saga";
+import appointmentsSagas from "./Doctor/Create/Appointments/redux/saga";
 
 function* rootSaga() {
   yield all([
@@ -20,6 +21,7 @@ function* rootSaga() {
     glossarySagas(),
     aboutSagas(),
     symptomsSagas(),
+    appointmentsSagas(),
   ]);
 }
 
