@@ -10,8 +10,11 @@ const isLoading = createSelector(consultations, (obj) => obj.isLoading);
 
 const errorLoading = createSelector(consultations, (obj) => obj.errorLoading);
 
+const consultation = createSelector(consultations, (obj) => obj.consultation);
+
 const selectors = createStructuredSelector({
   consultations: getSymptoms,
+  consultation,
   isLoading,
   errorLoading,
 });

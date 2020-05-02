@@ -7,6 +7,10 @@ import {
   FETCH_APPOINTMENT,
   FETCH_APPOINTMENT_SUCCESS,
   FETCH_APPOINTMENT_FAILURE,
+  CREATING_APPOINTMENT,
+  CREATE_APPOINTMENT,
+  CREATE_APPOINTMENT_SUCCESS,
+  CREATE_APPOINTMENT_FAILURE,
 } from "./actions";
 import { toast } from "react-toastify";
 import makeApiRequest from "../../../../utils";
@@ -18,6 +22,15 @@ const getConfig = (token, method = "GET") => ({
     "Content-Type": "application/json",
     Authorization: `Bearer ${token}`,
   },
+});
+
+const postConfig = (token, data) => ({
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${token}`,
+  },
+  body: JSON.stringify(data),
 });
 
 export function* fetchAppointments() {
@@ -53,12 +66,12 @@ export function* fetchAppointment(action) {
     const config = getConfig(token);
     const response = yield call(
       makeApiRequest,
-      `/appointment/all-appointments/${action.payload}`,
+      `/appointment/retrieve-appointment/${action.payload}`,
       config
     );
     yield put({
       type: FETCH_APPOINTMENT_SUCCESS,
-      payload: response.appointments,
+      payload: response.appointment,
     });
   } catch (error) {
     yield put({
@@ -68,9 +81,34 @@ export function* fetchAppointment(action) {
   }
 }
 
+export function* createNewAppointment(action) {
+  yield put({
+    type: CREATING_APPOINTMENT,
+  });
+  try {
+    const token = yield select(getUserToken);
+    const config = postConfig(token, action.payload.appointment);
+    const response = yield call(
+      makeApiRequest,
+      `/appointment/proceed-to-consultation/${action.payload.id}`,
+      config
+    );
+    yield put({
+      type: CREATE_APPOINTMENT_SUCCESS,
+    });
+    toast.success(response.message);
+  } catch (error) {
+    yield put({
+      type: CREATE_APPOINTMENT_FAILURE,
+    });
+    toast.error(error.message);
+  }
+}
+
 function* appointmentsSagas() {
   yield takeEvery(FETCH_APPOINTMENTS, fetchAppointments);
   yield takeLatest(FETCH_APPOINTMENT, fetchAppointment);
+  yield takeLatest(CREATE_APPOINTMENT, createNewAppointment);
 }
 
 export default appointmentsSagas;
