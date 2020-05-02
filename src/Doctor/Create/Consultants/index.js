@@ -20,6 +20,7 @@ class Consultants extends Component {
     if (consultations.length > 0) return;
     this.props.fetchConsultations();
   }
+
   getAge = (dob) => {
     const birthYear = dob.split("-")[0];
     const currentYear = new Date().getFullYear();
