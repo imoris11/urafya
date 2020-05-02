@@ -53,12 +53,12 @@ export function* fetchConsultation(action) {
     const config = getConfig(token);
     const response = yield call(
       makeApiRequest,
-      `/appointment/all-appointments/${action.payload}`,
+      `/consultation/retrieve-consultation/${action.payload}`,
       config
     );
     yield put({
       type: FETCH_CONSULTATION_SUCCESS,
-      payload: response.appointments,
+      payload: response.consultations,
     });
   } catch (error) {
     yield put({

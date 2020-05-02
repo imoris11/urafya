@@ -9,6 +9,7 @@ import {
 const initialState = {
   isLoading: false,
   data: [],
+  consultation: {},
   errorLoading: false,
 };
 
@@ -28,6 +29,18 @@ export default (state = initialState, action) => {
         data: [...action.payload],
       };
     case FETCH_CONSULTATIONS_FAILURE:
+      return {
+        ...state,
+        isLoading: false,
+        errorLoading: true,
+      };
+    case FETCH_CONSULTATION_SUCCESS:
+      return {
+        ...state,
+        consultation: { ...action.payload },
+        isLoading: false,
+      };
+    case FETCH_CONSULTATION_FAILURE:
       return {
         ...state,
         isLoading: false,

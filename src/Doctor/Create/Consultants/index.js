@@ -69,7 +69,7 @@ class Consultants extends Component {
                         </td>
                         <td>{consult.patient.gender}</td>
                         <td>{moment(consult.dateCreated).format("lll")}</td>
-                        <td>{consult.status}</td>
+                        <td>{consult.dStatus}</td>
                         <td className="pa-0">
                           <Link
                             className="btn btn-success circle action-button"

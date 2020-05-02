@@ -2,11 +2,13 @@ import {
   FETCH_APPOINTMENTS_SUCCESS,
   FETCHING_APPOINTMENTS,
   FETCH_APPOINTMENTS_FAILURE,
+  FETCH_APPOINTMENT_SUCCESS,
 } from "./actions";
 
 const initialState = {
   isLoading: false,
   data: [],
+  appointment: {},
   errorLoading: false,
 };
 
@@ -26,6 +28,18 @@ export default (state = initialState, action) => {
         data: [...action.payload],
       };
     case FETCH_APPOINTMENTS_FAILURE:
+      return {
+        ...state,
+        isLoading: false,
+        errorLoading: true,
+      };
+    case FETCH_APPOINTMENT_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        appointment: { ...action.payload },
+      };
+    case FETCH_APPOINTMENT_SUCCESS:
       return {
         ...state,
         isLoading: false,

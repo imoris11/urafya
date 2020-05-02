@@ -5,6 +5,10 @@ export const FETCHING_APPOINTMENTS = "FETCHING_APPOINTMENTS";
 export const FETCH_APPOINTMENT = "FETCH_APPOINTMENT";
 export const FETCH_APPOINTMENT_SUCCESS = "FETCH_APPOINTMENT_SUCCESS";
 export const FETCH_APPOINTMENT_FAILURE = "FETCH_APPOINTMENT_FAILURE";
+export const CREATE_APPOINTMENT = "CREATE_APPOINTMENT";
+export const CREATE_APPOINTMENT_SUCCESS = "CREATE_APPOINTMENT_SUCCESS";
+export const CREATE_APPOINTMENT_FAILURE = "CREATE_APPOINTMENT_FAILURE";
+export const CREATING_APPOINTMENT = "CREATING_APPOINTMENT";
 
 export const fetchAppointments = () => ({
   type: FETCH_APPOINTMENTS,
@@ -12,5 +16,10 @@ export const fetchAppointments = () => ({
 
 export const fetchAppointment = (payload) => ({
   type: FETCH_APPOINTMENT,
+  payload,
+});
+
+export const createAppointment = (payload) => ({
+  type: CREATE_APPOINTMENT,
   payload,
 });
