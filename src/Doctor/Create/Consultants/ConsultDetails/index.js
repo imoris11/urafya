@@ -3,16 +3,54 @@ import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 import { connect } from "react-redux";
 import selectors from "../redux/selectors";
-import { fetchConsultation } from "../redux/actions";
+import {
+  fetchConsultation,
+  createEvaluation,
+  createDiagnosis,
+  createPrescription,
+  createRecommendation,
+} from "../redux/actions";
 import PropTypes from "prop-types";
 import moment from "moment";
+import Select from "react-select";
+const CustomInput = ({ handleChange }) => {
+  return (
+    <div>
+      <input onChange={handleChange} />
+    </div>
+  );
+};
 class ConsultDetails extends Component {
-  state = {};
+  state = {
+    options: [
+      { value: "Brown Rice", label: "Brown Rice" },
+      { value: "Brown Sugar", label: "Brown Sugar" },
+    ],
+    supportGroups: [
+      { value: "General", label: "General" },
+      { value: "AA", label: "AA" },
+    ],
+    prescriptions: [
+      { value: "Paracetamol 500g Tablet", label: "Paracetamol 500g Tablet" },
+      { value: "Amoxillin 500g Tablet", label: "Amoxillin 500g Tablet" },
+    ],
+    selectedOption: null,
+  };
   static propTypes = {
     fetchConsultation: PropTypes.func.isRequired,
     consultation: PropTypes.object.isRequired,
     isLoading: PropTypes.bool.isRequired,
     errorLoading: PropTypes.bool.isRequired,
+    createEvaluation: PropTypes.func.isRequired,
+    creatingEvaluation: PropTypes.bool.isRequired,
+    errorCreatingEvaluation: PropTypes.bool.isRequired,
+    createDiagnosis: PropTypes.func.isRequired,
+    creatingDiagnosis: PropTypes.bool.isRequired,
+    errorCreatingDiagnosis: PropTypes.bool.isRequired,
+    createPrescription: PropTypes.func.isRequired,
+    creatingPrescription: PropTypes.bool.isRequired,
+    createRecommendation: PropTypes.func.isRequired,
+    creatingRecommendation: PropTypes.bool.isRequired,
   };
   static defaultProps = {
     isLoading: true,
@@ -34,8 +72,110 @@ class ConsultDetails extends Component {
     });
   };
 
+  submitEvaluation = (e) => {
+    e.preventDefault();
+    const { doctorsFeedback } = this.state;
+    const data = {
+      id: this.props.match.params.id,
+      evaluation: {
+        doctorsFeedback,
+      },
+    };
+    this.props.createEvaluation(data);
+    this.setState({ doctorsFeedback: "" });
+  };
+
+  submitDiagnosis = (e) => {
+    e.preventDefault();
+    const {
+      testStatusReport,
+      diseaseName,
+      diseaseType,
+      diseaseDescription,
+      doctorsAdvice,
+    } = this.state;
+
+    const data = {
+      id: this.props.match.params.id,
+      diagnosis: {
+        testResultStatus: testStatusReport,
+        diseaseName,
+        diseaseType,
+        diseaseDescription,
+        doctorsAdvice,
+      },
+    };
+    this.props.createDiagnosis(data);
+  };
+
+  submitPrescription = (e) => {
+    e.preventDefault();
+    let { recommendedPrescription, numberOfDaysForTreatment } = this.state;
+    recommendedPrescription = recommendedPrescription.map(
+      (prescription) => prescription.value
+    );
+    const data = {
+      id: this.props.match.params.id,
+      prescription: {
+        recommendedPrescription,
+        numberOfDaysForTreatment,
+      },
+    };
+    this.props.createPrescription(data);
+  };
+
+  submitReccommendation = (e) => {
+    e.preventDefault();
+    let {
+      generalRecommendation,
+      recommendedGroceries,
+      recommendedSupportGroups,
+    } = this.state;
+
+    recommendedGroceries = recommendedGroceries.map((grocery) => grocery.value);
+    recommendedSupportGroups = recommendedSupportGroups.map(
+      (group) => group.value
+    );
+
+    const data = {
+      id: this.props.match.params.id,
+      recommendation: {
+        generalRecommendation,
+        recommendedGroceries,
+        recommendedSupportGroups,
+      },
+    };
+
+    this.props.createRecommendation(data);
+  };
+
+  handleMultiSelect = (selectedOption) => {
+    this.setState({ recommendedGroceries: selectedOption });
+  };
+
+  handleSupportGroups = (selectedOption) => {
+    this.setState({ recommendedSupportGroups: selectedOption });
+  };
+
+  handlePrescription = (selectedOption) => {
+    this.setState({ recommendedPrescription: selectedOption });
+  };
+
   render() {
-    const { isLoading, errorLoading, consultation } = this.props;
+    const {
+      isLoading,
+      errorLoading,
+      consultation,
+      creatingEvaluation,
+    } = this.props;
+    const {
+      options,
+      recommendedGroceries,
+      supportGroups,
+      recommendedSupportGroups,
+      recommendedPrescription,
+      prescriptions,
+    } = this.state;
     return (
       <div>
         {isLoading ? (
@@ -191,40 +331,27 @@ class ConsultDetails extends Component {
                             <hr />
                             <p>
                               <b className="text-primary">Doctor's Feedback:</b>{" "}
-                              Et et consectetur ipsum labore excepteur est
-                              proident excepteur ad velit occaecat qui minim
-                              occaecat veniam. Fugiat veniam incididunt anim
-                              aliqua enim pariatur veniam sunt est aute sit
-                              dolor anim. Velit non irure adipisicing aliqua
-                              ullamco irure incididunt irure non esse
-                              consectetur nostrud minim non minim occaecat. Amet
-                              duis do nisi duis veniam non est eiusmod tempor
-                              incididunt tempor dolor ipsum in qui sit.
-                              Exercitation mollit sit culpa nisi culpa non
-                              adipisicing reprehenderit do dolore. Duis
-                              reprehenderit occaecat anim ullamco ad duis
-                              occaecat ex.
+                              {consultation.evaluation.doctorsFeedback}
                             </p>
                             <hr />
                             <form
-                              className=""
-                              method="POST"
-                              action=""
                               id="regform"
                               name="regform"
-                              enctype="multipart/form-data"
+                              onSubmit={this.submitEvaluation}
                             >
                               <div className="form-group">
                                 <div className="form-row">
                                   <div className="col-md-12 mb-15 pl-50">
-                                    <label for="dfeed">
+                                    <label htmlFor="dfeed">
                                       Doctor's Feedback Description
                                     </label>
                                     <textarea
                                       rows="3"
                                       type="text"
+                                      value={this.state.doctorsFeedback || ""}
                                       className="form-control"
-                                      name="dfeed"
+                                      onChange={this.handleChange}
+                                      name="doctorsFeedback"
                                       id="dfeed"
                                     ></textarea>
                                   </div>
@@ -233,26 +360,27 @@ class ConsultDetails extends Component {
 
                               <br />
                               <div className="d-flex">
-                                <button
-                                  type="submit"
-                                  className="btn btn-primary mybtn"
-                                  id="btnreg"
-                                  name="btnreg"
-                                >
-                                  <i className="fas fa-fw fa-file"></i> Submit
-                                  Feedback
-                                </button>
+                                {creatingEvaluation ? (
+                                  <button
+                                    className="btn btn-primary mybtn"
+                                    id="btnreg"
+                                    disabled
+                                    name="btnreg"
+                                  >
+                                    Updating...
+                                  </button>
+                                ) : (
+                                  <button
+                                    type="submit"
+                                    className="btn btn-primary mybtn"
+                                    id="btnreg"
+                                    name="btnreg"
+                                  >
+                                    <i className="fas fa-fw fa-file"></i> Submit
+                                    Feedback
+                                  </button>
+                                )}
                               </div>
-                              <input
-                                type="hidden"
-                                name="pcomp"
-                                value="Evaluated"
-                              />
-                              <input
-                                type="hidden"
-                                name="MM_insert"
-                                value="regform"
-                              />
                             </form>
                           </div>
                         </TabPanel>
@@ -269,74 +397,48 @@ class ConsultDetails extends Component {
                               <b className="text-primary">
                                 Test Result Status:
                               </b>{" "}
-                              Found
+                              {consultation.diagnosis.testStatusReport}
                             </p>
                             <p>
                               <b className="text-primary">Disease Name:</b>{" "}
-                              Hypertension
+                              {consultation.diagnosis.diseaseName}
                             </p>
                             <p>
                               <b className="text-primary">Disease Type:</b> Type
-                              B
+                              {consultation.diagnosis.diseaseType}
                             </p>
                             <p>
                               <b className="text-primary">
                                 Disease Description:
                               </b>{" "}
-                              Et et consectetur ipsum labore excepteur est
-                              proident excepteur ad velit occaecat qui minim
-                              occaecat veniam. Fugiat veniam incididunt anim
-                              aliqua enim pariatur veniam sunt est aute sit
-                              dolor anim. Velit non irure adipisicing aliqua
-                              ullamco irure incididunt irure non esse
-                              consectetur nostrud minim non minim occaecat. Amet
-                              duis do nisi duis veniam non est eiusmod tempor
-                              incididunt tempor dolor ipsum in qui sit.
-                              Exercitation mollit sit culpa nisi culpa non
-                              adipisicing reprehenderit do dolore. Duis
-                              reprehenderit occaecat anim ullamco ad duis
-                              occaecat ex.
+                              {consultation.diagnosis.diseaseDescription}
                             </p>
                             <p>
                               <b className="text-primary">Doctor's Advice:</b>{" "}
-                              Et et consectetur ipsum labore excepteur est
-                              proident excepteur ad velit occaecat qui minim
-                              occaecat veniam. Fugiat veniam incididunt anim
-                              aliqua enim pariatur veniam sunt est aute sit
-                              dolor anim. Velit non irure adipisicing aliqua
-                              ullamco irure incididunt irure non esse
-                              consectetur nostrud minim non minim occaecat. Amet
-                              duis do nisi duis veniam non est eiusmod tempor
-                              incididunt tempor dolor ipsum in qui sit.
-                              Exercitation mollit sit culpa nisi culpa non
-                              adipisicing reprehenderit do dolore. Duis
-                              reprehenderit occaecat anim ullamco ad duis
-                              occaecat ex.
+                              {consultation.diagnosis.doctorsAdvice}
                             </p>
                             <hr />
                             <form
-                              className=""
-                              method="POST"
-                              action="<?php echo $editFormAction; ?>"
+                              onSubmit={this.submitDiagnosis}
                               id="regform"
                               name="regform"
-                              enctype="multipart/form-data"
                             >
                               <div className="form-group">
                                 <div className="form-row">
                                   <div className="col-md-12 mb-15 pl-50">
-                                    <label for="tstat">
+                                    <label htmlFor="tstat">
                                       Test Result Status
                                     </label>
                                     <select
                                       className="form-control"
-                                      name="tstat"
+                                      name="testStatusReport"
+                                      onChange={this.handleChange}
                                       id="tstat"
                                     >
-                                      <option className="pl-20" selected>
+                                      <option value="" className="pl-20">
                                         --Select--
                                       </option>
-                                      <option value="Fount">
+                                      <option value="Found">
                                         Found - Conclusive
                                       </option>
                                       <option value="Not Found">
@@ -351,22 +453,24 @@ class ConsultDetails extends Component {
                               <div className="form-group">
                                 <div className="form-row">
                                   <div className="col-md-6 mb-15 pr-50">
-                                    <label for="tname">Disease Name</label>
+                                    <label htmlFor="tname">Disease Name</label>
                                     <input
                                       type="text"
                                       className="form-control"
                                       id="tname"
-                                      name="tname"
+                                      onChange={this.handleChange}
+                                      name="diseaseName"
                                       placeholder="e.g. Diabetes"
                                     />
                                   </div>
                                   <div className="col-md-6 mb-15 pl-50">
-                                    <label for="ttype">Disease Type</label>
+                                    <label htmlFor="ttype">Disease Type</label>
                                     <input
                                       type="text"
                                       className="form-control"
                                       id="ttype"
-                                      name="ttype"
+                                      onChange={this.handleChange}
+                                      name="diseaseType"
                                       placeholder="e.g. Type II"
                                     />
                                   </div>
@@ -375,14 +479,15 @@ class ConsultDetails extends Component {
                               <div className="form-group">
                                 <div className="form-row">
                                   <div className="col-md-12 mb-15 pl-50">
-                                    <label for="tdesc">
+                                    <label htmlFor="tdesc">
                                       Disease Description
                                     </label>
                                     <textarea
                                       rows="3"
                                       type="text"
                                       className="form-control"
-                                      name="tdesc"
+                                      name="diseaseDescription"
+                                      onChange={this.handleChange}
                                       id="tdesc"
                                     ></textarea>
                                   </div>
@@ -391,12 +496,15 @@ class ConsultDetails extends Component {
                               <div className="form-group">
                                 <div className="form-row">
                                   <div className="col-md-12 mb-15 pl-50">
-                                    <label for="tadv">Doctor's Advice</label>
+                                    <label htmlFor="tadv">
+                                      Doctor's Advice
+                                    </label>
                                     <textarea
                                       rows="3"
                                       type="text"
                                       className="form-control"
-                                      name="tadv"
+                                      onChange={this.handleChange}
+                                      name="doctorsAdvice"
                                       id="tadv"
                                     ></textarea>
                                   </div>
@@ -415,16 +523,6 @@ class ConsultDetails extends Component {
                                   Diagnosis
                                 </button>
                               </div>
-                              <input
-                                type="hidden"
-                                name="pcomp"
-                                value="Diagnosed"
-                              />
-                              <input
-                                type="hidden"
-                                name="MM_insert"
-                                value="regform"
-                              />
                             </form>
                           </div>
                         </TabPanel>
@@ -440,34 +538,36 @@ class ConsultDetails extends Component {
                               <b className="text-primary">
                                 Total Number of Days for Treatment:
                               </b>{" "}
-                              10
+                              {
+                                consultation.prescription
+                                  .numberOfDaysForTreatment
+                              }
                             </p>
                             <p>
                               <b className="text-primary">
                                 Recommended Prescription:
                               </b>{" "}
-                              Amoxillin 500g Tablet - Twice a Day for 5days,
-                              Paracetamol 500g Tablet - Thrice a Day for 7days.
+                              {consultation.prescription.recommendedPrescription.join(
+                                ", "
+                              )}
                             </p>
                             <hr />
                             <form
-                              className=""
-                              method="POST"
-                              action="<?php echo $editFormAction; ?>"
                               id="regform"
                               name="regform"
-                              enctype="multipart/form-data"
+                              onSubmit={this.submitPrescription}
                             >
                               <div className="form-group">
                                 <div className="form-row">
                                   <div className="col-md-12 mb-15 pl-50">
-                                    <label for="rno">
+                                    <label htmlFor="rno">
                                       Total Number of Days for Treatment
                                     </label>
                                     <input
                                       type="text"
                                       className="form-control"
-                                      name="rno"
+                                      onChange={this.handleChange}
+                                      name="numberOfDaysForTreatment"
                                       id="rno"
                                     />
                                   </div>
@@ -476,25 +576,16 @@ class ConsultDetails extends Component {
                               <div className="form-group">
                                 <div className="form-row">
                                   <div className="col-md-12 mb-15 pl-50">
-                                    <label for="rpresc">
+                                    <label htmlFor="rpresc">
                                       Recommended Prescription
                                     </label>
-                                    <select
-                                      className="form-control"
-                                      name="rpresc"
-                                      id="rpresc"
-                                      multiple
-                                    >
-                                      <option className="pl-20" selected>
-                                        --Select--
-                                      </option>
-                                      <option value="Amoxillin 500g Tablet">
-                                        Amoxillin 500g Tablet
-                                      </option>
-                                      <option value="Paracetamol 500g Tablet">
-                                        Paracetamol 500g Tablet
-                                      </option>
-                                    </select>
+                                    <Select
+                                      value={recommendedPrescription}
+                                      name="recommendedPrescription"
+                                      onChange={this.handlePrescription}
+                                      options={prescriptions}
+                                      isMulti={true}
+                                    />
                                   </div>
                                 </div>
                               </div>
@@ -511,17 +602,6 @@ class ConsultDetails extends Component {
                                   Prescription
                                 </button>
                               </div>
-
-                              <input
-                                type="hidden"
-                                name="pcomp"
-                                value="Prescription Sent"
-                              />
-                              <input
-                                type="hidden"
-                                name="MM_insert"
-                                value="regform"
-                              />
                             </form>
                           </div>
                         </TabPanel>
@@ -537,52 +617,45 @@ class ConsultDetails extends Component {
                               <b className="text-primary">
                                 General Recommendation:
                               </b>{" "}
-                              Et et consectetur ipsum labore excepteur est
-                              proident excepteur ad velit occaecat qui minim
-                              occaecat veniam. Fugiat veniam incididunt anim
-                              aliqua enim pariatur veniam sunt est aute sit
-                              dolor anim. Velit non irure adipisicing aliqua
-                              ullamco irure incididunt irure non esse
-                              consectetur nostrud minim non minim occaecat. Amet
-                              duis do nisi duis veniam non est eiusmod tempor
-                              incididunt tempor dolor ipsum in qui sit.
-                              Exercitation mollit sit culpa nisi culpa non
-                              adipisicing reprehenderit do dolore. Duis
-                              reprehenderit occaecat anim ullamco ad duis
-                              occaecat ex.
+                              {
+                                consultation.recommendation
+                                  .generalRecommendation
+                              }
                             </p>
                             <p>
                               <b className="text-primary">
                                 Recommended Groceries:
                               </b>{" "}
-                              Brown Rice, Brown Sugar, Green Smoothie.
+                              {consultation.recommendation.recommendedGroceries.join(
+                                ", "
+                              )}
                             </p>
                             <p>
                               <b className="text-primary">
                                 Recommended Support Groups:
                               </b>{" "}
-                              Motivation, General.
+                              {consultation.recommendation.recommendedSupportGroups.join(
+                                ", "
+                              )}
                             </p>
                             <hr />
                             <form
-                              className=""
-                              method="POST"
-                              action=""
+                              onSubmit={this.submitReccommendation}
                               id="regform"
                               name="regform"
-                              enctype="multipart/form-data"
                             >
                               <div className="form-group">
                                 <div className="form-row">
                                   <div className="col-md-12 mb-15 pl-50">
-                                    <label for="grec">
+                                    <label htmlFor="grec">
                                       General Recommendation
                                     </label>
                                     <textarea
                                       rows="3"
                                       type="text"
                                       className="form-control"
-                                      name="grec"
+                                      onChange={this.handleChange}
+                                      name="generalRecommendation"
                                       id="grec"
                                     ></textarea>
                                   </div>
@@ -591,46 +664,32 @@ class ConsultDetails extends Component {
                               <div className="form-group">
                                 <div className="form-row">
                                   <div className="col-md-12 mb-15 pl-50">
-                                    <label for="rgroc">
+                                    <label htmlFor="rgroc">
                                       Recommended Groceries
                                     </label>
-                                    <select
-                                      className="form-control"
-                                      name="rgroc"
-                                      id="rgroc"
-                                      multiple
-                                    >
-                                      <option className="pl-20" selected>
-                                        --Select--
-                                      </option>
-                                      <option value="Brown Rice">
-                                        Brown Rice
-                                      </option>
-                                      <option value="Brown Sugar">
-                                        Brown Sugar
-                                      </option>
-                                    </select>
+                                    <Select
+                                      value={recommendedGroceries}
+                                      name="recommendedGroceries"
+                                      onChange={this.handleMultiSelect}
+                                      options={options}
+                                      isMulti={true}
+                                    />
                                   </div>
                                 </div>
                               </div>
                               <div className="form-group">
                                 <div className="form-row">
                                   <div className="col-md-12 mb-15 pl-50">
-                                    <label for="rsupp">
+                                    <label htmlFor="rsupp">
                                       Recommended Support Groups
                                     </label>
-                                    <select
-                                      className="form-control"
-                                      name="rsupp"
-                                      id="rsupp"
-                                      multiple
-                                    >
-                                      <option className="pl-20" selected>
-                                        --Select--
-                                      </option>
-                                      <option value="General">General</option>
-                                      <option value="AA">AA</option>
-                                    </select>
+                                    <Select
+                                      value={recommendedSupportGroups}
+                                      name="recommendedSupportGroups"
+                                      onChange={this.handleSupportGroups}
+                                      options={supportGroups}
+                                      isMulti={true}
+                                    />
                                   </div>
                                 </div>
                               </div>
@@ -647,17 +706,6 @@ class ConsultDetails extends Component {
                                   Recommendation
                                 </button>
                               </div>
-
-                              <input
-                                type="hidden"
-                                name="pcomp"
-                                value="Consult Done"
-                              />
-                              <input
-                                type="hidden"
-                                name="MM_insert"
-                                value="regform"
-                              />
                             </form>
                           </div>
                         </TabPanel>
@@ -678,6 +726,10 @@ class ConsultDetails extends Component {
 const mapDispatchToProps = (dispatch) => {
   return {
     fetchConsultation: (id) => dispatch(fetchConsultation(id)),
+    createEvaluation: (payload) => dispatch(createEvaluation(payload)),
+    createDiagnosis: (payload) => dispatch(createDiagnosis(payload)),
+    createPrescription: (payload) => dispatch(createPrescription(payload)),
+    createRecommendation: (payload) => dispatch(createRecommendation(payload)),
   };
 };
 export default connect(selectors, mapDispatchToProps)(ConsultDetails);
