@@ -167,6 +167,9 @@ class ConsultDetails extends Component {
       errorLoading,
       consultation,
       creatingEvaluation,
+      creatingRecommendation,
+      creatingDiagnosis,
+      creatingPrescription,
     } = this.props;
     const {
       options,
@@ -513,15 +516,26 @@ class ConsultDetails extends Component {
 
                               <br />
                               <div className="d-flex">
-                                <button
-                                  type="submit"
-                                  className="btn btn-primary mybtn"
-                                  id="btnreg"
-                                  name="btnreg"
-                                >
-                                  <i className="fas fa-fw fa-file"></i> Submit
-                                  Diagnosis
-                                </button>
+                                {creatingDiagnosis ? (
+                                  <button
+                                    disabled
+                                    className="btn btn-primary mybtn"
+                                    id="btnreg"
+                                    name="btnreg"
+                                  >
+                                    Saving Diagnosis...
+                                  </button>
+                                ) : (
+                                  <button
+                                    type="submit"
+                                    className="btn btn-primary mybtn"
+                                    id="btnreg"
+                                    name="btnreg"
+                                  >
+                                    <i className="fas fa-fw fa-file"></i> Submit
+                                    Diagnosis
+                                  </button>
+                                )}
                               </div>
                             </form>
                           </div>
@@ -592,15 +606,26 @@ class ConsultDetails extends Component {
 
                               <br />
                               <div className="d-flex">
-                                <button
-                                  type="submit"
-                                  className="btn btn-primary mybtn"
-                                  id="btnreg"
-                                  name="btnreg"
-                                >
-                                  <i className="fas fa-fw fa-file"></i> Submit
-                                  Prescription
-                                </button>
+                                {creatingPrescription ? (
+                                  <button
+                                    disabled
+                                    className="btn btn-primary mybtn"
+                                    id="btnreg"
+                                    name="btnreg"
+                                  >
+                                    Saving Prescription...
+                                  </button>
+                                ) : (
+                                  <button
+                                    type="submit"
+                                    className="btn btn-primary mybtn"
+                                    id="btnreg"
+                                    name="btnreg"
+                                  >
+                                    <i className="fas fa-fw fa-file"></i> Submit
+                                    Prescription
+                                  </button>
+                                )}
                               </div>
                             </form>
                           </div>
@@ -696,6 +721,26 @@ class ConsultDetails extends Component {
 
                               <br />
                               <div className="d-flex">
+                                {creatingRecommendation ? (
+                                  <button
+                                    disabled
+                                    className="btn btn-primary mybtn"
+                                    id="btnreg"
+                                    name="btnreg"
+                                  >
+                                    Saving Recommendation...
+                                  </button>
+                                ) : (
+                                  <button
+                                    type="submit"
+                                    className="btn btn-primary mybtn"
+                                    id="btnreg"
+                                    name="btnreg"
+                                  >
+                                    <i className="fas fa-fw fa-file"></i> Submit
+                                    Recommendation
+                                  </button>
+                                )}
                                 <button
                                   type="submit"
                                   className="btn btn-primary mybtn"
