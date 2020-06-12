@@ -24,7 +24,7 @@ class Forums extends Component {
   }
 
   render() {
-    const { modalShow2, modalShow } = this.state;
+    const { modalShow } = this.state;
     const { forums, isLoading } = this.props;
     return (
       <div id="page-top">
@@ -69,6 +69,17 @@ class Forums extends Component {
                                 aria-controls="dataTable"
                               />
                             </label>
+                          </div>
+                        </div>
+                        <div className="col-sm-12 col-md-6">
+                          <div className="d-sm-flex align-items-center justify-content-between mb-4">
+                            <p></p>
+                            <Link
+                              className="mybtncurve btn btn-primary shadow-sm"
+                              to="/categories"
+                            >
+                              Categories
+                            </Link>
                           </div>
                         </div>
                       </div>

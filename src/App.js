@@ -31,6 +31,7 @@ import AppointmentDetails from "./Doctor/Create/Appointments/AppointmentDetails"
 import { connect } from "react-redux";
 import { getUser, isLoggedIn } from "./Authenication/redux/selectors";
 import Forums from "./shared/Forums";
+import Categories from "./shared/Categories";
 export class App extends Component {
   componentDidMount() {
     //Get from  user Type redux
@@ -55,6 +56,7 @@ export class App extends Component {
                 <Route exact path="/about" component={About} />
                 <Route exact path="/profile" component={Profile} />
                 <Route exact path="/forums" component={Forums} />
+                <Route exact path="/categories" component={Categories} />
               </AdminHeader>
             )}
 
@@ -108,6 +110,7 @@ export class App extends Component {
                   component={ConsultDetails}
                 />
                 <Route exact path="/forums" component={Forums} />
+                <Route exact path="/categories" component={Categories} />
               </DoctorHeader>
             )}
             <Route exact path="/" component={Login} />

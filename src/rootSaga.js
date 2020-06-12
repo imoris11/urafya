@@ -11,6 +11,7 @@ import symptomsSagas from "./Doctor/Create/Symptoms/redux/saga";
 import appointmentsSagas from "./Doctor/Create/Appointments/redux/saga";
 import consultationsSagas from "./Doctor/Create/Consultants/redux/saga";
 import forumsSagas from "./shared/Forums/redux/saga";
+import categoriesSagas from "./shared/Categories/redux/saga";
 
 function* rootSaga() {
   yield all([
@@ -25,7 +26,8 @@ function* rootSaga() {
     symptomsSagas(),
     appointmentsSagas(),
     consultationsSagas(),
-    forumsSagas()
+    forumsSagas(),
+    categoriesSagas()
   ]);
 }
 
