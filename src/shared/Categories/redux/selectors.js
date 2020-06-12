@@ -3,9 +3,9 @@ import { getUser } from "../../../Authenication/redux/selectors";
 const categories = (obj = {}) => obj.categories;
 const categoriesData = (obj = {}) => obj.data;
 
-const getCategoriesData = createSelector(categories, categoriesData);
+export const getCategoriesData = createSelector(categories, categoriesData);
 
-const isLoading = createSelector(categories, (obj) => obj.isLoading);
+export const isLoading = createSelector(categories, (obj) => obj.isLoading);
 
 const errorLoading = createSelector(categories, (obj) => obj.errorLoading);
 

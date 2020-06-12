@@ -1,5 +1,10 @@
 import React, { Component } from "react";
 import Modal from "react-bootstrap/Modal";
+import { connect } from "react-redux";
+import { fetchCategories } from "../../Categories/redux/actions";
+import { getCategoriesData, isLoading } from "../../Categories/redux/selectors.js";
+import { setBg } from "../../../helpers";
+import { createPost } from "../redux/actions";
 
 export class NewGroupModal extends Component {
   constructor(props) {
@@ -8,8 +13,7 @@ export class NewGroupModal extends Component {
       name: '',
       description: '',
       admin: '',
-      price: '',
-
+      tags: [],
     }
   }
 
@@ -18,17 +22,38 @@ export class NewGroupModal extends Component {
       [e.target.name]: e.target.value
     })
   }
-  handleSubmit = (e) => {
-    e.preventDefault();
-    console.log(this.state);
-
+  componentDidMount() {
+    const { categories } = this.props;
+    //Only fetch when state is empty
+    if (categories.length > 0) return;
+    this.props.fetchCategories();
   }
 
+  handleSubmit = (e) => {
+    e.preventDefault();
+    const { topic, tags, category, content } = this.state
+    const data = {
+      topic,
+      tags,
+      category,
+      content
+    }
+    this.props.createPost(data)
+  }
+
+  addNewTag = () => {
+    const { tag, tags } = this.state
+    tag && tags.push(tag)
+    this.setState({ tags, tag: '' })
+  }
 
   render() {
+    const { categories, isLoading } = this.props
+    const { tags } = this.state
     return (
       <Modal
-        {...this.props}
+        show={this.props.show}
+        onHide={this.props.onHide}
         size="md"
         aria-labelledby="contained-modal-title-vcenter"
         centered
@@ -42,29 +67,51 @@ export class NewGroupModal extends Component {
           <div className="modal-body" id="orderDetails">
             <div className="card shadow mb-4">
               <div className="card-body">
-                <form className="" method="POST" action="" id="regform" name="regform" enctype="multipart/form-data" onSubmit={this.handleSubmit}>
+                <form id="regform" name="regform" onSubmit={this.handleSubmit}>
                   <div className="form-group">
                     <div className="form-row">
                       <div className="col-md-12 mb-15 pr-50">
-                        <label for="sname">Topic</label>
-                        <input type="text" className="form-control" id="name" name="name" placeholder="" value={this.state.name} onChange={this.handleChange} required />
+                        <label htmlFor="sname">Topic</label>
+                        <input type="text" className="form-control" id="topic" name="topic" placeholder="" value={this.state.topic} onChange={this.handleChange} required />
+                      </div>
+                    </div>
+                  </div>
+                  <div className="form-group">
+                    <div className="form-row">
+                      <div className="col-md-12 mb-15 pr-50">
+                        <label htmlFor="sname">Category</label>
+                        <select onChange={this.handleChange} className="form-control" id="category" name="category" required >
+                          <option value="">{isLoading ? 'Loading' : 'Select Category'}</option>
+                          {categories.map((category) =>
+                            <option key={category._id}>{category.category}</option>
+                          )}
+                        </select>
                       </div>
                     </div>
                   </div>
                   <div className="form-group">
                     <div className="form-row">
                       <div className="col-md-12 mb-15 pl-50">
-                        <label for="addy">Description</label>
-                        <textarea rows="3" type="text" className="form-control" name="description" id="description" value={this.state.desription} onChange={this.handleChange} placeholder="" required></textarea>
+                        <label htmlFor="addy">Content</label>
+                        <textarea rows="3" type="text" className="form-control" name="content" id="content" value={this.state.content} onChange={this.handleChange} placeholder="" required></textarea>
                       </div>
+                    </div>
+                  </div>
+                  <div className="form-group">
+                    <div className="form-row">
+                      <div className="col-md-6 mb-15 pl-50">
+                        <input type="text" className="form-control" name="tag" id="description" value={this.state.tag} onChange={this.handleChange} placeholder="Add Tag" />
+                      </div>
+                      <div className="col-md-6 mb-15 pl-50">
+                        <span onClick={this.addNewTag} className="btn btn-success" id="btnreg" name="btnreg">Add Tag</span>
+                      </div>
+                      {tags.map((tag, idx) => <span key={idx} style={{ padding: 5, backgroundColor: setBg(), marginLeft: 3, color: 'white', fontSize: 12, marginTop: 5, borderRadius: 5 }}>{tag}</span>)}
                     </div>
                   </div>
                   <br />
                   <div className="d-flex">
-                    <button type="submit" className="btn btn-primary mybtn" id="btnreg" name="btnreg"><i className="fas fa-fw fa-save"></i> Add Post</button>
+                    <button type="submit" className="btn btn-primary mybtn" id="btnreg" name="btnreg">Create Post</button>
                   </div>
-
-                  <input type="hidden" name="MM_insert" value="regform" />
                 </form>
               </div>
             </div>
@@ -79,4 +126,17 @@ export class NewGroupModal extends Component {
   }
 
 }
-export default NewGroupModal;
+
+const mapStateToProps = state => {
+  return {
+    categories: getCategoriesData(state),
+    isLoading: isLoading(state)
+  }
+}
+const mapDispatchToProps = dispatch => {
+  return {
+    fetchCategories: () => dispatch(fetchCategories()),
+    createPost: (payload) => dispatch(createPost(payload))
+  }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(NewGroupModal);

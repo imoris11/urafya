@@ -104,10 +104,10 @@ class Forums extends Component {
                         </thead>
                         <tbody>
                           {forums.map((post) =>
-                            <tr className="odd gradeX">
+                            <tr key={post._id} className="odd gradeX">
                               <td>
                                 <p>{post.topic}</p>
-                                <p>{post.tags.map((tag) => <span style={{ padding: 5, backgroundColor: setBg(), marginLeft: 3, color: 'white', fontSize: 12 }}>{tag}</span>)}</p>
+                                <p>{post.tags.map((tag, idx) => <span key={idx} style={{ padding: 5, backgroundColor: setBg(), marginLeft: 3, color: 'white', fontSize: 12, borderRadius: 5 }}>{tag}</span>)}</p>
                               </td>
                               <td>{post.category}</td>
                               <td>{post.replies.length}</td>
