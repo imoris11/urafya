@@ -50,6 +50,13 @@ class Sidebar extends Component {
               link="/support"
               icon="fas fa-fw fa-comments"
             />
+
+            <LinkListItem
+              linkText="Forums"
+              link="/forums"
+              icon="fas fa-fw fa-comments"
+            />
+
             <LinkListItem
               linkText="Payments"
               link="/payment"
