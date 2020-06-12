@@ -18,8 +18,6 @@ function CustomToggle({ children, eventKey }) {
         {children}
       </button>
     </h5>
-
-
   );
 }
 
