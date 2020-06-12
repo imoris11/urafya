@@ -13,6 +13,7 @@ import symptomsReducer from "../Doctor/Create/Symptoms/redux/reducers";
 import appointmentsReducer from "../Doctor/Create/Appointments/redux/reducers";
 import consultationsReducer from "../Doctor/Create/Consultants/redux/reducers";
 import forumsReducer from "../shared/Forums/redux/reducers";
+import categoriesReducer from "../shared/Categories/redux/reducers";
 
 const rootReducers = combineReducers({
   // add reducer files references here
@@ -27,7 +28,8 @@ const rootReducers = combineReducers({
   symptoms: symptomsReducer,
   appointments: appointmentsReducer,
   consultations: consultationsReducer,
-  forums: forumsReducer
+  forums: forumsReducer,
+  categories: categoriesReducer
 });
 
 export default rootReducers;
