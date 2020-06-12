@@ -86,7 +86,7 @@ export function* createPost(action) {
     };
     const response = yield call(
       makeApiRequest,
-      "/emergencies/add-emergency",
+      "/forum/add-post",
       config
     );
     const payload = {
