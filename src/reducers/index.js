@@ -14,6 +14,7 @@ import appointmentsReducer from "../Doctor/Create/Appointments/redux/reducers";
 import consultationsReducer from "../Doctor/Create/Consultants/redux/reducers";
 import forumsReducer from "../shared/Forums/redux/reducers";
 import categoriesReducer from "../shared/Categories/redux/reducers";
+import supportReducer from "../shared/Support/redux/reducers";
 
 const rootReducers = combineReducers({
   // add reducer files references here
@@ -29,7 +30,8 @@ const rootReducers = combineReducers({
   appointments: appointmentsReducer,
   consultations: consultationsReducer,
   forums: forumsReducer,
-  categories: categoriesReducer
+  categories: categoriesReducer,
+  supportGroups: supportReducer,
 });
 
 export default rootReducers;

@@ -6,7 +6,6 @@ import Ahome from "./shared/Home";
 import Users from "./Admin/Create/Users/";
 import Symptoms from "./Doctor/Create/Symptoms";
 import Payment from "./Admin/Create/Payment/";
-import Support from "./Admin/Create/Support/";
 import Emergency from "./Admin/Create/Emergency";
 import Taxi from "./Admin/Create/Taxi/";
 import Grocery from "./Admin/Store/Grocery";
@@ -20,9 +19,7 @@ import PharmacistPrescription from "./Pharmacist/Prescription";
 import PrescriptionDetails from "./Pharmacist/DoctorsPrescription/PrescriptionDetails";
 import Consultants from "./Doctor/Create/Consultants";
 import Appointments from "./Doctor/Create/Appointments";
-import SupportGroup from "./Doctor/Create/SupportGroup";
-import GeneralGroup from "./Doctor/Create/SupportGroup/GeneralSupport";
-import GroupDetails from "./Doctor/Create/SupportGroup/GroupDetails";
+import GeneralGroup from "./shared/GeneralSupport";
 import AdminHeader from "./Admin/components/Header";
 import DoctorHeader from "./Doctor/components/Header";
 import PharmacistHeader from "./Pharmacist/components/Header";
@@ -32,6 +29,7 @@ import { connect } from "react-redux";
 import { getUser, isLoggedIn } from "./Authenication/redux/selectors";
 import Forums from "./shared/Forums";
 import Categories from "./shared/Categories";
+import SharedSupportGroups from "./shared/Support";
 export class App extends Component {
   componentDidMount() {
     //Get from  user Type redux
@@ -45,9 +43,9 @@ export class App extends Component {
               <AdminHeader>
                 <Route exact path="/" component={Ahome} />
                 <Route exact path="/users" component={Users} />
-
                 <Route exact path="/payment" component={Payment} />
-                <Route exact path="/support" component={Support} />
+                <Route exact path="/support_groups" component={SharedSupportGroups} />
+                <Route exact path="/support_groups/:id" component={GeneralGroup} />
                 <Route exact path="/taxiservices" component={Taxi} />
                 <Route exact path="/emergency" component={Emergency} />
                 <Route exact path="/prescription" component={Prescription} />
@@ -95,9 +93,8 @@ export class App extends Component {
                 />
                 <Route exact path="/appointments" component={Appointments} />
                 <Route exact path="/symptoms" component={Symptoms} />
-                <Route exact path="/support" component={SupportGroup} />
-                <Route exact path="/generalsupport" component={GeneralGroup} />
-                <Route exact path="/groupdetails" component={GroupDetails} />
+                <Route exact path="/support_groups" component={SharedSupportGroups} />
+                <Route exact path="/support_groups/:id" component={GeneralGroup} />
                 <Route exact path="/about" component={About} />
                 <Route exact path="/payment" component={Payment} />
                 <Route exact path="/emergency" component={Emergency} />

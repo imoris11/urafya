@@ -47,7 +47,7 @@ class Sidebar extends Component {
 
             <LinkListItem
               linkText="Support Groups"
-              link="/support"
+              link="/support_groups"
               icon="fas fa-fw fa-comments"
             />
 
