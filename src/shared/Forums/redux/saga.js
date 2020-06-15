@@ -94,10 +94,11 @@ export function* createPost(action) {
       ...action.payload,
       _id: Math.round(Math.random() * 100000),
     };
-    yield put({
-      type: CREATE_POST_SUCCESS,
-      payload,
-    });
+    // yield put({
+    //   type: CREATE_POST_SUCCESS,
+    //   payload,
+    // });
+    window.location.reload()
     toast.success(response.message);
   } catch (error) {
     yield put({

@@ -10,16 +10,18 @@ export class NewGroupModal extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: '',
-      description: '',
-      admin: '',
+      topic: '',
+      content: '',
+      tag: '',
       tags: [],
+      shouldUpdate: false
     }
   }
 
   handleChange = (e) => {
     this.setState({
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
+      shouldUpdate: false
     })
   }
   componentDidMount() {
@@ -44,7 +46,7 @@ export class NewGroupModal extends Component {
   addNewTag = () => {
     const { tag, tags } = this.state
     tag && tags.push(tag)
-    this.setState({ tags, tag: '' })
+    this.setState({ tags, tag: '', shouldUpdate: true })
   }
 
   render() {
@@ -83,7 +85,7 @@ export class NewGroupModal extends Component {
                         <select onChange={this.handleChange} className="form-control" id="category" name="category" required >
                           <option value="">{isLoading ? 'Loading' : 'Select Category'}</option>
                           {categories.map((category) =>
-                            <option key={category._id}>{category.category}</option>
+                            <option value={category._id} key={category._id}>{category.category}</option>
                           )}
                         </select>
                       </div>
@@ -100,12 +102,12 @@ export class NewGroupModal extends Component {
                   <div className="form-group">
                     <div className="form-row">
                       <div className="col-md-6 mb-15 pl-50">
-                        <input type="text" className="form-control" name="tag" id="description" value={this.state.tag} onChange={this.handleChange} placeholder="Add Tag" />
+                        <input type="text" className="form-control" name="tag" id="tag" value={this.state.tag} onChange={this.handleChange} placeholder="Add Tag" />
                       </div>
                       <div className="col-md-6 mb-15 pl-50">
                         <span onClick={this.addNewTag} className="btn btn-success" id="btnreg" name="btnreg">Add Tag</span>
                       </div>
-                      {tags.map((tag, idx) => <span key={idx} style={{ padding: 5, backgroundColor: setBg(), marginLeft: 3, color: 'white', fontSize: 12, marginTop: 5, borderRadius: 5 }}>{tag}</span>)}
+                      <Tags shouldUpdate={this.state.shouldUpdate} tags={tags} />
                     </div>
                   </div>
                   <br />
@@ -125,6 +127,17 @@ export class NewGroupModal extends Component {
     );
   }
 
+}
+class Tags extends React.Component {
+  shouldComponentUpdate = (nextProps) => {
+    return nextProps.shouldUpdate
+  }
+  render() {
+    const { tags } = this.props;
+    return (
+      tags.map((tag, idx) => <span key={idx} style={{ padding: 5, backgroundColor: setBg(), marginLeft: 3, color: 'white', fontSize: 12, marginTop: 5, borderRadius: 5 }}>{tag}</span>)
+    )
+  }
 }
 
 const mapStateToProps = state => {
