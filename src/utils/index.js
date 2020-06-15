@@ -9,10 +9,10 @@ export default async function makeApiRequest(endpoint, config = defaultConfig) {
   try {
     const response = await fetch(`${ defaultUrl }${ endpoint }`, config);
 
-    // if (response.status >= 400) {
-    //   localStorage.removeItem('user')
-    //   window.location.href = '/'
-    // }
+    if (response.status === 401) {
+      localStorage.removeItem('user')
+      window.location.href = '/'
+    }
     const result = await response.json();
     if (result.statusCode === 200 || result.statusCode === 201) {
       return result;

@@ -84,6 +84,7 @@ export function* createPost(action) {
       },
       body: JSON.stringify(action.payload),
     };
+
     const response = yield call(
       makeApiRequest,
       "/forum/add-post",
