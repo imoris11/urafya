@@ -11,6 +11,12 @@ export const CREATE_SUPPORT_GROUP = "CREATE_SUPPORT_GROUP";
 export const CREATE_SUPPORT_GROUP_SUCCESS = "CREATE_SUPPORT_GROUP_SUCCESS";
 export const CREATE_SUPPORT_GROUP_FAILURE = "CREATE_SUPPORT_GROUP_FAILURE";
 export const CREATING_SUPPORT_GROUP = "CREATING_SUPPORT_GROUP";
+export const FETCH_SUPPORT_GROUP = "FETCH_SUPPORT_GROUP";
+export const FETCHING_SUPPORT_GROUP = "FETCHING_SUPPORT_GROUP";
+export const FETCHING_SUPPORT_GROUP_SUCCESS =
+  "FETCHING_SUPPORT_GROUP_SUCCESS";
+export const FETCHING_SUPPORT_GROUP_FAILURE =
+  "FETCHING_SUPPORT_GROUP_FAILURE";
 
 export const fetchGroups = () => ({
   type: FETCH_SUPPORT_GROUPS,
@@ -25,3 +31,8 @@ export const createSupportGroup = (payload) => ({
   type: CREATE_SUPPORT_GROUP,
   payload,
 });
+
+export const fetchGroup = (payload) => ({
+  type: FETCH_SUPPORT_GROUP,
+  payload
+})

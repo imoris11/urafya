@@ -6,11 +6,15 @@ import {
   CREATING_SUPPORT_GROUP,
   CREATE_SUPPORT_GROUP_SUCCESS,
   CREATE_SUPPORT_GROUP_FAILURE,
+  FETCHING_SUPPORT_GROUP_SUCCESS,
+  FETCHING_SUPPORT_GROUP,
+  FETCHING_SUPPORT_GROUP_FAILURE,
 } from "./actions";
 
 const initialState = {
   isLoading: false,
   data: [],
+  group: {},
   errorLoading: false,
 };
 
@@ -57,6 +61,22 @@ export default (state = initialState, action) => {
         ...state,
         creatingGroup: false,
       };
+    case FETCHING_SUPPORT_GROUP:
+      return {
+        ...state,
+        isLoading: true
+      }
+    case FETCHING_SUPPORT_GROUP_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        group: { ...action.payload }
+      }
+    case FETCHING_SUPPORT_GROUP_FAILURE:
+      return {
+        ...state,
+        isLoading: false
+      }
     default:
       return state;
   }

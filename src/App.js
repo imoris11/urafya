@@ -19,7 +19,7 @@ import PharmacistPrescription from "./Pharmacist/Prescription";
 import PrescriptionDetails from "./Pharmacist/DoctorsPrescription/PrescriptionDetails";
 import Consultants from "./Doctor/Create/Consultants";
 import Appointments from "./Doctor/Create/Appointments";
-import GeneralGroup from "./shared/GeneralSupport";
+import GeneralGroup from "./shared/Support/GeneralSupport";
 import AdminHeader from "./Admin/components/Header";
 import DoctorHeader from "./Doctor/components/Header";
 import PharmacistHeader from "./Pharmacist/components/Header";
