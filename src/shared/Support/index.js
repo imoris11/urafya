@@ -5,8 +5,6 @@ import NewGroupModal from "./Modal/NewGroup";
 import { connect } from "react-redux";
 import selectors from "./redux/selectors";
 import { fetchGroups, deleteSupportGroup } from "./redux/actions";
-import { setBg } from "../../helpers";
-import moment from 'moment';
 
 class SupportGroups extends Component {
   state = {
