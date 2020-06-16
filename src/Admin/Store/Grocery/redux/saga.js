@@ -12,12 +12,12 @@ import { toast } from "react-toastify";
 import makeApiRequest from "../../../../utils";
 import { getUserToken } from "../../../../Authenication/redux/selectors";
 import { getGroceries } from "./selectors";
-import { update } from "ramda";
+
 const getConfig = (token, method = "GET") => ({
   method,
   headers: {
     "Content-Type": "application/json",
-    Authorization: `Bearer ${token}`,
+    Authorization: `Bearer ${ token }`,
   },
 });
 
@@ -57,6 +57,7 @@ export function* getUpdatedGroceries(id) {
       index = idx;
       return g;
     }
+    return null
   })[0];
 
   grocery["status"] =
@@ -70,7 +71,7 @@ export function* toggleGroceryBan(action) {
   try {
     const response = yield call(
       makeApiRequest,
-      `/groceries/ban-permit-groceries/${action.payload}`,
+      `/groceries/ban-permit-groceries/${ action.payload }`,
       config
     );
     const updatedGroceries = yield call(getUpdatedGroceries, action.payload);

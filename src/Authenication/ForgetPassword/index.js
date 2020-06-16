@@ -48,7 +48,7 @@ export class ForgetPassword extends Component {
               <h4>Recover Password</h4>
               <div className="myline"></div>
               <br />
-              <form className="myinput" onSubmit={this.submitForm} role="form">
+              <form className="myinput" onSubmit={this.submitForm}>
                 <div className="form-group">
                   <label for="email">Email address:</label>
                   <input

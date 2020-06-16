@@ -24,7 +24,7 @@ class UserNav extends Component {
           <li className="nav-item dropdown no-arrow">
             <a
               className="nav-link dropdown-toggle"
-              href="#"
+              href="#user"
               id="userDropdown"
               role="button"
               data-toggle="dropdown"

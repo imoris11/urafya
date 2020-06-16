@@ -3,6 +3,7 @@ import {
   FETCHING_APPOINTMENTS,
   FETCH_APPOINTMENTS_FAILURE,
   FETCH_APPOINTMENT_SUCCESS,
+  FETCH_APPOINTMENT_FAILURE,
 } from "./actions";
 
 const initialState = {
@@ -39,7 +40,7 @@ export default (state = initialState, action) => {
         isLoading: false,
         appointment: { ...action.payload },
       };
-    case FETCH_APPOINTMENT_SUCCESS:
+    case FETCH_APPOINTMENT_FAILURE:
       return {
         ...state,
         isLoading: false,

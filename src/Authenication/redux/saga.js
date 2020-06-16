@@ -50,11 +50,11 @@ export function* forgotPassword(action) {
     type: SENDING_RESET_EMAIL,
   });
   try {
-    const response = yield call(makeApiRequest, "/auth/forgotpassword", config);
+    yield call(makeApiRequest, "/auth/forgotpassword", config);
     yield put({
       type: RESET_EMAIL_SENT_SUCCESSFULLY,
     });
-  } catch (error) {}
+  } catch (error) { }
 }
 
 function* authSagas() {

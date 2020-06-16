@@ -30,7 +30,7 @@ class Grocery extends Component {
     this.props.fetchGroceries();
   }
   render() {
-    const { isLoading, errorLoading, groceries, toggleBan } = this.props;
+    const { isLoading, groceries, toggleBan } = this.props;
 
     return (
       <div id="page-top">
@@ -87,13 +87,13 @@ class Grocery extends Component {
                                     onClick={() => toggleBan(grocery._id)}
                                   />
                                 ) : (
-                                  <FlatButton
-                                    className="btn btn-success circle action-button"
-                                    icon="fa fa-check"
-                                    title="Approve"
-                                    onClick={() => toggleBan(grocery._id)}
-                                  />
-                                )}
+                                    <FlatButton
+                                      className="btn btn-success circle action-button"
+                                      icon="fa fa-check"
+                                      title="Approve"
+                                      onClick={() => toggleBan(grocery._id)}
+                                    />
+                                  )}
                               </td>
                             </tr>
                           ))}

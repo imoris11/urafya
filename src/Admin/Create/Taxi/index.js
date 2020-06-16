@@ -34,7 +34,7 @@ export class TaxiServices extends Component {
   }
   render() {
     const { modalShow } = this.state;
-    const { isLoading, errorLoading, taxis } = this.props;
+    const { isLoading, taxis } = this.props;
     return (
       <div id="page-top">
         <div id="wrapper">
