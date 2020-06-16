@@ -29,7 +29,7 @@ function* rootSaga() {
     consultationsSagas(),
     forumsSagas(),
     categoriesSagas(),
-    supportGroupSagas()
+    supportGroupSagas(),
   ]);
 }
 
