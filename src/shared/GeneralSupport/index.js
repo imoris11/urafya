@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import selectors from "./redux/selectors";
 import { fetchGroups, deleteSupportGroup } from "./redux/actions";
-import moment from 'moment';
 
 
 const styles = {
@@ -56,6 +55,7 @@ class SupportGroups extends Component {
                                 <img
                                   src={"https://i.pravatar.cc/200"}
                                   className="card-img-top"
+                                  alt="admin"
                                   style={{ borderRadius: '50%', height: 75, width: 75 }}
                                 />
                               </div>

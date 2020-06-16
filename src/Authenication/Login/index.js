@@ -26,7 +26,7 @@ export class Login extends Component {
     isLoggedIn: false,
     loggedInError: false,
     loggingIn: false,
-    loginAPI: () => {},
+    loginAPI: () => { },
   };
   submitForm = (e) => {
     e.preventDefault();
@@ -43,11 +43,10 @@ export class Login extends Component {
     });
   };
   render() {
-    console.log(this.props);
     return (
       <div className="mynewbg" style={{ minHeight: "100vh" }}>
         <div className="container loginspace">
-          <img src={Logo} className="logosize" />{" "}
+          <img alt="company logo" src={Logo} className="logosize" />{" "}
           <label className="whitetext">
             <b>UR AFYA</b>
           </label>
@@ -106,15 +105,15 @@ export class Login extends Component {
                     Logging in...
                   </button>
                 ) : (
-                  <button
-                    type="submit"
-                    id="btnsub"
-                    name="btnsub"
-                    className="btn btn-primary mybtn btn-block btn-lg"
-                  >
-                    Login
-                  </button>
-                )}
+                    <button
+                      type="submit"
+                      id="btnsub"
+                      name="btnsub"
+                      className="btn btn-primary mybtn btn-block btn-lg"
+                    >
+                      Login
+                    </button>
+                  )}
 
                 <div className="row mylinks mx-auto">
                   <Link to="/forgetpassword" className=" mx-auto">

@@ -18,7 +18,7 @@ const getConfig = (token, method = "GET") => ({
   method,
   headers: {
     "Content-Type": "application/json",
-    Authorization: `Bearer ${token}`,
+    Authorization: `Bearer ${ token }`,
   },
 });
 export function* fetchUsers() {
@@ -49,9 +49,9 @@ export function* deleteUser(action) {
   try {
     const token = yield select(getUserToken);
     const config = getConfig(token, "DELETE");
-    const response = yield call(
+    yield call(
       makeApiRequest,
-      `/admin-profile/delete/${action.payload}`,
+      `/admin-profile/delete/${ action.payload }`,
       config
     );
     yield put({
@@ -69,12 +69,12 @@ export function* createNewUser(action) {
     type: CREATING_USER,
   });
   try {
-    const token = yield select(getUserToken);
+
     const config = {
       method: "POST",
       body: action.payload,
     };
-    const response = yield call(
+    yield call(
       makeApiRequest,
       "/admin-profile/add-user",
       config

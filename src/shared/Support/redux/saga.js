@@ -10,7 +10,6 @@ import {
   SUPPORT_GROUP_DELETED,
   CREATE_SUPPORT_GROUP,
   CREATING_SUPPORT_GROUP,
-  CREATE_SUPPORT_GROUP_SUCCESS,
   CREATE_SUPPORT_GROUP_FAILURE,
 } from "./actions";
 import { getUserToken } from "../../../Authenication/redux/selectors";
