@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import Modal from "react-bootstrap/Modal";
 import { connect } from "react-redux";
-import { setBg } from "../../../helpers";
 import { createSupportGroup } from "../redux/actions";
 
 export class NewGroupModal extends Component {
@@ -103,17 +102,6 @@ export class NewGroupModal extends Component {
     );
   }
 
-}
-class Tags extends React.Component {
-  shouldComponentUpdate = (nextProps) => {
-    return nextProps.shouldUpdate
-  }
-  render() {
-    const { tags } = this.props;
-    return (
-      tags.map((tag, idx) => <span key={idx} style={{ padding: 5, backgroundColor: setBg(), marginLeft: 3, color: 'white', fontSize: 12, marginTop: 5, borderRadius: 5 }}>{tag}</span>)
-    )
-  }
 }
 
 const mapDispatchToProps = dispatch => {

@@ -1,11 +1,9 @@
 import React, { Component } from "react";
-import Pagination from "../../components/organisms/pagination";
 import Button from "../../components/atoms/Button";
 import NewCategory from "./Modal/NewCategory";
 import selectors from "./redux/selectors";
 import { connect } from "react-redux";
 import { fetchCategories, deleteCategory } from "./redux/actions";
-import FlatButton from "../../components/atoms/FlatButton";
 
 export class Categories extends Component {
   constructor(props) {

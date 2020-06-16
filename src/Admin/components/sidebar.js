@@ -26,7 +26,7 @@ class Sidebar extends Component {
             >
               <div className="sidebar-brand-icon rotate-n-15">
                 <span className="">
-                  <img src={Logo} className="img-fluid mylogoicon" />
+                  <img src={Logo} alt="Logo" className="img-fluid mylogoicon" />
                 </span>
               </div>
               <div className="sidebar-brand-text mx-3">UR AFYA</div>

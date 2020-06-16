@@ -30,7 +30,7 @@ export class ForgetPassword extends Component {
     return (
       <div className="mynewbg" style={{ minHeight: "100vh" }}>
         <div className="container loginspace">
-          <img src={Logo} className="logosize" />{" "}
+          <img alt="logo" src={Logo} className="logosize" />{" "}
           <label className="whitetext">
             <b>UR AFYA</b>
           </label>
@@ -75,15 +75,15 @@ export class ForgetPassword extends Component {
                     Sending reset email...
                   </button>
                 ) : (
-                  <button
-                    type="submit"
-                    id="btnsub"
-                    name="btnsub"
-                    className="btn btn-primary mybtn btn-block btn-lg"
-                  >
-                    Submit
-                  </button>
-                )}
+                    <button
+                      type="submit"
+                      id="btnsub"
+                      name="btnsub"
+                      className="btn btn-primary mybtn btn-block btn-lg"
+                    >
+                      Submit
+                    </button>
+                  )}
                 {resetEmailSent && (
                   <p>
                     Password reset instructions have been sent to the email

@@ -1,6 +1,5 @@
-import React, { Component } from "react";
+import React from "react";
 import Modal from "react-bootstrap/Modal";
-import Picture from "../../../../assets/images/cardi_b.jpg";
 
 const ViewUserModal = (props) => {
   return (
@@ -22,6 +21,7 @@ const ViewUserModal = (props) => {
               <img
                 src={props.user.biodata.general.imageUri}
                 className="card-img-top"
+                alt="user profile"
               />
             </div>
           </div>

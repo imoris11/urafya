@@ -10,7 +10,6 @@ import {
   FORUM_DELETED,
   CREATE_POST,
   CREATING_POST,
-  CREATE_POST_SUCCESS,
   CREATE_POST_FAILURE,
 } from "./actions";
 import { getUserToken } from "../../../Authenication/redux/selectors";
@@ -90,14 +89,6 @@ export function* createPost(action) {
       "/forum/add-post",
       config
     );
-    const payload = {
-      ...action.payload,
-      _id: Math.round(Math.random() * 100000),
-    };
-    // yield put({
-    //   type: CREATE_POST_SUCCESS,
-    //   payload,
-    // });
     window.location.reload()
     toast.success(response.message);
   } catch (error) {

@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import Picture from "../../assets/images/cardi_b.jpg";
 import Button from "../../components/atoms/Button";
 import EditUserModal from "./Modal/EditUser";
 import ChangePasswordModal from "./Modal/ChangePassword";
@@ -54,6 +53,7 @@ export class Profile extends Component {
                           <img
                             src={user.biodata.general.imageUri}
                             className="card-img-top"
+                            alt="user"
                           />
                         </div>
                       </div>
