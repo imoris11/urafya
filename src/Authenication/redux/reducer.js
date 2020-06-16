@@ -9,7 +9,6 @@ import {
 
 let initialState = {
   loggedIn: false,
-  loggedIn: false,
   loggingIn: false,
   loggedInError: false,
   resetEmailSent: false,

@@ -16,7 +16,7 @@ const getConfig = (token, method = "GET") => ({
   method,
   headers: {
     "Content-Type": "application/json",
-    Authorization: `Bearer ${token}`,
+    Authorization: `Bearer ${ token }`,
   },
 });
 
@@ -53,6 +53,7 @@ export function* updatePrescriptions(id) {
       index = idx;
       return g;
     }
+    return null
   })[0];
 
   prescriptions["status"] =
@@ -66,7 +67,7 @@ export function* toggleBan(action) {
     const config = getConfig(token, "POST");
     const response = yield call(
       makeApiRequest,
-      `/drug/ban-permit-prescription/${action.payload}`,
+      `/drug/ban-permit-prescription/${ action.payload }`,
       config
     );
     const updatedPrescriptions = yield call(

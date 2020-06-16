@@ -40,9 +40,9 @@ export function* fetchTaxis() {
 
 export function* deleteTaxi(action) {
   try {
-    const response = yield call(
+    yield call(
       makeApiRequest,
-      `/taxi/delete-taxi/${action.payload}`,
+      `/taxi/delete-taxi/${ action.payload }`,
       config
     );
     yield put({

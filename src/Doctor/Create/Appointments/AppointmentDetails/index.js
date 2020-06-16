@@ -56,7 +56,7 @@ class AppointmentDetails extends Component {
   };
 
   render() {
-    const { isLoading, errorLoading, appointment } = this.props;
+    const { isLoading, appointment } = this.props;
     return (
       <div>
         {isLoading ? (

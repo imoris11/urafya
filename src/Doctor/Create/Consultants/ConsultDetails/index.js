@@ -157,7 +157,6 @@ class ConsultDetails extends Component {
   render() {
     const {
       isLoading,
-      errorLoading,
       consultation,
       creatingEvaluation,
       creatingRecommendation,

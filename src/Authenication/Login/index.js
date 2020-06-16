@@ -63,7 +63,7 @@ export class Login extends Component {
               <h4>Let's begin</h4>
               <div className="myline"></div>
               <br />
-              <form className="myinput" onSubmit={this.submitForm} role="form">
+              <form className="myinput" onSubmit={this.submitForm}>
                 <div className="form-group">
                   <label htmlFor="email">Email address:</label>
                   <input

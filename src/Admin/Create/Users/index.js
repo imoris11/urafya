@@ -40,7 +40,7 @@ export class Users extends Component {
 
   render() {
     const { modalShow2, modalShow } = this.state;
-    const { users, fetchingUsers, errorFetchingUsers } = this.props;
+    const { users, fetchingUsers } = this.props;
     return (
       <div id="content">
         <div className="container-fluid">
