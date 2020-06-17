@@ -2,8 +2,9 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import selectors from "../redux/selectors";
-import { fetchGroups, fetchGroup } from "../redux/actions";
-
+import { fetchGroups, fetchGroup, addMessage } from "../redux/actions";
+import socketIOClient from "socket.io-client";
+import { Spinner } from "react-bootstrap";
 
 const styles = {
   textInfo: {
@@ -15,9 +16,16 @@ const styles = {
   }
 }
 class SupportGroups extends Component {
-  state = {
-    comment: ''
-  };
+  constructor(props) {
+    super(props)
+    this.state = {
+      comment: '',
+      isListening: false
+    }
+    const chatRoom = this.props.match.params.chatroom
+    const ENDPOINT = `https://ur-afya.herokuapp.com/${ chatRoom }`;
+    this.socket = socketIOClient(ENDPOINT);
+  }
 
   componentDidMount() {
     const { supportGroups } = this.props;
@@ -25,6 +33,45 @@ class SupportGroups extends Component {
     this.props.fetchGroup(this.props.match.params.id)
     if (supportGroups.length > 0) return;
     this.props.fetchGroups();
+  }
+  componentWillUpdate(nextProps, nextState) {
+    if (nextProps.group._id && !nextState.isListening) {
+      this.setState({ isListening: true })
+      this.listenForMessages(nextProps.group)
+    }
+  }
+
+  componentWillUnmount() {
+    this.socket.disconnect();
+  }
+
+  listenForMessages = (group) => {
+    if (!this.state.isListening) {
+      var auth = {
+        userId: '5ea223cb641f5562784ae4c2',
+        groupId: group._id,
+      };
+
+      this.socket.emit("auth", auth);
+
+      if (!this.socket.connected)
+        this.socket.on("connect status", (message) => {
+          console.log("Connected", message);
+        });
+
+      this.socket.on("chat message", message => {
+        this.props.addMessage(message)
+      });
+
+      this.socket.on("error", (message) => {
+        console.log("Error", message);
+      });
+
+      this.socket.on("disconnect", () => {
+        console.log("Disconnected");
+      });
+    }
+
 
   }
 
@@ -36,11 +83,19 @@ class SupportGroups extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault()
-    console.log("Submitted")
+    const { comment } = this.state;
+    const { user, group } = this.props;
+    const message = {
+      supportGroup: group._id,
+      message: comment,
+      sentBy: user.fullname
+    }
+    this.setState({ comment: '' })
+    this.socket.emit("chat message", message);
   }
 
   render() {
-    const { group } = this.props
+    const { group, messages, fetchingMessages } = this.props
     return (
       <div id="page-top">
         <div id="wrapper">
@@ -99,7 +154,21 @@ class SupportGroups extends Component {
                       </div>
                     </div>
                     <div style={{ borderWidth: 1, backgroundColor: 'whitesmoke' }} className="row">
-                      <div style={{ height: 480 }}>
+                      <div style={{ height: 480, overflowY: 'scroll', width: '100%' }}>
+                        {fetchingMessages &&
+                          <div style={{ position: 'absolute', marginTop: '10%', marginLeft: '50%' }}>
+                            <Spinner animation="border" role="status">
+                              <span className="sr-only">Loading...</span>
+                            </Spinner>
+                          </div>
+                        }
+                        {messages.map((message) =>
+                          <div key={message.time}>
+                            <p>{message.message}</p>
+                            <p>{message.sentBy}</p>
+                            <p>{message.time}</p>
+                          </div>
+                        )}
                         <form onSubmit={this.handleSubmit} style={{ position: 'absolute', bottom: 10, width: '98%', display: 'flex', }}>
                           <div className="form-group" style={{ justifyContent: 'center', alignItems: 'center', flex: 1 }}>
                             <div className="form-row">
@@ -128,7 +197,8 @@ class SupportGroups extends Component {
 const mapDispatchToProps = (dispatch) => {
   return {
     fetchGroups: () => dispatch(fetchGroups()),
-    fetchGroup: (id) => dispatch(fetchGroup(id))
+    fetchGroup: (id) => dispatch(fetchGroup(id)),
+    addMessage: (payload) => dispatch(addMessage(payload))
   };
 };
 
