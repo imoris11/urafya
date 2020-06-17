@@ -5,6 +5,7 @@ import selectors from "../redux/selectors";
 import { fetchGroups, fetchGroup, addMessage } from "../redux/actions";
 import socketIOClient from "socket.io-client";
 import { Spinner } from "react-bootstrap";
+import moment from "moment";
 
 const styles = {
   textInfo: {
@@ -162,14 +163,16 @@ class SupportGroups extends Component {
                             </Spinner>
                           </div>
                         }
-                        {messages.map((message) =>
-                          <div key={message.time}>
-                            <p>{message.message}</p>
-                            <p>{message.sentBy}</p>
-                            <p>{message.time}</p>
-                          </div>
-                        )}
-                        <form onSubmit={this.handleSubmit} style={{ position: 'absolute', bottom: 10, width: '98%', display: 'flex', }}>
+                        <div style={{ marginBottom: 40 }}>
+                          {messages.map((message) =>
+                            <div key={message.time} className="message-container darker">
+                              <p className="messageText">{message.message}</p>
+                              <span className="time-left">Sent By: {message.sentBy} at {moment(message.time).format('LT')}</span>
+                            </div>
+                          )}
+                        </div>
+
+                        <form onSubmit={this.handleSubmit} style={{ position: 'absolute', bottom: 0, width: '98%', display: 'flex', }}>
                           <div className="form-group" style={{ justifyContent: 'center', alignItems: 'center', flex: 1 }}>
                             <div className="form-row">
                               <div className="col-md-12 mb-15 pr-50">
