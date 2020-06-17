@@ -64,7 +64,7 @@ class SupportGroups extends Component {
                                     <div className="h5 mb-0 font-weight-bold text-gray-800">{group.groupName}</div>
                                   </div>
                                   <div className="col-auto ">
-                                    <Link to={"/support_groups/" + group._id}>
+                                    <Link to={"/support_groups/" + group._id + "/" + group.chatRoom}>
                                       <i className="fas fa-door-closed pulse-button fa-2x text-gray-300"></i>
                                     </Link>
                                   </div>

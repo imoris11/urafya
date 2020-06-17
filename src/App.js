@@ -45,7 +45,7 @@ export class App extends Component {
                 <Route exact path="/users" component={Users} />
                 <Route exact path="/payment" component={Payment} />
                 <Route exact path="/support_groups" component={SharedSupportGroups} />
-                <Route exact path="/support_groups/:id" component={GeneralGroup} />
+                <Route exact path="/support_groups/:id/:chatroom" component={GeneralGroup} />
                 <Route exact path="/taxiservices" component={Taxi} />
                 <Route exact path="/emergency" component={Emergency} />
                 <Route exact path="/prescription" component={Prescription} />
@@ -94,7 +94,7 @@ export class App extends Component {
                 <Route exact path="/appointments" component={Appointments} />
                 <Route exact path="/symptoms" component={Symptoms} />
                 <Route exact path="/support_groups" component={SharedSupportGroups} />
-                <Route exact path="/support_groups/:id" component={GeneralGroup} />
+                <Route exact path="/support_groups/:id/:chatroom" component={GeneralGroup} />
                 <Route exact path="/about" component={About} />
                 <Route exact path="/payment" component={Payment} />
                 <Route exact path="/emergency" component={Emergency} />

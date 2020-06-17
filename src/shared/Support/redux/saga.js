@@ -15,6 +15,9 @@ import {
   FETCHING_SUPPORT_GROUP,
   FETCHING_SUPPORT_GROUP_FAILURE,
   FETCH_SUPPORT_GROUP,
+  FETCHING_MESSAGES,
+  FETCHING_MESSAGES_SUCCESS,
+  FETCHING_MESSAGES_FAILURE,
 } from "./actions";
 import { getUserToken } from "../../../Authenication/redux/selectors";
 
@@ -105,7 +108,6 @@ export function* createSupportGroup(action) {
 }
 
 function* fetchSupportGroup(action) {
-  console.log("LOADING GROUP")
   yield put({
     type: FETCHING_SUPPORT_GROUP,
   });
@@ -131,11 +133,38 @@ function* fetchSupportGroup(action) {
   }
 }
 
+function* fetchMessages(action) {
+  yield put({
+    type: FETCHING_MESSAGES
+  });
+  try {
+    const token = yield select(getUserToken);
+    const config = {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${ token }`,
+      },
+    }
+    const response = yield call(makeApiRequest, `/private-support-group/chat-messages/${ action.payload }`, config);
+    yield put({
+      type: FETCHING_MESSAGES_SUCCESS,
+      payload: response.chatMessages,
+    });
+  } catch (error) {
+    yield put({
+      type: FETCHING_MESSAGES_FAILURE,
+    });
+    toast.error("Error fetching messages");
+  }
+}
+
 function* supportGroupSagas() {
   yield takeEvery(FETCH_SUPPORT_GROUPS, fetchSupportGroups);
   yield takeEvery(FETCH_SUPPORT_GROUP, fetchSupportGroup)
   yield takeEvery(DELETE_SUPPORT_GROUP, deleteSupportGroup);
   yield takeLatest(CREATE_SUPPORT_GROUP, createSupportGroup);
+  yield takeEvery(FETCH_SUPPORT_GROUP, fetchMessages)
 }
 
 export default supportGroupSagas;

@@ -9,6 +9,10 @@ import {
   FETCHING_SUPPORT_GROUP_SUCCESS,
   FETCHING_SUPPORT_GROUP,
   FETCHING_SUPPORT_GROUP_FAILURE,
+  FETCHING_MESSAGES_FAILURE,
+  FETCHING_MESSAGES_SUCCESS,
+  FETCHING_MESSAGES,
+  ADD_MESSAGE
 } from "./actions";
 
 const initialState = {
@@ -16,6 +20,8 @@ const initialState = {
   data: [],
   group: {},
   errorLoading: false,
+  messages: [],
+  fetchingMessages: false
 };
 
 export default (state = initialState, action) => {
@@ -76,6 +82,28 @@ export default (state = initialState, action) => {
       return {
         ...state,
         isLoading: false
+      }
+    case FETCHING_MESSAGES:
+      return {
+        ...state,
+        fetchingMessages: true
+      }
+    case FETCHING_MESSAGES_SUCCESS:
+      return {
+        ...state,
+        fetchingMessages: false,
+        messages: [...action.payload]
+      }
+    case ADD_MESSAGE:
+      return {
+        ...state,
+        fetchingMessages: false,
+        messages: [...state.messages, action.payload]
+      }
+    case FETCHING_MESSAGES_FAILURE:
+      return {
+        ...state,
+        fetchingMessages: false
       }
     default:
       return state;

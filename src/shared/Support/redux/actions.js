@@ -17,6 +17,10 @@ export const FETCHING_SUPPORT_GROUP_SUCCESS =
   "FETCHING_SUPPORT_GROUP_SUCCESS";
 export const FETCHING_SUPPORT_GROUP_FAILURE =
   "FETCHING_SUPPORT_GROUP_FAILURE";
+export const FETCHING_MESSAGES = "FETCHING_MESSAGES"
+export const FETCHING_MESSAGES_SUCCESS = "FETCH_MESSAGES_SUCCESS"
+export const FETCHING_MESSAGES_FAILURE = "FETCHING_MESSAGES_FAILURE"
+export const ADD_MESSAGE = 'ADD_MESSAGE'
 
 export const fetchGroups = () => ({
   type: FETCH_SUPPORT_GROUPS,
@@ -34,5 +38,10 @@ export const createSupportGroup = (payload) => ({
 
 export const fetchGroup = (payload) => ({
   type: FETCH_SUPPORT_GROUP,
+  payload
+})
+
+export const addMessage = (payload) => ({
+  type: ADD_MESSAGE,
   payload
 })

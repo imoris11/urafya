@@ -3,3 +3,52 @@ body {
   padding: 0;
   font-family: sans-serif;
 }
+
+.messageText {
+  font-size: 13px;
+}
+.message-container {
+  background-color: #84c0b2;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 10px 0;
+  font-size: 12px;
+  line-height: normal;
+  color:#fff;
+}
+
+.darker {
+  border-color: #ccc;
+  background-color: #84c0b2;
+}
+
+.message-container::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.message-container img {
+  float: left;
+  max-width: 60px;
+  width: 100%;
+  margin-right: 20px;
+  border-radius: 50%;
+}
+
+.message-container img.right {
+  float: right;
+  margin-left: 20px;
+  margin-right:0;
+}
+
+.time-right {
+  float: right;
+  color: #aaa;
+}
+
+.time-left {
+  float: left;
+  font-size: 10px;
+  color: whitesmoke;
+}
