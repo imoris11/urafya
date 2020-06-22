@@ -52,3 +52,12 @@ body {
   font-size: 10px;
   color: whitesmoke;
 }
+a.support-group {
+  text-decoration: none;
+}
+.support-group:hover {
+  text-decoration: none;
+}
+.support-group:hover > .mycard {
+  background-color: whitesmoke;
+}
