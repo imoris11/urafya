@@ -61,3 +61,6 @@ a.support-group {
 .support-group:hover > .mycard {
   background-color: whitesmoke;
 }
+.support-group:hover > .card {
+  background-color: whitesmoke;
+}

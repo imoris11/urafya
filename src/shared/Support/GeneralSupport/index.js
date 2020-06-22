@@ -42,6 +42,11 @@ class SupportGroups extends Component {
     }
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.match.params.id !== this.props.match.params.id) {
+      window.location.reload()
+    }
+  }
   componentWillUnmount() {
     this.socket.disconnect();
   }
@@ -96,95 +101,127 @@ class SupportGroups extends Component {
   }
 
   render() {
-    const { group, messages, fetchingMessages } = this.props
+    const { group, messages, fetchingMessages, supportGroups } = this.props
     return (
       <div id="page-top">
         <div id="wrapper">
           <div id="content-wrapper" className="d-flex flex-column">
             <div id="content">
               <div className="container-fluid">
-                <div className="card shadow mb-4">
-                  <div className="card-body">
-                    <div className='row'>
-                      <div className="col-xl-6 col-md-6 col-sm-6 mb-4">
-                        <div className="row no-gutters align-items-center">
-                          <div className="col mr-2">
-                            {group.creator &&
-                              <div className="row">
-                                <div className="col-xl-2 col-md-3 mb-2">
-                                  <img
-                                    src={group.creator.image}
-                                    className="card-img-top"
-                                    alt="admin"
-                                    style={{ borderRadius: '50%', height: 75, width: 75 }}
-                                  />
+                <div className="row">
+                  <div className="col-xl-9 col-md-9 col-sm-12 mb-4">
+                    <div className="card shadow mb-4">
+                      <div className="card-body">
+                        <div className='row'>
+                          <div className="col-xl-6 col-md-6 col-sm-6 mb-4">
+                            <div className="row no-gutters align-items-center">
+                              <div className="col mr-2">
+                                {group.creator &&
+                                  <div className="row">
+                                    <div className="col-xl-3 col-md-3 mb-2">
+                                      <img
+                                        src={group.creator.image}
+                                        className="card-img-top"
+                                        alt="admin"
+                                        style={{ borderRadius: '50%', height: 75, width: 75 }}
+                                      />
+                                    </div>
+                                    <div style={{ lineHeight: 0.5 }} className="col-xl-9 col-md-9">
+                                      <h5>{group.groupName}</h5>
+                                      <p style={styles.textInfo}>{group.creator.specialization}</p>
+                                      <p style={styles.textInfo}>{group.creator.education}</p>
+                                      <p style={styles.textInfo}>{group.likes}</p>
+                                    </div>
+                                  </div>
+                                }
+                              </div>
+
+                              <div className="col-auto ">
+                              </div>
+                            </div>
+                          </div>
+                          <div className="col-xl-6 col-md-6 col-sm-6 mb-4">
+                            <div className="row">
+                              <div className='col-xl-12 col-md-12 col-sm-12'>
+                                <div>
+                                  <h6><b>Target Audience</b></h6>
+                                  <p style={styles.textInfo}>{group.targetAudience}</p>
                                 </div>
-                                <div style={{ lineHeight: 0.5 }} className="col-xl-10 col-md-9">
-                                  <h5>{group.groupName}</h5>
-                                  <p style={styles.textInfo}>{group.creator.specialization}</p>
-                                  <p style={styles.textInfo}>{group.creator.education}</p>
-                                  <p style={styles.textInfo}>{group.likes}</p>
+                              </div>
+                              <div style={{ marginLeft: 15 }} className='row'>
+                                <div style={{ marginRight: 30 }}>
+                                  <p style={styles.textLabel}>Members</p>
+                                  <p style={styles.textInfo}>{group.members}</p>
                                 </div>
+                                <div>
+                                  <p style={styles.textLabel}>Subscription Fee</p>
+                                  <p style={styles.textInfo}>1000</p>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div style={{ borderWidth: 1, backgroundColor: 'whitesmoke' }} className="row">
+                          <div style={{ height: 480, overflowY: 'scroll', width: '100%' }}>
+                            {fetchingMessages &&
+                              <div style={{ position: 'absolute', marginTop: '10%', marginLeft: '50%' }}>
+                                <Spinner animation="border" role="status">
+                                  <span className="sr-only">Loading...</span>
+                                </Spinner>
                               </div>
                             }
-                          </div>
+                            <div style={{ marginBottom: 40 }}>
+                              {messages.map((message) =>
+                                <div key={message.time} className="message-container darker">
+                                  <p className="messageText">{message.message}</p>
+                                  <span className="time-left">Sent By: {message.sentBy} at {moment(message.time).format('LT')}</span>
+                                </div>
+                              )}
+                            </div>
 
-                          <div className="col-auto ">
-                          </div>
-                        </div>
-                      </div>
-                      <div className="col-xl-6 col-md-6 col-sm-6 mb-4">
-                        <div className="row">
-                          <div className='col-xl-12 col-md-12 col-sm-12'>
-                            <div>
-                              <h6><b>Target Audience</b></h6>
-                              <p style={styles.textInfo}>{group.targetAudience}</p>
-                            </div>
-                          </div>
-                          <div style={{ marginLeft: 15 }} className='row'>
-                            <div style={{ marginRight: 30 }}>
-                              <p style={styles.textLabel}>Members</p>
-                              <p style={styles.textInfo}>{group.members}</p>
-                            </div>
-                            <div>
-                              <p style={styles.textLabel}>Subscription Fee</p>
-                              <p style={styles.textInfo}>1000</p>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div style={{ borderWidth: 1, backgroundColor: 'whitesmoke' }} className="row">
-                      <div style={{ height: 480, overflowY: 'scroll', width: '100%' }}>
-                        {fetchingMessages &&
-                          <div style={{ position: 'absolute', marginTop: '10%', marginLeft: '50%' }}>
-                            <Spinner animation="border" role="status">
-                              <span className="sr-only">Loading...</span>
-                            </Spinner>
-                          </div>
-                        }
-                        <div style={{ marginBottom: 40 }}>
-                          {messages.map((message) =>
-                            <div key={message.time} className="message-container darker">
-                              <p className="messageText">{message.message}</p>
-                              <span className="time-left">Sent By: {message.sentBy} at {moment(message.time).format('LT')}</span>
-                            </div>
-                          )}
-                        </div>
-
-                        <form onSubmit={this.handleSubmit} style={{ position: 'absolute', bottom: 0, width: '98%', display: 'flex', }}>
-                          <div className="form-group" style={{ justifyContent: 'center', alignItems: 'center', flex: 1 }}>
-                            <div className="form-row">
-                              <div className="col-md-12 mb-15 pr-50">
-                                <input className="form-control" id="comment" name="comment" placeholder="Add Comment" value={this.state.comment} onChange={this.handleChange} required />
+                            <form onSubmit={this.handleSubmit} style={{ position: 'absolute', bottom: 0, width: '98%', display: 'flex', }}>
+                              <div className="form-group" style={{ justifyContent: 'center', alignItems: 'center', flex: 1 }}>
+                                <div className="form-row">
+                                  <div className="col-md-12 mb-15 pr-50">
+                                    <input className="form-control" id="comment" name="comment" placeholder="Add Comment" value={this.state.comment} onChange={this.handleChange} required />
+                                  </div>
+                                </div>
                               </div>
-                            </div>
+                            </form>
                           </div>
-                        </form>
+                        </div>
                       </div>
                     </div>
                   </div>
+                  <div className="col-xl-3 col-md-3 col-sm-12">
+                    <p>Your Other Support Groups</p>
+                    {supportGroups.map((group) => {
+                      if (group._id !== this.props.match.params.id) return (
+                        <Link key={group._id} className="support-group" to={"/support_groups/" + group._id + "/" + group.chatRoom}>
+                          <div style={{ marginBottom: 10 }} className="card">
+                            <div className="card-body">
+                              <div className="row no-gutters">
+                                <div className="col-xl-8 col-md-8 col-sm-6">
+                                  <div className="h5 mb-0 font-weight-bold text-gray-800">{group.groupName}</div>
+                                </div>
+                                <div className="col-xl-4 col-md-4 col-sm-6" style={{ lineHeight: 1, }}>
+                                  <div style={{ textAlign: 'center' }} >
+                                    <p className="h5 mb-0 font-weight-bold text-gray-800">{group.members}</p>
+                                    <p>Members</p>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </Link>
+                      )
+                      return null
+                    }
+
+                    )}
+                  </div>
                 </div>
+
               </div>
             </div>
           </div>
