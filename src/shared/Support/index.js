@@ -4,7 +4,7 @@ import Button from "../../components/atoms/Button";
 import NewGroupModal from "./Modal/NewGroup";
 import { connect } from "react-redux";
 import selectors from "./redux/selectors";
-import { fetchGroups, deleteSupportGroup } from "./redux/actions";
+import { fetchGroups, deleteSupportGroup, subscribeToGroup } from "./redux/actions";
 
 class SupportGroups extends Component {
   state = {
@@ -21,7 +21,7 @@ class SupportGroups extends Component {
 
   render() {
     const { modalShow } = this.state;
-    const { supportGroups, isLoading } = this.props;
+    const { supportGroups, isLoading, allGroups } = this.props;
     return (
       <div id="page-top">
         <div id="wrapper">
@@ -43,11 +43,7 @@ class SupportGroups extends Component {
                 </div>
 
                 <div className="card shadow mb-4">
-                  <div className="card-header py-3">
-                    <h6 className="m-0 font-weight-bold text-primary">
-                      Manage Support Groups
-                    </h6>
-                  </div>
+                  <h6 style={{ padding: 10, }}>My Support Groups</h6>
                   <div className="card-body">
                     <div className="table-responsive">
                       {isLoading && (
@@ -55,24 +51,62 @@ class SupportGroups extends Component {
                       )}
                       <div className="row">
                         {supportGroups.map((group) =>
-                          <div key={group._id} className="col-xl-6 col-md-6 col-sm-6 mb-4">
+                          <Link key={group._id} className="col-xl-3 col-md-4 col-sm-4 support-group" to={"/support_groups/" + group._id + "/" + group.chatRoom}>
                             <div className="mycard card border-left-primary shadow h-100 py-2">
                               <div className="card-body">
-                                <div className="row no-gutters align-items-center">
-                                  <div className="col mr-2">
-                                    <div className="text-xs font-weight-bold text-primary text-uppercase mb-1">Chat Room: {group.chatRoom}</div>
+                                <div className="row no-gutters">
+                                  <div className="col-xl-8 col-md-8 col-sm-6">
                                     <div className="h5 mb-0 font-weight-bold text-gray-800">{group.groupName}</div>
                                   </div>
-                                  <div className="col-auto ">
-                                    <Link to={"/support_groups/" + group._id + "/" + group.chatRoom}>
-                                      <i className="fas fa-door-closed pulse-button fa-2x text-gray-300"></i>
-                                    </Link>
+                                  <div className="col-xl-4 col-md-4 col-sm-6" style={{ lineHeight: 1, }}>
+                                    <div style={{ textAlign: 'center' }} >
+                                      <p className="h5 mb-0 font-weight-bold text-gray-800">{group.members}</p>
+                                      <p>Members</p>
+                                    </div>
                                   </div>
                                 </div>
                               </div>
                             </div>
-                          </div>
+                          </Link>
                         )}
+                        <div style={{ marginTop: 50, width: "100%" }} className="container-fluid">
+                          <h6>All Groups</h6>
+                          <table
+                            className="table"
+                            id="dataTable"
+                            width="100%"
+                            cellSpacing="0"
+                          >
+                            <thead>
+                              <tr>
+                                <th className="text-dark-100">Group</th>
+                                <th className="text-dark-100">Description</th>
+                                <th className="text-dark-100">Members</th>
+                                <th className="text-dark-100">Activity</th>
+                                <th className="text-dark-100">Views</th>
+                                <th className="text-dark-100"></th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              {allGroups.map((group) =>
+                                <tr key={group._id} className="odd gradeX">
+                                  <td>
+                                    <p>{group.groupName}</p>
+                                  </td>
+                                  <td>{group.description}</td>
+                                  <td>{group.members}</td>
+                                  <td>{group.activity}</td>
+                                  <td>{group.numberOfViews}</td>
+                                  <td>
+                                    <Link to="#">View Group</Link>
+                                    <span onClick={() => this.props.subscribeToGroup(group._id)} style={{ margin: 5, cursor: 'pointer' }} className="btn btn-success">Subscribe</span>
+                                  </td>
+                                </tr>
+                              )}
+                            </tbody>
+                          </table>
+                        </div>
+
                       </div>
                     </div>
                   </div>
@@ -93,6 +127,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     fetchGroups: () => dispatch(fetchGroups()),
     deleteSupportGroup: (id) => dispatch(deleteSupportGroup(id)),
+    subscribeToGroup: (id) => dispatch(subscribeToGroup(id))
   };
 };
 

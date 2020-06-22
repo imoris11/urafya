@@ -12,12 +12,14 @@ import {
   FETCHING_MESSAGES_FAILURE,
   FETCHING_MESSAGES_SUCCESS,
   FETCHING_MESSAGES,
-  ADD_MESSAGE
+  ADD_MESSAGE,
+  FETCHING_ALL_GROUPS_SUCCESS
 } from "./actions";
 
 const initialState = {
   isLoading: false,
   data: [],
+  allGroups: [],
   group: {},
   errorLoading: false,
   messages: [],
@@ -104,6 +106,11 @@ export default (state = initialState, action) => {
       return {
         ...state,
         fetchingMessages: false
+      }
+    case FETCHING_ALL_GROUPS_SUCCESS:
+      return {
+        ...state,
+        allGroups: [...action.payload]
       }
     default:
       return state;

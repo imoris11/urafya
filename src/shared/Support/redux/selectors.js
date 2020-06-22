@@ -15,6 +15,8 @@ const messages = createSelector(supportGroups, (obj) => obj.messages)
 
 const fetchingMessages = createSelector(supportGroups, (obj) => obj.fetchingMessages)
 
+const allGroups = createSelector(supportGroups, (obj) => obj.allGroups)
+
 const selectors = createStructuredSelector({
   supportGroups: getSupportGroupData,
   isLoading,
@@ -22,7 +24,8 @@ const selectors = createStructuredSelector({
   errorLoading,
   user: getUser,
   messages,
-  fetchingMessages
+  fetchingMessages,
+  allGroups
 });
 
 export default selectors;
