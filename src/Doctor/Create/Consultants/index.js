@@ -22,7 +22,7 @@ class Consultants extends Component {
   }
 
   getAge = (dob) => {
-    const birthYear = dob.split("-")[0];
+    const birthYear = dob && dob.split("-")[0];
     const currentYear = new Date().getFullYear();
     return currentYear - Number(birthYear);
   };

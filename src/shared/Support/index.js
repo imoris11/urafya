@@ -4,7 +4,7 @@ import Button from "../../components/atoms/Button";
 import NewGroupModal from "./Modal/NewGroup";
 import { connect } from "react-redux";
 import selectors from "./redux/selectors";
-import { fetchGroups, deleteSupportGroup, subscribeToGroup } from "./redux/actions";
+import { fetchGroups, deleteSupportGroup } from "./redux/actions";
 
 class SupportGroups extends Component {
   state = {
@@ -29,7 +29,7 @@ class SupportGroups extends Component {
             <div id="content">
               <div className="container-fluid">
                 <div className="d-sm-flex align-items-center justify-content-between mb-4">
-                  <h1 className="h3 mb-0 text-gray-800">Support Groups</h1>
+                  <h1 className="h3 mb-0 text-gray-800">Private Support Groups</h1>
                   <Button
                     onClick={() => this.setState({ modalShow: true })}
                     title="New Group"
@@ -84,7 +84,7 @@ class SupportGroups extends Component {
                                 <th className="text-dark-100">Members</th>
                                 <th className="text-dark-100">Activity</th>
                                 <th className="text-dark-100">Views</th>
-                                <th className="text-dark-100"></th>
+                                <th className="text-dark-100">Actions</th>
                               </tr>
                             </thead>
                             <tbody>
@@ -98,8 +98,7 @@ class SupportGroups extends Component {
                                   <td>{group.activity}</td>
                                   <td>{group.numberOfViews}</td>
                                   <td>
-                                    <Link to="#">View Group</Link>
-                                    <span onClick={() => this.props.subscribeToGroup(group._id)} style={{ margin: 5, cursor: 'pointer' }} className="btn btn-success">Subscribe</span>
+                                    <Link to={"/support_groups/" + group._id + "/" + group.chatRoom} className="btn btn-success">View Group</Link>
                                   </td>
                                 </tr>
                               )}
@@ -127,7 +126,6 @@ const mapDispatchToProps = (dispatch) => {
   return {
     fetchGroups: () => dispatch(fetchGroups()),
     deleteSupportGroup: (id) => dispatch(deleteSupportGroup(id)),
-    subscribeToGroup: (id) => dispatch(subscribeToGroup(id))
   };
 };
 
