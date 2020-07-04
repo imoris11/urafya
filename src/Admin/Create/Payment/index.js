@@ -35,15 +35,15 @@ class Payment extends Component {
           </div>
           <div className="card-body">
             <div className="table-responsive">
-              <ShowSearch/>
+              <ShowSearch />
 
               <table
-                className="table"
+                className="table table-striped"
                 id="dataTable"
                 width="100%"
                 cellspacing="0"
               >
-                <thead>
+                <thead className="thead-light">
                   <th className="text-dark-100">User</th>
                   <th className="text-dark-100">Reason</th>
                   <th className="text-dark-100">Amount</th>
@@ -126,7 +126,7 @@ class Payment extends Component {
                 </tbody>
               </table>
             </div>
-            <Pagination/>
+            <Pagination />
           </div>
         </div>
       </div>

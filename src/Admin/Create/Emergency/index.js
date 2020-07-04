@@ -58,12 +58,12 @@ export class Emergency extends Component {
                 </p>
               )}
               <table
-                className="table"
+                className="table table-striped"
                 id="dataTable"
                 width="100%"
                 cellSpacing="0"
               >
-                <thead>
+                <thead className="thead-light">
                   <tr>
                     <th className="text-dark-100">Name</th>
                     <th className="text-dark-100">Hotline</th>

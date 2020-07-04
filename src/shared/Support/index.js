@@ -72,12 +72,12 @@ class SupportGroups extends Component {
                         <div style={{ marginTop: 50, width: "100%" }} className="container-fluid">
                           <h6>All Groups</h6>
                           <table
-                            className="table"
+                            className="table table-striped"
                             id="dataTable"
                             width="100%"
                             cellSpacing="0"
                           >
-                            <thead>
+                            <thead className="thead-light">
                               <tr>
                                 <th className="text-dark-100">Group</th>
                                 <th className="text-dark-100">Description</th>

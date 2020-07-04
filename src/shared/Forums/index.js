@@ -85,12 +85,12 @@ class Forums extends Component {
                         <p className="text-info text-center">Loading...</p>
                       )}
                       <table
-                        className="table"
+                        className="table table-striped"
                         id="dataTable"
                         width="100%"
                         cellSpacing="0"
                       >
-                        <thead>
+                        <thead className="thead-light">
                           <tr>
                             <th className="text-dark-100">Topic</th>
                             <th className="text-dark-100">Category</th>
