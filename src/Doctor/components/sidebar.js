@@ -40,7 +40,7 @@ class Sidebar extends Component {
             <div className="sidebar-heading">Create</div>
 
             <LinkListItem
-              linkText="Consultants"
+              linkText="Consultations"
               link="/consultants"
               icon="fas fa-fw fa-users"
             />
@@ -52,7 +52,7 @@ class Sidebar extends Component {
             />
 
             <LinkListItem
-              linkText="Support Groups"
+              linkText="Private Support Groups"
               link="/support_groups"
               icon="fas fa-fw fa-comments"
             />
