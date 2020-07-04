@@ -7,51 +7,70 @@ body {
 .messageText {
   font-size: 13px;
 }
-.message-container {
-  background-color: #84c0b2;
-  border-radius: 5px;
-  padding: 10px;
-  margin: 10px 0;
+.sender {
   font-size: 12px;
+  font-weight: bolder;
+}
+.message-body {
+  margin-left: 5px;
   line-height: normal;
+}
+
+/* container */
+.message-container {
+  padding: 5px;
   color:#fff;
 }
 
-.darker {
-  border-color: #ccc;
-  background-color: #84c0b2;
+/* CSS talk bubble */
+.talk-bubble {
+	margin: 10px;
+  display: inline-block;
+  position: relative;
+  height: auto;
 }
 
-.message-container::after {
-  content: "";
-  clear: both;
-  display: table;
+.border{
+  border: 8px solid #666;
 }
 
-.message-container img {
-  float: left;
-  max-width: 60px;
+.round{
+  border-radius: 10px;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+
+}
+
+.btm-left {
+ width: 50% !important;
+ border: 1px solid lightgray;
+ color: black;
+ background-color: white;
+}
+.btm-right {
+  float: right;
+  width: 51% !important;
+  background-color: #3cb190;
+}
+.message-row {
   width: 100%;
-  margin-right: 20px;
-  border-radius: 50%;
 }
 
-.message-container img.right {
-  float: right;
-  margin-left: 20px;
-  margin-right:0;
-}
-
-.time-right {
-  float: right;
-  color: #aaa;
-}
-
-.time-left {
-  float: left;
+.time {
   font-size: 10px;
-  color: whitesmoke;
 }
+
+/* talk bubble contents */
+.talktext{
+	text-align: left;
+  line-height: 1.5em;
+}
+.talktext p{
+  /* remove webkit p margins */
+  -webkit-margin-before: 0em;
+  -webkit-margin-after: 0em;
+}
+
 a.support-group {
   text-decoration: none;
 }
