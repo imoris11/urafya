@@ -24,7 +24,7 @@ class AppointmentDetails extends Component {
   }
 
   getAge = (dob) => {
-    const birthYear = dob.split("-")[0];
+    const birthYear = dob && dob.split("-")[0];
     const currentYear = new Date().getFullYear();
     return currentYear - Number(birthYear);
   };
@@ -118,7 +118,7 @@ class AppointmentDetails extends Component {
                 <div className="mycard card border-left-primary shadow h-100 py-2">
                   <div className="card-body">
                     <div className="row">
-                      <div className="col-xs-12 ">
+                      <div className="col-xs-12 col-md-12 col-lg-12 ">
                         <Tabs>
                           <TabList className="nav nav-tabs nav-fill" id="nav-tab">
                             <Tab className="nav-item nav-link btn-link2">
