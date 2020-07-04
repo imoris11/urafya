@@ -53,8 +53,9 @@ class SupportGroups extends Component {
 
   listenForMessages = (group) => {
     if (!this.state.isListening) {
+      const { user } = this.props
       var auth = {
-        userId: '5ea223cb641f5562784ae4c2',
+        userId: user.id,
         groupId: group._id,
       };
 
@@ -94,6 +95,7 @@ class SupportGroups extends Component {
     const message = {
       supportGroup: group._id,
       message: comment,
+      id: user.id,
       sentBy: user.fullname
     }
     this.setState({ comment: '' })
@@ -170,12 +172,29 @@ class SupportGroups extends Component {
                                 </Spinner>
                               </div>
                             }
-                            <div style={{ marginBottom: 40 }}>
-                              {messages.map((message) =>
-                                <div key={message.time} className="message-container darker">
-                                  <p className="messageText">{message.message}</p>
-                                  <span className="time-left">Sent By: {message.sentBy} at {moment(message.time).format('LT')}</span>
+                            <div style={{ marginBottom: 120 }}>
+                              {messages.map((message, idx) =>
+                                <div className="message-row">
+                                  <div key={message.time} className={`message-container round  ${ idx % 2 === 0 ? 'talk-bubble tri-right btm-right' : 'talk-bubble tri-right btm-left' }`}>
+                                    <div style={{ marginLeft: 5 }} className="row">
+                                      <div>
+                                        <img
+                                          src={'https://i.pravatar.cc/200'}
+                                          className="card-img-top"
+                                          alt="admin"
+                                          style={{ borderRadius: '50%', height: 30, width: 30 }}
+                                        />
+                                      </div>
+
+                                      <div className="message-body col-xl-8 col-md-8 mb-8">
+                                        <span className="sender">{message.sentBy}</span>
+                                        <p style={{ marginBottom: 0 }} className="messageText">{message.message}</p>
+                                        <span className="time">{moment(message.time).format('LT')}</span>
+                                      </div>
+                                    </div>
+                                  </div>
                                 </div>
+
                               )}
                             </div>
 
