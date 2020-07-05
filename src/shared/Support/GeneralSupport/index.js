@@ -26,6 +26,7 @@ class SupportGroups extends Component {
     const chatRoom = this.props.match.params.chatroom
     const ENDPOINT = `https://ur-afya.herokuapp.com/${ chatRoom }`;
     this.socket = socketIOClient(ENDPOINT);
+    this.containerRef = null
   }
 
   componentDidMount() {
@@ -34,11 +35,16 @@ class SupportGroups extends Component {
     this.props.fetchGroup(this.props.match.params.id)
     if (supportGroups.length > 0) return;
     this.props.fetchGroups();
+    this.scrollToBottom()
   }
   componentWillUpdate(nextProps, nextState) {
     if (nextProps.group._id && !nextState.isListening) {
       this.setState({ isListening: true })
       this.listenForMessages(nextProps.group)
+    }
+
+    if (nextProps.messages.length > 0) {
+      this.scrollToBottom()
     }
   }
 
@@ -102,6 +108,14 @@ class SupportGroups extends Component {
     this.socket.emit("chat message", message);
   }
 
+  setMessageContainerRef = (e) => {
+    this.containerRef = e
+  }
+
+  scrollToBottom = () => {
+    this.containerRef.scrollIntoView();
+  }
+
   render() {
     const { group, messages, fetchingMessages, supportGroups } = this.props
     return (
@@ -157,7 +171,7 @@ class SupportGroups extends Component {
                                 </div>
                                 <div>
                                   <p style={styles.textLabel}>Subscription Fee</p>
-                                  <p style={styles.textInfo}>1000</p>
+                                  <p style={styles.textInfo}>{group.subscription_fee}</p>
                                 </div>
                               </div>
                             </div>
@@ -207,6 +221,7 @@ class SupportGroups extends Component {
                                 </div>
                               </div>
                             </form>
+                            <div ref={this.setMessageContainerRef} ></div>
                           </div>
                         </div>
                       </div>
@@ -226,7 +241,7 @@ class SupportGroups extends Component {
                                 <div className="col-xl-4 col-md-4 col-sm-6" style={{ lineHeight: 1, }}>
                                   <div style={{ textAlign: 'center' }} >
                                     <p className="h5 mb-0 font-weight-bold text-gray-800">{group.members}</p>
-                                    <p>Members</p>
+                                    <p className="text-gray-800">Members</p>
                                   </div>
                                 </div>
                               </div>
