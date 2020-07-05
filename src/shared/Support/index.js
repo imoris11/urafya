@@ -51,7 +51,7 @@ class SupportGroups extends Component {
                       )}
                       <div className="row">
                         {supportGroups.map((group) =>
-                          <Link key={group._id} className="col-xl-3 col-md-4 col-sm-4 support-group" to={"/support_groups/" + group._id + "/" + group.chatRoom}>
+                          <Link key={group._id} className="col-xl-3 col-md-3 col-sm-3 support-group" to={"/support_groups/" + group._id + "/" + group.chatRoom}>
                             <div className="mycard card border-left-primary shadow h-100 py-2">
                               <div className="card-body">
                                 <div className="row no-gutters">
@@ -61,7 +61,7 @@ class SupportGroups extends Component {
                                   <div className="col-xl-4 col-md-4 col-sm-6" style={{ lineHeight: 1, }}>
                                     <div style={{ textAlign: 'center' }} >
                                       <p className="h5 mb-0 font-weight-bold text-gray-800">{group.members}</p>
-                                      <p>Members</p>
+                                      <p className="text-gray-800">Members</p>
                                     </div>
                                   </div>
                                 </div>
