@@ -101,7 +101,7 @@ class SupportGroups extends Component {
     const message = {
       supportGroup: group._id,
       message: comment,
-      id: user.id,
+      userId: user.id,
       sentBy: user.fullname
     }
     this.setState({ comment: '' })
@@ -117,7 +117,7 @@ class SupportGroups extends Component {
   }
 
   render() {
-    const { group, messages, fetchingMessages, supportGroups } = this.props
+    const { group, messages, fetchingMessages, supportGroups, user } = this.props
     return (
       <div id="page-top">
         <div id="wrapper">
@@ -189,7 +189,7 @@ class SupportGroups extends Component {
                             <div style={{ marginBottom: 120 }}>
                               {messages.map((message, idx) =>
                                 <div className="message-row">
-                                  <div key={message.time} className={`message-container round  ${ idx % 2 === 0 ? 'talk-bubble tri-right btm-right' : 'talk-bubble tri-right btm-left' }`}>
+                                  <div key={message.time} className={`message-container round  ${ message.userId === user.id ? 'talk-bubble tri-right btm-right' : 'talk-bubble tri-right btm-left' }`}>
                                     <div style={{ marginLeft: 5 }} className="row">
                                       <div>
                                         <img
